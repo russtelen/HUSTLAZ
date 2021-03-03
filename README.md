@@ -55,6 +55,7 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 
 ### React Folder Structure
 
+```
 ├── components
 │   ├── Component
 │   │   ├── SubComponent
@@ -66,6 +67,7 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 │   │   ├──  index.tsx
 │   │   ├──  utils.ts
 │   │   ├──  utils.test.ts
+```
 
 
 
@@ -76,6 +78,7 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 
 
 ## NoSQL
+```
 db = 
 {
   postings: [
@@ -100,3 +103,4 @@ db =
     {...},{...},{...}
   ]
 }
+```
