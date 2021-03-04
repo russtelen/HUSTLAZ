@@ -3,18 +3,16 @@ import ProductItem from "./ProductItem"
 import { actions } from "@storybook/addon-actions"
 
 // 2
-// const fakePost = {
-//   id: "post1",
-//   imageUrl: "https://i.imgur.com/aVqLAG7.png",
-//   description: "It's in the shed",
-//   liked: false,
-//   totalLikes: 200,
-//   totalComments: 20,
-//   user: {
-//     id: "user1",
-//     username: "AJ",
-//   },
-// }
+const fakePost = {
+  PostingId: "1",
+  UserId: "1",
+  Title: "Tesla Roadster",
+  imageUrl: "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
+  SellerDescription:
+    "Elon Musk's new baby. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  DatePosted: Date.now(),
+  location: "",
+}
 
 // 3
 export default {
