@@ -6,12 +6,13 @@ import { actions } from "@storybook/addon-actions"
 const fakePost = {
   PostingId: "1",
   UserId: "1",
-  Title: "Tesla Roadster",
+  title: "Tesla Roadster",
+  price: 200000,
   imageUrl: "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
-  SellerDescription:
+  desc:
     "Elon Musk's new baby. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  DatePosted: Date.now(),
-  location: "",
+  datePosted: Date.now(),
+  city: "Vancouver, BC",
 }
 
 // 3
@@ -21,7 +22,13 @@ export default {
 }
 
 // 2
-const events = actions({})
+const events = actions({
+  cardClicked: "card clicked",
+  likeClicked: "like clicked",
+  contactClicked: "contact clicked",
+})
 
 //
-export const Default = () => <ProductItem></ProductItem>
+export const Default = () => (
+  <ProductItem post={{ ...fakePost, liked: true }} {...events}></ProductItem>
+)
