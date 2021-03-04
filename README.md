@@ -11,7 +11,30 @@
 1. Create issues in kanban board
 
 ## Description
-Hustlaz is an app where users can browse through a list of postings and purchase items posted by other sellers. Users can also create their own account and add postings of their own that may be viewed and purchased by others. 
+
+Hustlaz is an app where users can browse through a list of postings and purchase items posted by other sellers. Users can also create their own account and add postings of their own that may be viewed and purchased by others.
+
+## Protoypes
+
+### Overview
+
+![](./assets/prototype-1.png)
+
+### Home View (Top Picks / Items Nearby / etc)
+
+![](./assets/prototype-2.png)
+
+### Detail View
+
+![](./assets/prototype-3.png)
+
+### Shop By Category View
+
+![](./assets/prototype-4.png)
+
+### Add A Posting View
+
+![](./assets/prototype-5.png)
 
 ## Requirements
 
@@ -39,17 +62,20 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 ## Technologies
 
 ### Front End
+
 - React
 - Material UI
 - Material styling (makeStyles)
 
 ### Back End
+
 - MySQL/RDS
 - Cognito
 - API Gateway
 - Lambda
 
 ### Misc
+
 - Figma (mockup)
 - LucidChart (ERD)
 
@@ -69,17 +95,16 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 │   │   ├──  utils.test.ts
 ```
 
-
-
 ### Database structure
 
 ## MySQL
+
 <img src="./assets/hustlazERD.png" alt="Hustlaz ERD" />
 
-
 ## NoSQL
+
 ```
-db = 
+db =
 {
   postings: [
     {
