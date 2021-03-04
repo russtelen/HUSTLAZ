@@ -1,10 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState, useEffect } from "react"
 
 import { makeStyles } from "@material-ui/core/styles"
 
 import {
-  Avatar,
-  CardHeader,
   IconButton,
   Typography,
   Card,
@@ -27,11 +25,13 @@ const useStyles = makeStyles({
   },
 })
 
-const ProductItem = ({ name, price, imageUrl }) => {
+const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
+  console.log(post)
   const classes = useStyles()
+
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => cardClicked()}>
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
@@ -43,26 +43,25 @@ const ProductItem = ({ name, price, imageUrl }) => {
           <div className={classes.header}>
             <div>
               <Typography variant="h5" component="h1">
-                $ 200,000
+                $ {post.price}
               </Typography>
-              <Typography gutterBottom>Tesla Roadster</Typography>
+              <Typography gutterBottom>{post.title}</Typography>
             </div>
             <div>
-              <Typography>Vancouver, BC</Typography>
+              <Typography>{post.city}</Typography>
             </div>
           </div>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Elon Musk's new baby. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit.
+            {post.desc}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.header}>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon onClick={() => likeClicked()} />
         </IconButton>
-        <Button size="small" color="primary">
+        <Button onClick={() => contactClicked()} size="small" color="primary">
           Contact Seller
         </Button>
       </CardActions>
