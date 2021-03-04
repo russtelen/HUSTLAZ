@@ -31,9 +31,21 @@ const TopNav = ({ homeClicked, profileClicked, notificationClicked }) => {
         textColor="primary"
         centered
       >
-        <Tab icon={<HomeOutlined />} label="Home" />
-        <Tab icon={<PermIdentityOutlinedIcon />} label="User" />
-        <Tab icon={<NotificationsNoneOutlinedIcon />} label="Notifications" />
+        <Tab
+          icon={<HomeOutlined />}
+          label="Home"
+          onClick={() => homeClicked()}
+        />
+        <Tab
+          icon={<PermIdentityOutlinedIcon />}
+          label="Profile"
+          onClick={() => profileClicked()}
+        />
+        <Tab
+          icon={<NotificationsNoneOutlinedIcon />}
+          label="Notifications"
+          onClick={() => notificationClicked()}
+        />
       </Tabs>
     </Paper>
   );
