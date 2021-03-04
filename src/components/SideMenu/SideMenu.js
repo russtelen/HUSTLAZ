@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideMenu = ({ user }) => {
+const SideMenu = ({ user, events }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -48,7 +48,7 @@ const SideMenu = ({ user }) => {
     <div className={classes.root}>
       <CssBaseline />
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => events.topPicksClicked()}>
           <ListItemIcon>
             <StarBorderOutlinedIcon />
           </ListItemIcon>
@@ -63,31 +63,51 @@ const SideMenu = ({ user }) => {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              className={classes.nested}
+              onClick={() => events.cat1Clicked()}
+            >
               <ListItemIcon>
                 <AcUnitIcon />
               </ListItemIcon>
               <ListItemText primary="Category 1" />
             </ListItem>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              className={classes.nested}
+              onClick={() => events.cat2Clicked()}
+            >
               <ListItemIcon>
                 <AirplanemodeActiveIcon />
               </ListItemIcon>
               <ListItemText primary="Category 2" />
             </ListItem>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              className={classes.nested}
+              onClick={() => events.cat3Clicked()}
+            >
               <ListItemIcon>
                 <AlbumIcon />
               </ListItemIcon>
               <ListItemText primary="Category 3" />
             </ListItem>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              className={classes.nested}
+              onClick={() => events.cat4Clicked()}
+            >
               <ListItemIcon>
                 <AttachFileIcon />
               </ListItemIcon>
               <ListItemText primary="Category 4" />
             </ListItem>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              className={classes.nested}
+              onClick={() => events.cat5Clicked()}
+            >
               <ListItemIcon>
                 <BlurCircularIcon />
               </ListItemIcon>
@@ -95,13 +115,13 @@ const SideMenu = ({ user }) => {
             </ListItem>
           </List>
         </Collapse>
-        <ListItem button>
+        <ListItem button onClick={() => events.sellSomethingClicked()}>
           <ListItemIcon>
             <ControlPointOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Sell Something" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => events.searchClicked()}>
           <ListItemIcon>
             <SearchOutlinedIcon />
           </ListItemIcon>
@@ -112,7 +132,7 @@ const SideMenu = ({ user }) => {
       <List>
         {user ? (
           <>
-            <ListItem button>
+            <ListItem button onClick={() => events.logoutClicked()}>
               <ListItemIcon>
                 <ExitToAppOutlinedIcon />
               </ListItemIcon>
@@ -121,13 +141,13 @@ const SideMenu = ({ user }) => {
           </>
         ) : (
           <>
-            <ListItem button>
+            <ListItem button onClick={() => events.loginClicked()}>
               <ListItemIcon>
                 <VpnKeyOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Log In" />
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={() => events.registerClicked()}>
               <ListItemIcon>
                 <CreateOutlinedIcon />
               </ListItemIcon>
