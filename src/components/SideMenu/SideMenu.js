@@ -6,6 +6,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
+import { Divider } from "@material-ui/core";
+
+// Icon Imports
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
@@ -17,12 +20,15 @@ import AirplanemodeActiveIcon from "@material-ui/icons/AirplanemodeActive";
 import AlbumIcon from "@material-ui/icons/Album";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 import BlurCircularIcon from "@material-ui/icons/BlurCircular";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 360,
-    height: "100%",
+    maxWidth: 250,
+    height: "100vh",
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
@@ -101,6 +107,34 @@ const SideMenu = ({ user }) => {
           </ListItemIcon>
           <ListItemText primary="Search" />
         </ListItem>
+      </List>
+      <Divider />
+      <List>
+        {user ? (
+          <>
+            <ListItem button>
+              <ListItemIcon>
+                <ExitToAppOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log Out" />
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem button>
+              <ListItemIcon>
+                <VpnKeyOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log In" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <CreateOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </ListItem>
+          </>
+        )}
       </List>
     </div>
   );
