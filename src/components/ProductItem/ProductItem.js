@@ -36,7 +36,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image="https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg"
+          image={post.imageUrl}
           title="Contemplative Reptile"
         />
         <CardContent>
