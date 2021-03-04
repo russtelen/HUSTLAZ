@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TopNav = () => {
+const TopNav = ({ homeClicked, profileClicked, notificationClicked }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -25,13 +25,19 @@ const TopNav = () => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Home" icon={<HomeOutlined />} />
+      <BottomNavigationAction
+        label="Home"
+        icon={<HomeOutlined />}
+        onClick={() => homeClicked()}
+      />
       <BottomNavigationAction
         label="Profile"
         icon={<PermIdentityOutlinedIcon />}
+        onClick={() => profileClicked()}
       />
       <BottomNavigationAction
         label="Notifications"
+        onClick={() => notificationClicked()}
         icon={<NotificationsNoneOutlinedIcon />}
       />
     </BottomNavigation>

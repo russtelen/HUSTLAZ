@@ -1,5 +1,5 @@
 import React from "react";
-
+import { actions } from "@storybook/addon-actions";
 import TopNav from "./TopNav";
 
 export default {
@@ -7,4 +7,10 @@ export default {
   component: TopNav,
 };
 
-export const Default = () => <TopNav />;
+const events = actions({
+  homeClicked: "home clicked",
+  profileClicked: "profile clicked",
+  notificationClicked: "notfication clicked",
+});
+
+export const Default = () => <TopNav {...events} />;
