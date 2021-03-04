@@ -13,5 +13,5 @@ export default {
 //   notificationClicked: "notfication clicked",
 // });
 
-export const LoggedIn = () => <SideMenu isAuthenticate={true} />;
-export const LoggedOut = () => <SideMenu isAuthenticate={false} />;
+export const LoggedIn = () => <SideMenu user={{ user_id: "213" }} />;
+export const LoggedOut = () => <SideMenu user={null} />;
