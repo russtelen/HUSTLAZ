@@ -34,10 +34,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 0),
     fontSize: 19,
   },
-  socialButtons: {},
+  social: {
+    margin: 50,
+  },
   tabs: {
     margin: "auto",
     width: "100%",
@@ -102,17 +104,19 @@ const Login = ({ onSubmit, onClose, error }) => {
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
+            {tabValue === 1 && (
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+            )}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -135,28 +139,26 @@ const Login = ({ onSubmit, onClose, error }) => {
           >
             {tabValue === 1 ? "Sign Up" : "Login"}
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              {/* <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link> */}
-            </Grid>
-          </Grid>
         </form>
-        <div style={{ margin: "1em" }}>OR</div>
-        <div style={{ width: "100%" }} className={classes.socialButtons}>
+        <Typography style={{ margin: 30 }} color="textSecondary">
+          OR
+        </Typography>
+        <div style={{ width: "100%" }}>
           <FacebookLoginButton
             text={
               tabValue === 1 ? "Sign up with Facebook" : "Login with Facebook"
             }
+            style={{ marginBottom: 15 }}
+          />
+          <GoogleLoginButton
+            text={tabValue === 1 ? "Sign up with Google" : "Login with Google"}
+            style={{ marginBottom: 15 }}
           />
           <TwitterLoginButton
             text={
               tabValue === 1 ? "Sign up with Twitter" : "Login with Twitter"
             }
-          />
-          <GoogleLoginButton
-            text={tabValue === 1 ? "Sign up with Google" : "Login with Google"}
+            style={{ marginBottom: 15 }}
           />
         </div>
       </div>
