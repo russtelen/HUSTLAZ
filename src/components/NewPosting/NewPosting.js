@@ -98,6 +98,7 @@ const NewPosting = ({ error, submit }) => {
                 label="$$ Price"
                 name="price"
                 type="number"
+                inputProps={{ min: 0, step: 0.01 }}
                 autoComplete="price"
                 value={price || ""}
                 onChange={(e) => setPrice(e.target.value)}
