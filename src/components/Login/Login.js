@@ -6,12 +6,9 @@ import {
   Container,
   CssBaseline,
   Grid,
-  Avatar,
-  LockOutlinedIcon,
   Button,
   CardHeader,
   Typography,
-  FormControlLabel,
   Tabs,
   Tab,
 } from "@material-ui/core"
