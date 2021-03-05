@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
-
 import {
   TextField,
   Container,
@@ -17,7 +16,6 @@ import {
   GoogleLoginButton,
   TwitterLoginButton,
 } from "react-social-login-buttons"
-import CloseIcon from "@material-ui/icons/Close"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,13 +41,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login = ({ onSubmit, onClose, error }) => {
+const Login = ({ onSubmit, error }) => {
   const classes = useStyles()
 
   const [tabValue, setTabValue] = useState(0)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const submit = (event) => {
     event.preventDefault()
@@ -61,9 +60,10 @@ const Login = ({ onSubmit, onClose, error }) => {
     setEmail("")
     setUsername("")
     setPassword("")
+    setConfirmPassword("")
   }
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (_, newValue) => {
     setTabValue(newValue)
   }
 
@@ -86,7 +86,7 @@ const Login = ({ onSubmit, onClose, error }) => {
           <Tab label="Login" />
           <Tab label="Sign Up" />
         </Tabs>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={submit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -98,6 +98,8 @@ const Login = ({ onSubmit, onClose, error }) => {
                 id="username"
                 label="User Name"
                 autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>
 
@@ -111,6 +113,8 @@ const Login = ({ onSubmit, onClose, error }) => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
             )}
@@ -124,9 +128,27 @@ const Login = ({ onSubmit, onClose, error }) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
+            {tabValue === 1 && (
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="con-password"
+                  label="Confirm Password"
+                  type="password"
+                  id="con-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </Grid>
+            )}
           </Grid>
+          {!!error && <Typography>{error}</Typography>}
           <Button
             type="submit"
             fullWidth
