@@ -12,8 +12,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,10 +43,13 @@ const NewPosting = ({ error, submit }) => {
     // Prevent refresh
     e.preventDefault();
 
+    // Convert price from string -> int
+    let priceInt = parseInt(price);
+
     // Submit form
     submit({
       title,
-      price,
+      price: priceInt,
       imageRef,
       category,
       city,
@@ -127,11 +128,11 @@ const NewPosting = ({ error, submit }) => {
                 value={category || ""}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <MenuItem value={"cat1"}>Category 1</MenuItem>
-                <MenuItem value={"cat2"}>Category 2</MenuItem>
-                <MenuItem value={"cat3"}>Category 3</MenuItem>
-                <MenuItem value={"cat4"}>Category 4</MenuItem>
-                <MenuItem value={"cat5"}>Category 5</MenuItem>
+                <MenuItem value={"shirts"}>Shirts</MenuItem>
+                <MenuItem value={"bottoms"}>Bottoms</MenuItem>
+                <MenuItem value={"shoes"}>Shoes</MenuItem>
+                <MenuItem value={"items"}>Items</MenuItem>
+                <MenuItem value={"misc"}>Misc</MenuItem>
               </TextField>
             </Grid>
 
