@@ -79,7 +79,7 @@ export default function ComplexGrid() {
           </IconButton>
           <Grid item>
             <ButtonGroup>
-              <Button variant="contained" color="warning">
+              <Button variant="contained" style={{ background: "orange" }}>
                 Edit
               </Button>
               <Button variant="contained" color="secondary">
