@@ -8,7 +8,11 @@ import {
   Button,
   CardHeader,
   Typography,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
+
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,28 +42,28 @@ const NewPosting = ({ error }) => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                autoComplete="uname"
-                name="Username"
+                autoComplete="name"
+                name="product_name"
                 variant="outlined"
                 required
                 fullWidth
-                id="username"
-                label="User Name"
+                id="productname"
+                label="Prduct Name"
                 autoFocus
                 // value={username}
                 // onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>
-
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="price"
+                label="$$ Price"
+                name="price"
+                type="number"
+                autoComplete="price"
                 //   value={email}
                 //   onChange={(e) => setEmail(e.target.value)}
               />
@@ -68,15 +72,33 @@ const NewPosting = ({ error }) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                select
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                name="category"
+                label="Category"
+                id="category"
                 // value={password}
                 // onChange={(e) => setPassword(e.target.value)}
+              >
+                <MenuItem value={"cat1"}>Category 1</MenuItem>
+                <MenuItem value={"cat2"}>Category 2</MenuItem>
+                <MenuItem value={"cat3"}>Category 3</MenuItem>
+                <MenuItem value={"cat4"}>Category 4</MenuItem>
+                <MenuItem value={"cat5"}>Category 5</MenuItem>
+              </TextField>
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="location"
+                label="Location"
+                id="location"
+                //   value={confirmPassword}
+                //   onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Grid>
 
@@ -85,10 +107,24 @@ const NewPosting = ({ error }) => {
                 variant="outlined"
                 required
                 fullWidth
-                name="con-password"
-                label="Confirm Password"
-                type="password"
-                id="con-password"
+                name="imageRef"
+                label="Image"
+                id="imageRef"
+                //   value={confirmPassword}
+                //   onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                multiline
+                rows={6}
+                name="description"
+                label="Description"
+                id="description"
                 //   value={confirmPassword}
                 //   onChange={(e) => setConfirmPassword(e.target.value)}
               />
