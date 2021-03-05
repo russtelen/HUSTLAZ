@@ -13,6 +13,10 @@ import {
 } from "@material-ui/core"
 
 import CloseIcon from "@material-ui/icons/Close"
+import LocationOnIcon from "@material-ui/icons/LocationOn"
+import AccountCircleIcon from "@material-ui/icons/AccountCircle"
+import PhoneIcon from "@material-ui/icons/Phone"
+import DescriptionIcon from "@material-ui/icons/Description"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
   },
+  icons: {
+    marginRight: 12,
+  },
 }))
 
 // FAKE DATA
@@ -72,15 +79,17 @@ export default function ComplexGrid() {
           </IconButton>
           <Grid item>
             <ButtonGroup>
-              <Button variant="contained">Edit</Button>
+              <Button variant="contained" color="warning">
+                Edit
+              </Button>
               <Button variant="contained" color="secondary">
                 Delete
               </Button>
             </ButtonGroup>
           </Grid>
         </Grid>
-        <Grid container spacing={6} style={{ padding: 20 }}>
-          <Grid item xs={8} direction="column" spacing={4}>
+        <Grid container spacing={5} style={{ padding: 20 }}>
+          <Grid item xs={7} direction="column" spacing={4}>
             <Grid container justify="space-between" className={classes.header}>
               <Typography variant="h6">Tesla Roadster</Typography>
               <Typography variant="h6">$ 200,000</Typography>
@@ -113,32 +122,50 @@ export default function ComplexGrid() {
           </Grid>
           <Grid item xs={4} sm container>
             <Grid item xs>
-              <Grid item className={classes.info}>
-                <Typography gutterBottom variant="h6">
-                  John Doe
-                </Typography>
+              <Grid container item className={classes.info}>
+                <Grid>
+                  <AccountCircleIcon className={classes.icons} />
+                </Grid>
+                <Grid>
+                  <Typography gutterBottom variant="h6">
+                    John Doe
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item className={classes.info}>
-                <Typography variant="h6" gutterBottom>
-                  Description
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Reprehenderit iusto accusantium voluptatibus, vitae fugiat
-                  saepe debitis
-                </Typography>
+              <Grid item className={classes.info} container direction="row">
+                <Grid item>
+                  <DescriptionIcon className={classes.icons} />
+                </Grid>
+                <Grid item xs={10}>
+                  <Typography variant="h6">Description</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Reprehenderit iusto accusantium voluptatibus, vitae fugiat
+                    saepe debitis
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item className={classes.info}>
-                <Typography variant="h6">Meet up location</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Vancouver, BC
-                </Typography>
+              <Grid item className={classes.info} container>
+                <Grid item>
+                  <LocationOnIcon className={classes.icons} />
+                </Grid>
+                <Grid>
+                  <Typography variant="h6">Location</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Vancouver, BC
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid className={classes.info}>
-                <Typography variant="h6">Contact</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  778-123-4567
-                </Typography>
+              <Grid container className={classes.info}>
+                <Grid>
+                  <PhoneIcon className={classes.icons} />
+                </Grid>
+                <Grid>
+                  <Typography variant="h6">Contact</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    778-123-4567
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
             {/* </Grid> */}
