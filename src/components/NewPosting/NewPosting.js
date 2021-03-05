@@ -50,11 +50,11 @@ const NewPosting = ({ error, submit }) => {
     submit({
       title,
       price: priceInt,
-      imageRef,
+      image_ref: imageRef,
       category,
       city,
       province,
-      description,
+      seller_description: description,
     });
 
     // Reset state
@@ -128,7 +128,7 @@ const NewPosting = ({ error, submit }) => {
                 value={category || ""}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <MenuItem value={"shirts"}>Shirts</MenuItem>
+                <MenuItem value={"tops"}>Tops</MenuItem>
                 <MenuItem value={"bottoms"}>Bottoms</MenuItem>
                 <MenuItem value={"shoes"}>Shoes</MenuItem>
                 <MenuItem value={"items"}>Items</MenuItem>
