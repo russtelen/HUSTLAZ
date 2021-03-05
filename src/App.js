@@ -1,12 +1,13 @@
-import logo from "./logo.svg"
-import "./App.css"
+import logo from "./logo.svg";
+import "./App.css";
+import PageHeader from "./layouts/PageHeader/PageHeader";
 
 function App() {
   return (
-    <div className="App">
-      <h1> $ Hustlaz </h1>
-    </div>
-  )
+    <>
+      <PageHeader />
+    </>
+  );
 }
 
-export default App
+export default App;
