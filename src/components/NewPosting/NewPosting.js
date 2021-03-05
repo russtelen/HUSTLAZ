@@ -44,12 +44,13 @@ const NewPosting = ({ error, submit }) => {
     e.preventDefault();
 
     // Convert price from string -> int
-    let priceInt = parseInt(price);
+    let priceFloat = parseFloat(price);
+    let rounded = parseFloat(priceFloat.toFixed(2));
 
     // Submit form
     submit({
       title,
-      price: priceInt,
+      price: rounded,
       image_ref: imageRef,
       category,
       city,
@@ -128,11 +129,11 @@ const NewPosting = ({ error, submit }) => {
                 value={category || ""}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <MenuItem value={"tops"}>Tops</MenuItem>
-                <MenuItem value={"bottoms"}>Bottoms</MenuItem>
-                <MenuItem value={"shoes"}>Shoes</MenuItem>
-                <MenuItem value={"items"}>Items</MenuItem>
-                <MenuItem value={"misc"}>Misc</MenuItem>
+                <MenuItem value={"Tops"}>Tops</MenuItem>
+                <MenuItem value={"Bottoms"}>Bottoms</MenuItem>
+                <MenuItem value={"Shoes"}>Shoes</MenuItem>
+                <MenuItem value={"Items"}>Items</MenuItem>
+                <MenuItem value={"Misc"}>Misc</MenuItem>
               </TextField>
             </Grid>
 
