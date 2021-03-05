@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const NewPosting = ({ error }) => {
   const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         <CardHeader className={classes.header} title="Sell Something" />
@@ -42,13 +42,13 @@ const NewPosting = ({ error }) => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                autoComplete="name"
-                name="product_name"
+                autoComplete="title"
+                name="title"
                 variant="outlined"
                 required
                 fullWidth
-                id="productname"
-                label="Prduct Name"
+                id="title"
+                label="Title"
                 autoFocus
                 // value={username}
                 // onChange={(e) => setUsername(e.target.value)}
@@ -66,6 +66,19 @@ const NewPosting = ({ error }) => {
                 autoComplete="price"
                 //   value={email}
                 //   onChange={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="imageRef"
+                label="Image"
+                id="imageRef"
+                //   value={confirmPassword}
+                //   onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Grid>
 
@@ -94,9 +107,9 @@ const NewPosting = ({ error }) => {
                 variant="outlined"
                 required
                 fullWidth
-                name="location"
-                label="Location"
-                id="location"
+                name="city"
+                label="City"
+                id="city"
                 //   value={confirmPassword}
                 //   onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -107,9 +120,9 @@ const NewPosting = ({ error }) => {
                 variant="outlined"
                 required
                 fullWidth
-                name="imageRef"
-                label="Image"
-                id="imageRef"
+                name="province"
+                label="Province"
+                id="province"
                 //   value={confirmPassword}
                 //   onChange={(e) => setConfirmPassword(e.target.value)}
               />
