@@ -66,52 +66,52 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat1Clicked()}
+              onClick={() => events.topsCatClicked()}
             >
               <ListItemIcon>
                 <AcUnitIcon />
               </ListItemIcon>
-              <ListItemText primary="Category 1" />
+              <ListItemText primary="Tops" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat2Clicked()}
+              onClick={() => events.bottomsCatClicked()}
             >
               <ListItemIcon>
                 <AirplanemodeActiveIcon />
               </ListItemIcon>
-              <ListItemText primary="Category 2" />
+              <ListItemText primary="Bottoms" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat3Clicked()}
+              onClick={() => events.shoesCatClicked()}
             >
               <ListItemIcon>
                 <AlbumIcon />
               </ListItemIcon>
-              <ListItemText primary="Category 3" />
+              <ListItemText primary="Shoes" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat4Clicked()}
+              onClick={() => events.itemsCatClicked()}
             >
               <ListItemIcon>
-                <AttachFileIcon />
+                <AlbumIcon />
               </ListItemIcon>
-              <ListItemText primary="Category 4" />
+              <ListItemText primary="Items" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat5Clicked()}
+              onClick={() => events.miscCatClicked()}
             >
               <ListItemIcon>
                 <BlurCircularIcon />
               </ListItemIcon>
-              <ListItemText primary="Category 5" />
+              <ListItemText primary="Misc" />
             </ListItem>
           </List>
         </Collapse>

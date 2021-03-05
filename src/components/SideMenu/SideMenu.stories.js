@@ -9,11 +9,11 @@ export default {
 
 const events = actions({
   topPicksClicked: "top picks clicked",
-  cat1Clicked: "category 1 clicked",
-  cat2Clicked: "category 2 clicked",
-  cat3Clicked: "category 3 clicked",
-  cat4Clicked: "category 4 clicked",
-  cat5Clicked: "category 5 clicked",
+  topsCatClicked: "tops clicked",
+  bottomsCatClicked: "bottoms clicked",
+  shoesCatClicked: "shoes clicked",
+  itemsCatClicked: "items clicked",
+  miscCatClicked: "misc clicked",
   sellSomethingClicked: "sell something clicked",
   searchClicked: "search clicked",
   loginClicked: "login clicked",
