@@ -7,4 +7,8 @@ export default {
   component: NewPosting,
 };
 
-export const Default = () => <NewPosting />;
+const events = actions({
+  submit: "submit clicked",
+});
+
+export const Default = () => <NewPosting {...events} />;

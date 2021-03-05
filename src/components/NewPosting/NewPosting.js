@@ -31,14 +31,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewPosting = ({ error }) => {
+const NewPosting = ({ error, submit }) => {
   const classes = useStyles();
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState(0);
+  const [imageRef, setImageRef] = useState("");
+  const [category, setCategory] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = (e) => {
+    // Prevent refresh
+    e.preventDefault();
+
+    // Submit form
+    submit({
+      title,
+      price,
+      imageRef,
+      category,
+      city,
+      province,
+      description,
+    });
+
+    // Reset state
+    setTitle("");
+    setPrice("");
+    setImageRef("");
+    setCategory("");
+    setCity("");
+    setProvince("");
+    setDescription("");
+  };
+
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         <CardHeader className={classes.header} title="Sell Something" />
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -50,8 +83,8 @@ const NewPosting = ({ error }) => {
                 id="title"
                 label="Title"
                 autoFocus
-                // value={username}
-                // onChange={(e) => setUsername(e.target.value)}
+                value={title || ""}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -64,8 +97,8 @@ const NewPosting = ({ error }) => {
                 name="price"
                 type="number"
                 autoComplete="price"
-                //   value={email}
-                //   onChange={(e) => setEmail(e.target.value)}
+                value={price || ""}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </Grid>
 
@@ -77,8 +110,8 @@ const NewPosting = ({ error }) => {
                 name="imageRef"
                 label="Image"
                 id="imageRef"
-                //   value={confirmPassword}
-                //   onChange={(e) => setConfirmPassword(e.target.value)}
+                value={imageRef || ""}
+                onChange={(e) => setImageRef(e.target.value)}
               />
             </Grid>
 
@@ -91,8 +124,8 @@ const NewPosting = ({ error }) => {
                 name="category"
                 label="Category"
                 id="category"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                value={category || ""}
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <MenuItem value={"cat1"}>Category 1</MenuItem>
                 <MenuItem value={"cat2"}>Category 2</MenuItem>
@@ -110,8 +143,8 @@ const NewPosting = ({ error }) => {
                 name="city"
                 label="City"
                 id="city"
-                //   value={confirmPassword}
-                //   onChange={(e) => setConfirmPassword(e.target.value)}
+                value={city || ""}
+                onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
 
@@ -123,8 +156,8 @@ const NewPosting = ({ error }) => {
                 name="province"
                 label="Province"
                 id="province"
-                //   value={confirmPassword}
-                //   onChange={(e) => setConfirmPassword(e.target.value)}
+                value={province || ""}
+                onChange={(e) => setProvince(e.target.value)}
               />
             </Grid>
 
@@ -138,8 +171,8 @@ const NewPosting = ({ error }) => {
                 name="description"
                 label="Description"
                 id="description"
-                //   value={confirmPassword}
-                //   onChange={(e) => setConfirmPassword(e.target.value)}
+                value={description || ""}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Grid>
           </Grid>
