@@ -23,6 +23,8 @@ import BlurCircularIcon from "@material-ui/icons/BlurCircular";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import { FaTshirt, FaRecordVinyl, FaCrown } from "react-icons/fa";
+import { GiArmoredPants, GiConverseShoe } from "react-icons/gi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +71,7 @@ const SideMenu = ({ user, events }) => {
               onClick={() => events.topsCatClicked()}
             >
               <ListItemIcon>
-                <AcUnitIcon />
+                <FaTshirt size={20} />
               </ListItemIcon>
               <ListItemText primary="Tops" />
             </ListItem>
@@ -79,7 +81,7 @@ const SideMenu = ({ user, events }) => {
               onClick={() => events.bottomsCatClicked()}
             >
               <ListItemIcon>
-                <AirplanemodeActiveIcon />
+                <GiArmoredPants size={20} />
               </ListItemIcon>
               <ListItemText primary="Bottoms" />
             </ListItem>
@@ -89,7 +91,7 @@ const SideMenu = ({ user, events }) => {
               onClick={() => events.shoesCatClicked()}
             >
               <ListItemIcon>
-                <AlbumIcon />
+                <GiConverseShoe size={20} />
               </ListItemIcon>
               <ListItemText primary="Shoes" />
             </ListItem>
@@ -99,7 +101,7 @@ const SideMenu = ({ user, events }) => {
               onClick={() => events.itemsCatClicked()}
             >
               <ListItemIcon>
-                <AlbumIcon />
+                <FaRecordVinyl size={20} />
               </ListItemIcon>
               <ListItemText primary="Items" />
             </ListItem>
@@ -109,7 +111,7 @@ const SideMenu = ({ user, events }) => {
               onClick={() => events.miscCatClicked()}
             >
               <ListItemIcon>
-                <BlurCircularIcon />
+                <FaCrown size={20} />
               </ListItemIcon>
               <ListItemText primary="Misc" />
             </ListItem>
