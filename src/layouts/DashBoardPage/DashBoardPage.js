@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import ProductsPage from "../ProductsPage/ProductsPage";
 import SideMenuPage from "../SideMenuPage/SideMenuPage";
-import NewPosting from "../../components/NewPosting/NewPosting";
+import NewPostingPage from "../NewPostingPage/NewPostingPage";
 
 const DashBoardPage = () => {
   return (
@@ -14,7 +14,7 @@ const DashBoardPage = () => {
           <ProductsPage />
         </Route>
         <Route path="/newPost">
-          <NewPosting />
+          <NewPostingPage />
         </Route>
       </Switch>
     </div>
