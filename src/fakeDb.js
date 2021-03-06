@@ -42,6 +42,7 @@ export const topPicks = [
     PostingId: "1",
     UserId: "1",
     title: "Tupac Shirt",
+    category: "Top Picks",
     price: 50,
     imageUrl:
       "https://target.scene7.com/is/image/Target/GUEST_0fa246a9-6f7c-425d-9798-016f192fcc27?wid=488&hei=488&fmt=pjpeg",
@@ -52,6 +53,7 @@ export const topPicks = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Top Picks",
     title: "Biggie Shirt",
     price: 20,
     imageUrl:
@@ -63,6 +65,7 @@ export const topPicks = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Top Picks",
     title: "Retro Converse",
     price: 35.99,
     imageUrl:
@@ -77,6 +80,7 @@ export const tops = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Tops",
     title: "The Stonez",
     price: 25,
     imageUrl:
@@ -88,6 +92,7 @@ export const tops = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Tops",
     title: "90s Yankees Jersesy",
     price: 20,
     imageUrl: "https://i.ebayimg.com/images/g/WdIAAOSw7Xtc8Z~A/s-l300.jpg",
@@ -98,6 +103,7 @@ export const tops = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Tops",
     title: "Fresh Prince",
     price: 35.99,
     imageUrl:
@@ -112,6 +118,7 @@ export const bottoms = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Bottoms",
     title: "Dickies Jeans",
     price: 80,
     imageUrl:
@@ -123,6 +130,7 @@ export const bottoms = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Bottoms",
     title: "Khakis",
     price: 15,
     imageUrl:
@@ -134,6 +142,7 @@ export const bottoms = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Bottoms",
     title: "Cholo pants",
     price: 20,
     imageUrl:
@@ -148,6 +157,7 @@ export const shoes = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Shoes",
     title: "Retro 4s",
     price: 250,
     imageUrl:
@@ -159,6 +169,7 @@ export const shoes = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Shoes",
     title: "Retro1s",
     price: 235,
     imageUrl:
@@ -170,6 +181,7 @@ export const shoes = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Shoes",
     title: "OG Converse",
     price: 20,
     imageUrl:
@@ -184,6 +196,7 @@ export const items = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Items",
     title: "NWA Vinyl",
     price: 15,
     imageUrl:
@@ -195,6 +208,7 @@ export const items = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Items",
     title: "TLR Mamiya C330",
     price: 400,
     imageUrl:
@@ -206,6 +220,7 @@ export const items = [
   {
     PostingId: "1",
     UserId: "1",
+    category: "Items",
     title: "Vintage Bike",
     price: 200,
     imageUrl:

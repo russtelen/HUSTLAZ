@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import { PostsContext } from "../../context/PostsContext";
 import { topPicks, tops, bottoms, shoes, items } from "../../fakeDb";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import useLocalStorage from "react-use-localstorage";
 
 const SideMenuPage = () => {
@@ -13,42 +13,36 @@ const SideMenuPage = () => {
 
   useEffect(() => {
     const posts = localPosts ? JSON.parse(localPosts) : topPicks;
-
     setPosts(posts);
-  }, [localPosts, posts]);
+  }, [localPosts]);
 
   const topPicksClicked = () => {
     history.push("/posts");
     setLocalPosts(JSON.stringify(topPicks));
-    // setPosts(topPicks);
     console.log("Top Picks");
   };
 
   const topsCatClicked = () => {
     history.push("/posts");
     setLocalPosts(JSON.stringify(tops));
-    // setPosts(tops);
     console.log("Tops Category");
   };
 
   const bottomsCatClicked = () => {
     history.push("/posts");
     setLocalPosts(JSON.stringify(bottoms));
-    // setPosts(bottoms);
     console.log("Bottoms Category");
   };
 
   const shoesCatClicked = () => {
     history.push("/posts");
     setLocalPosts(JSON.stringify(shoes));
-    // setPosts(shoes);
     console.log("Shoes Category");
   };
 
   const itemsCatClicked = () => {
     history.push("/posts");
     setLocalPosts(JSON.stringify(items));
-    // setPosts(items);
     console.log("Items Category");
   };
 

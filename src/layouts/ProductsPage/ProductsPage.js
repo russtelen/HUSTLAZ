@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
-import { PostsContext } from "../../context/PostsContext";
 
 const ProductsPage = () => {
-  const { posts, setPosts } = useContext(PostsContext);
+  const posts = JSON.parse(window.localStorage.getItem("posts"));
 
   const cardCliked = () => {
     console.log("Open product detail");
@@ -19,6 +18,7 @@ const ProductsPage = () => {
 
   return (
     <div className="container">
+      <h1 className="text-center mt-5">{posts[0].category}</h1>
       <div className="row d-flex justify-content-center">
         {posts.map((post) => (
           <div className="col-4 mt-5">
