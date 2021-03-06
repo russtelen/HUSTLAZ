@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import PageHeader from "./layouts/PageHeader/PageHeader";
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
 import { PostsContext } from "./context/PostsContext";
-import { fakePosts } from "./fakeDb";
+import { fakePosts, topPicks } from "./fakeDb";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -24,7 +24,7 @@ function App() {
   const value = useMemo(() => ({ posts, setPosts }), [posts, setPosts]);
 
   useEffect(() => {
-    setPosts(fakePosts);
+    setPosts(topPicks);
   }, []);
 
   return (
