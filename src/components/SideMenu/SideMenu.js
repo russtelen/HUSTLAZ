@@ -23,6 +23,8 @@ import BlurCircularIcon from "@material-ui/icons/BlurCircular";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import { FaTshirt, FaRecordVinyl, FaCrown } from "react-icons/fa";
+import { GiArmoredPants, GiConverseShoe } from "react-icons/gi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,52 +68,52 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat1Clicked()}
+              onClick={() => events.topsCatClicked()}
             >
               <ListItemIcon>
-                <AcUnitIcon />
+                <FaTshirt size={20} />
               </ListItemIcon>
-              <ListItemText primary="Category 1" />
+              <ListItemText primary="Tops" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat2Clicked()}
+              onClick={() => events.bottomsCatClicked()}
             >
               <ListItemIcon>
-                <AirplanemodeActiveIcon />
+                <GiArmoredPants size={20} />
               </ListItemIcon>
-              <ListItemText primary="Category 2" />
+              <ListItemText primary="Bottoms" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat3Clicked()}
+              onClick={() => events.shoesCatClicked()}
             >
               <ListItemIcon>
-                <AlbumIcon />
+                <GiConverseShoe size={20} />
               </ListItemIcon>
-              <ListItemText primary="Category 3" />
+              <ListItemText primary="Shoes" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat4Clicked()}
+              onClick={() => events.itemsCatClicked()}
             >
               <ListItemIcon>
-                <AttachFileIcon />
+                <FaRecordVinyl size={20} />
               </ListItemIcon>
-              <ListItemText primary="Category 4" />
+              <ListItemText primary="Items" />
             </ListItem>
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.cat5Clicked()}
+              onClick={() => events.miscCatClicked()}
             >
               <ListItemIcon>
-                <BlurCircularIcon />
+                <FaCrown size={20} />
               </ListItemIcon>
-              <ListItemText primary="Category 5" />
+              <ListItemText primary="Misc" />
             </ListItem>
           </List>
         </Collapse>
