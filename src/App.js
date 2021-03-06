@@ -11,7 +11,7 @@ import { ThemeProvider } from "@material-ui/styles";
 
 const THEME = createMuiTheme({
   typography: {
-    fontFamily: `'Permanent Marker', cursive;`,
+    fontFamily: `'Rock Salt', cursive;`,
     fontSize: 13,
     fontWeightLight: 300,
     fontWeightRegular: 400,
