@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles";
 
 import {
   IconButton,
@@ -11,9 +11,9 @@ import {
   CardContent,
   CardMedia,
   Button,
-} from "@material-ui/core"
+} from "@material-ui/core";
 
-import FavoriteIcon from "@material-ui/icons/Favorite"
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles({
   root: {
@@ -23,11 +23,11 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
-})
+});
 
 const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
-  console.log(post)
-  const classes = useStyles()
+  console.log(post);
+  const classes = useStyles();
 
   return (
     <Card className={classes.root}>
@@ -35,7 +35,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          height="140"
+          height="300"
           image={post.imageUrl}
           title="Contemplative Reptile"
         />
@@ -66,7 +66,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
         </Button>
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
-export default ProductItem
+export default ProductItem;

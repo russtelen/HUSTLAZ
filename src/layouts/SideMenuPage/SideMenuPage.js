@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import { PostsContext } from "../../context/PostsContext";
-import { topPicks } from "../../fakeDb";
+import { topPicks, tops, bottoms, shoes, items } from "../../fakeDb";
 
 const SideMenuPage = () => {
   const { posts, setPosts } = useContext(PostsContext);
@@ -12,18 +12,22 @@ const SideMenuPage = () => {
   };
 
   const topsCatClicked = () => {
+    setPosts(tops);
     console.log("Tops Category");
   };
 
   const bottomsCatClicked = () => {
+    setPosts(bottoms);
     console.log("Bottoms Category");
   };
 
   const shoesCatClicked = () => {
+    setPosts(shoes);
     console.log("Shoes Category");
   };
 
   const itemsCatClicked = () => {
+    setPosts(items);
     console.log("Items Category");
   };
 
