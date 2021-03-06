@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 });
 
 const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
-  console.log(post);
   const classes = useStyles();
 
   return (
