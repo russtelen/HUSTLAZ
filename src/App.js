@@ -6,6 +6,19 @@ import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
 import { PostsContext } from "./context/PostsContext";
 import { fakePosts } from "./fakeDb";
 
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
+const THEME = createMuiTheme({
+  typography: {
+    fontFamily: `'Permanent Marker', cursive;`,
+    fontSize: 13,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+  },
+});
+
 function App() {
   const [posts, setPosts] = useState([]);
   const value = useMemo(() => ({ posts, setPosts }), [posts, setPosts]);
@@ -15,12 +28,14 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <PostsContext.Provider value={value}>
-        <PageHeader />
-        <DashBoardPage />
-      </PostsContext.Provider>
-    </Router>
+    <ThemeProvider theme={THEME}>
+      <Router>
+        <PostsContext.Provider value={value}>
+          <PageHeader />
+          <DashBoardPage />
+        </PostsContext.Provider>
+      </Router>
+    </ThemeProvider>
   );
 }
 
