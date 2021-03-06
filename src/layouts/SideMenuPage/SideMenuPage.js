@@ -2,40 +2,49 @@ import React, { useContext } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import { PostsContext } from "../../context/PostsContext";
 import { topPicks, tops, bottoms, shoes, items } from "../../fakeDb";
+import { useHistory } from "react-router-dom";
 
 const SideMenuPage = () => {
   const { posts, setPosts } = useContext(PostsContext);
+  const history = useHistory();
 
   const topPicksClicked = () => {
+    history.push("/posts");
     setPosts(topPicks);
     console.log("Top Picks");
   };
 
   const topsCatClicked = () => {
+    history.push("/posts");
     setPosts(tops);
     console.log("Tops Category");
   };
 
   const bottomsCatClicked = () => {
+    history.push("/posts");
     setPosts(bottoms);
     console.log("Bottoms Category");
   };
 
   const shoesCatClicked = () => {
+    history.push("/posts");
     setPosts(shoes);
     console.log("Shoes Category");
   };
 
   const itemsCatClicked = () => {
+    history.push("/posts");
     setPosts(items);
     console.log("Items Category");
   };
 
   const miscCatClicked = () => {
+    history.push("/posts");
     console.log("Misc Category");
   };
 
   const sellSomethingClicked = () => {
+    history.push("/newPost");
     console.log("Sell Form");
   };
 

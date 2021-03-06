@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+
 import PageHeader from "./layouts/PageHeader/PageHeader";
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
 import { PostsContext } from "./context/PostsContext";
@@ -13,12 +15,12 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Router>
       <PostsContext.Provider value={value}>
         <PageHeader />
         <DashBoardPage />
       </PostsContext.Provider>
-    </>
+    </Router>
   );
 }
 
