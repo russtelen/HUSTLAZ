@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
+import { PostsContext } from "../../context/PostsContext";
+import { topPicks } from "../../fakeDb";
 
 const SideMenuPage = () => {
+  const { posts, setPosts } = useContext(PostsContext);
+
   const topPicksClicked = () => {
+    setPosts(topPicks);
     console.log("Top Picks");
   };
 
