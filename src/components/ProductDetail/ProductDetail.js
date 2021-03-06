@@ -58,17 +58,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// FAKE DATA
-const images = [
-  "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
-  "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
-  "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
-]
-
-export default function ComplexGrid() {
+const ProductDetail = ({
+  post,
+  closeClicked,
+  editClicked,
+  deleteClicked,
+  imageClicked,
+}) => {
   const classes = useStyles()
 
-  const onClose = () => {}
+  const onClose = () => {
+    closeClicked()
+  }
 
   return (
     <div className={classes.root}>
@@ -79,10 +80,18 @@ export default function ComplexGrid() {
           </IconButton>
           <Grid item>
             <ButtonGroup>
-              <Button variant="contained" style={{ background: "orange" }}>
+              <Button
+                variant="contained"
+                style={{ background: "orange" }}
+                onClick={() => editClicked()}
+              >
                 Edit
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => deleteClicked()}
+                variant="contained"
+                color="secondary"
+              >
                 Delete
               </Button>
             </ButtonGroup>
@@ -91,15 +100,15 @@ export default function ComplexGrid() {
         <Grid container spacing={5} style={{ padding: 20 }}>
           <Grid item xs={7} direction="column" spacing={4}>
             <Grid container justify="space-between" className={classes.header}>
-              <Typography variant="h6">Tesla Roadster</Typography>
-              <Typography variant="h6">$ 200,000</Typography>
+              <Typography variant="h6">{post.title} </Typography>
+              <Typography variant="h6">$ {post.price}</Typography>
             </Grid>
             <Grid item>
               <CardMedia
                 className={classes.image}
                 component="img"
                 alt="tesla"
-                image="https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg"
+                image={post.images[0]}
                 title="tesla"
               />
             </Grid>
@@ -107,13 +116,14 @@ export default function ComplexGrid() {
             <div className=""></div>
             <Grid item xs={12} container justify="space-between">
               <GridList className={classes.gridList} cols={2}>
-                {images.map((image, idx) => {
+                {post?.images.map((image, idx) => {
                   return (
                     <CardMedia
                       key={idx}
                       component="img"
                       image={image}
                       className={classes.smallImage}
+                      onClick={() => imageClicked()}
                     />
                   )
                 })}
@@ -128,7 +138,7 @@ export default function ComplexGrid() {
                 </Grid>
                 <Grid>
                   <Typography gutterBottom variant="h6">
-                    John Doe
+                    {post.username}
                   </Typography>
                 </Grid>
               </Grid>
@@ -139,9 +149,7 @@ export default function ComplexGrid() {
                 <Grid item xs={10}>
                   <Typography variant="h6">Description</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit iusto accusantium voluptatibus, vitae fugiat
-                    saepe debitis
+                    {post.desc}
                   </Typography>
                 </Grid>
               </Grid>
@@ -152,7 +160,7 @@ export default function ComplexGrid() {
                 <Grid>
                   <Typography variant="h6">Location</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    Vancouver, BC
+                    {post.city}
                   </Typography>
                 </Grid>
               </Grid>
@@ -163,15 +171,15 @@ export default function ComplexGrid() {
                 <Grid>
                   <Typography variant="h6">Contact</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    778-123-4567
+                    {post.contact}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
-            {/* </Grid> */}
           </Grid>
         </Grid>
       </Paper>
     </div>
   )
 }
+export default ProductDetail
