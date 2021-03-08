@@ -6,12 +6,14 @@ import SideMenuPage from "../SideMenuPage/SideMenuPage";
 import NewPostingPage from "../NewPostingPage/NewPostingPage";
 
 const DashBoardPage = () => {
+  const posts = JSON.parse(window.localStorage.getItem("posts"));
+
   return (
     <div style={{ display: "flex" }}>
       <SideMenuPage />
       <Switch>
         <Route path="/posts">
-          <ProductsPage />
+          <ProductsPage posts={posts} />
         </Route>
         <Route path="/newPost">
           <NewPostingPage />

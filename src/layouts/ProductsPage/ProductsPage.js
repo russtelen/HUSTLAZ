@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 
-const ProductsPage = () => {
-  const posts = JSON.parse(window.localStorage.getItem("posts"));
-
+const ProductsPage = ({ posts }) => {
   const cardCliked = () => {
     console.log("Open product detail");
   };
