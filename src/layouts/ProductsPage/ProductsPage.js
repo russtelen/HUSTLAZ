@@ -9,16 +9,16 @@ const ProductsPage = () => {
   const { posts, setPosts } = useContext(PostsContext);
 
   // Params :category
-  const { category } = useParams();
+  const { categoryId } = useParams();
 
   // On load
   // Set post === category in the params
   //  if != category in params, set post === all post
   useEffect(() => {
     (async () => {
-      if (category != undefined) {
+      if (categoryId != undefined) {
         const res = await axios.get(
-          `https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings/category/${category}`
+          `https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings/category/${categoryId}`
         );
 
         const data = await res.data;
@@ -33,7 +33,7 @@ const ProductsPage = () => {
       const allPosts = await res.data.body;
       setPosts(allPosts);
     })();
-  }, [category]);
+  }, [categoryId]);
 
   // Handlers
   const cardCliked = () => {
@@ -52,10 +52,10 @@ const ProductsPage = () => {
     <div className="container">
       <h1 className="text-center mt-5">{posts[0]?.category}</h1>
       <div className="row d-flex justify-content-center">
-        {products?.map((post) => (
+        {posts?.map((post) => (
           <div className="col-4 mt-5">
             <ProductItem
-              post={post}
+              post={{ ...post }}
               cardClicked={() => cardCliked()}
               likeClicked={() => likeCliked()}
               contactClicked={() => contactClicked()}

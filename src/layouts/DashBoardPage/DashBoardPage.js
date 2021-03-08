@@ -13,7 +13,7 @@ const DashBoardPage = () => {
         <Route exact path="/posts">
           <ProductsPage />
         </Route>
-        <Route exact path="/posts/:category">
+        <Route exact path="/posts/:categoryId">
           <ProductsPage />
         </Route>
         <Route path="/newPost">
