@@ -52,10 +52,10 @@ const ProductsPage = () => {
     <div className="container">
       <h1 className="text-center mt-5">{posts[0]?.category}</h1>
       <div className="row d-flex justify-content-center">
-        {posts.map((post) => (
+        {products?.map((post) => (
           <div className="col-4 mt-5">
             <ProductItem
-              post={{ ...post }}
+              post={post}
               cardClicked={() => cardCliked()}
               likeClicked={() => likeCliked()}
               contactClicked={() => contactClicked()}
