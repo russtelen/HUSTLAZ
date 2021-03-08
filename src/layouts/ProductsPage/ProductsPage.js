@@ -1,29 +1,39 @@
-import React, { useState, useEffect, useContext } from "react";
-import ProductItem from "../../components/ProductItem/ProductItem";
+import React, { useState, useEffect, useContext } from "react"
+import ProductItem from "../../components/ProductItem/ProductItem"
+import { getAll } from "../../network"
 
 const ProductsPage = () => {
-  const posts = JSON.parse(window.localStorage.getItem("posts"));
+  const posts = JSON.parse(window.localStorage.getItem("posts"))
+
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      const products = await getAll()
+      setProducts(products)
+    })()
+  }, [])
 
   const cardCliked = () => {
-    console.log("Open product detail");
-  };
+    console.log("Open product detail")
+  }
 
   const likeCliked = () => {
-    console.log("product saved");
-  };
+    console.log("product saved")
+  }
 
   const contactClicked = () => {
-    console.log("contact seller");
-  };
+    console.log("contact seller")
+  }
 
   return (
     <div className="container">
       <h1 className="text-center mt-5">{posts[0].category}</h1>
       <div className="row d-flex justify-content-center">
-        {posts.map((post) => (
+        {products?.map((post) => (
           <div className="col-4 mt-5">
             <ProductItem
-              post={{ ...post }}
+              post={post}
               cardClicked={() => cardCliked()}
               likeClicked={() => likeCliked()}
               contactClicked={() => contactClicked()}
@@ -32,7 +42,7 @@ const ProductsPage = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductsPage;
+export default ProductsPage
