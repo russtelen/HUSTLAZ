@@ -52,7 +52,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
           </div>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            {post.desc}
+            {post.description}
           </Typography>
         </CardContent>
       </CardActionArea>

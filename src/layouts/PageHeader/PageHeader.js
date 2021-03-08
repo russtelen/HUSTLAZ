@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import TopNav from "../../components/TopNav/TopNav";
-import { PostsContext } from "../../context/PostsContext";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 
 const PageHeader = () => {
   const history = useHistory();
-
-  const { posts, setPosts } = useContext(PostsContext);
 
   const homeClicked = async () => {
     history.push("/posts");

@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { PostsContext } from "../../context/PostsContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const ProductsPage = () => {
+  // Context
   const { posts, setPosts } = useContext(PostsContext);
+
+  // Params :category
   const { category } = useParams();
-  const cardCliked = () => {
-    console.log("Open product detail");
-  };
 
-  const likeCliked = () => {
-    console.log("product saved");
-  };
-
-  const contactClicked = () => {
-    console.log("contact seller");
-  };
-
+  // On load
+  // Set post === category in the params
+  //  if != category in params, set post === all post
   useEffect(() => {
     (async () => {
       if (category != undefined) {
@@ -39,6 +34,19 @@ const ProductsPage = () => {
       setPosts(allPosts);
     })();
   }, [category]);
+
+  // Handlers
+  const cardCliked = () => {
+    console.log("Open product detail");
+  };
+
+  const likeCliked = () => {
+    console.log("product saved");
+  };
+
+  const contactClicked = () => {
+    console.log("contact seller");
+  };
 
   return (
     <div className="container">
