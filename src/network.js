@@ -8,7 +8,7 @@ const url = "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod"
 export const getAll = async () => {
   try {
     const res = await axios.get(`${url}/postings`)
-    return res.data
+    return res.data.body
   } catch (error) {
     console.error(error)
   }
