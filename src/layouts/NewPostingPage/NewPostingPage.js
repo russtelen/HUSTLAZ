@@ -1,13 +1,19 @@
-import React from "react";
-import NewPosting from "../../components/NewPosting/NewPosting";
+import React from "react"
+import NewPosting from "../../components/NewPosting/NewPosting"
+import { postOne } from "../../network"
+import { useHistory } from "react-router-dom"
 
 const NewPostingPage = () => {
-  const submit = (newPost) => {
-    console.log(newPost);
-    alert(`Successfully added ${newPost.title} for $${newPost.price}`);
-  };
+  const history = useHistory()
 
-  return <NewPosting submit={submit} />;
-};
+  // make post req
+  const submit = async (data) => {
+    await postOne(data)
+    console.log(data)
+    history.push("/posts")
+  }
 
-export default NewPostingPage;
+  return <NewPosting submit={submit} />
+}
+
+export default NewPostingPage
