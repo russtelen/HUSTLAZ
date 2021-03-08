@@ -2,38 +2,32 @@ import React, { useEffect, useContext } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { PostsContext } from "../../context/PostsContext";
 import { useParams } from "react-router-dom";
+import { getAll, getPostingsByCategory } from "../../network";
 import axios from "axios";
 
 const ProductsPage = () => {
   // Context
   const { posts, setPosts } = useContext(PostsContext);
-
   // Params :category
   const { categoryId } = useParams();
 
+  // ===================================================
   // On load
   // Set post === category in the params
-  //  if != category in params, set post === all post
+  // if != category in params, set post === all post
   useEffect(() => {
     (async () => {
       if (categoryId != undefined) {
-        const res = await axios.get(
-          `https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings/category/${categoryId}`
-        );
-
-        const data = await res.data;
-
+        const data = await getPostingsByCategory(categoryId);
         setPosts(data);
         return;
       }
 
-      const res = await axios.get(
-        "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings"
-      );
-      const allPosts = await res.data.body;
+      const allPosts = await getAll();
       setPosts(allPosts);
     })();
   }, [categoryId]);
+  // ===================================================
 
   // Handlers
   const cardCliked = () => {
