@@ -8,7 +8,7 @@ import useLocalStorage from "react-use-localstorage";
 const SideMenuPage = () => {
   const history = useHistory();
   const topPicksClicked = async () => {
-    history.push("/posts/1");
+    history.push("/posts");
   };
 
   const topsCatClicked = async () => {
@@ -16,20 +16,20 @@ const SideMenuPage = () => {
   };
 
   const bottomsCatClicked = async () => {
-    history.push("/posts/4");
+    history.push("/posts/2");
   };
 
   const shoesCatClicked = async () => {
-    history.push("/posts/2");
+    history.push("/posts/3");
+  };
+
+  const miscCatClicked = () => {
+    history.push("/posts/4");
+    console.log("Misc Category");
   };
 
   const itemsCatClicked = async () => {
     history.push("/posts/5");
-  };
-
-  const miscCatClicked = () => {
-    history.push("/posts/misc");
-    console.log("Misc Category");
   };
 
   const sellSomethingClicked = () => {
