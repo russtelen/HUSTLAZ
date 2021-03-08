@@ -11,12 +11,6 @@ const PageHeader = () => {
 
   const homeClicked = async () => {
     history.push("/posts");
-    const res = await axios.get(
-      "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings"
-    );
-    const allPosts = await res.data.body;
-    setPosts(allPosts);
-    // console.log("home!");
   };
 
   const profileClicked = () => {
