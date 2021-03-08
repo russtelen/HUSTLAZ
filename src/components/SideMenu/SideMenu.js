@@ -15,11 +15,6 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import CategoryIcon from "@material-ui/icons/Category";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import AirplanemodeActiveIcon from "@material-ui/icons/AirplanemodeActive";
-import AlbumIcon from "@material-ui/icons/Album";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
-import BlurCircularIcon from "@material-ui/icons/BlurCircular";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
@@ -38,7 +33,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideMenu = ({ user, events }) => {
+const SideMenu = ({
+  user,
+  topPicksClicked,
+  topsCatClicked,
+  bottomsCatClicked,
+  shoesCatClicked,
+  itemsCatClicked,
+  miscCatClicked,
+  sellSomethingClicked,
+  searchClicked,
+  loginClicked,
+  registerClicked,
+  logoutClicked,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -50,7 +58,7 @@ const SideMenu = ({ user, events }) => {
     <div className={classes.root}>
       <CssBaseline />
       <List>
-        <ListItem button onClick={() => events.topPicksClicked()}>
+        <ListItem button onClick={() => topPicksClicked()}>
           <ListItemIcon>
             <StarBorderOutlinedIcon />
           </ListItemIcon>
@@ -68,7 +76,7 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.topsCatClicked()}
+              onClick={() => topsCatClicked()}
             >
               <ListItemIcon>
                 <FaTshirt size={20} />
@@ -78,7 +86,7 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.bottomsCatClicked()}
+              onClick={() => bottomsCatClicked()}
             >
               <ListItemIcon>
                 <GiArmoredPants size={20} />
@@ -88,7 +96,7 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.shoesCatClicked()}
+              onClick={() => shoesCatClicked()}
             >
               <ListItemIcon>
                 <GiConverseShoe size={20} />
@@ -98,7 +106,7 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.itemsCatClicked()}
+              onClick={() => itemsCatClicked()}
             >
               <ListItemIcon>
                 <FaRecordVinyl size={20} />
@@ -108,7 +116,7 @@ const SideMenu = ({ user, events }) => {
             <ListItem
               button
               className={classes.nested}
-              onClick={() => events.miscCatClicked()}
+              onClick={() => miscCatClicked()}
             >
               <ListItemIcon>
                 <FaCrown size={20} />
@@ -117,13 +125,13 @@ const SideMenu = ({ user, events }) => {
             </ListItem>
           </List>
         </Collapse>
-        <ListItem button onClick={() => events.sellSomethingClicked()}>
+        <ListItem button onClick={() => sellSomethingClicked()}>
           <ListItemIcon>
             <ControlPointOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Sell Something" />
         </ListItem>
-        <ListItem button onClick={() => events.searchClicked()}>
+        <ListItem button onClick={() => searchClicked()}>
           <ListItemIcon>
             <SearchOutlinedIcon />
           </ListItemIcon>
@@ -134,7 +142,7 @@ const SideMenu = ({ user, events }) => {
       <List>
         {user ? (
           <>
-            <ListItem button onClick={() => events.logoutClicked()}>
+            <ListItem button onClick={() => logoutClicked()}>
               <ListItemIcon>
                 <ExitToAppOutlinedIcon />
               </ListItemIcon>
@@ -143,13 +151,13 @@ const SideMenu = ({ user, events }) => {
           </>
         ) : (
           <>
-            <ListItem button onClick={() => events.loginClicked()}>
+            <ListItem button onClick={() => loginClicked()}>
               <ListItemIcon>
                 <VpnKeyOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Log In" />
             </ListItem>
-            <ListItem button onClick={() => events.registerClicked()}>
+            <ListItem button onClick={() => registerClicked()}>
               <ListItemIcon>
                 <CreateOutlinedIcon />
               </ListItemIcon>
