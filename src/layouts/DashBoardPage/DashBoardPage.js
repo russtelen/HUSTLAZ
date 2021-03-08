@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import ProductsPage from "../ProductsPage/ProductsPage";
 import SideMenuPage from "../SideMenuPage/SideMenuPage";
@@ -10,6 +10,9 @@ const DashBoardPage = () => {
     <div style={{ display: "flex" }}>
       <SideMenuPage />
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/posts" />
+        </Route>
         <Route exact path="/posts">
           <ProductsPage />
         </Route>
