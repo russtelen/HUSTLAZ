@@ -35,7 +35,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
           component="img"
           alt="Contemplative Reptile"
           height="300"
-          image={post.imageUrl}
+          image={post.image}
           title="Contemplative Reptile"
         />
         <CardContent>

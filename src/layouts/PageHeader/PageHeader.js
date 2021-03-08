@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import TopNav from "../../components/TopNav/TopNav";
+import { PostsContext } from "../../context/PostsContext";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const PageHeader = () => {
-  const homeClicked = () => {
-    console.log("home!");
+  const history = useHistory();
+
+  const { posts, setPosts } = useContext(PostsContext);
+
+  const homeClicked = async () => {
+    history.push("/posts");
+    const res = await axios.get(
+      "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/postings"
+    );
+    const allPosts = await res.data.body;
+    setPosts(allPosts);
+    // console.log("home!");
   };
 
   const profileClicked = () => {
