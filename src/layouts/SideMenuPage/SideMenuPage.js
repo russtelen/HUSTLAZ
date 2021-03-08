@@ -1,54 +1,32 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
-import { PostsContext } from "../../context/PostsContext";
-import { topPicks, tops, bottoms, shoes, items } from "../../fakeDb";
-import { useHistory, useParams } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
+import { useHistory } from "react-router-dom";
 
 const SideMenuPage = () => {
-  const { posts, setPosts } = useContext(PostsContext);
-  const [localPosts, setLocalPosts] = useLocalStorage("posts");
-
   const history = useHistory();
-
-  useEffect(() => {
-    const posts = localPosts ? JSON.parse(localPosts) : topPicks;
-    setPosts(posts);
-  }, [localPosts]);
-
-  const topPicksClicked = () => {
+  const topPicksClicked = async () => {
     history.push("/posts");
-    setLocalPosts(JSON.stringify(topPicks));
-    console.log("Top Picks");
   };
 
-  const topsCatClicked = () => {
-    history.push("/posts");
-    setLocalPosts(JSON.stringify(tops));
-    console.log("Tops Category");
+  const topsCatClicked = async () => {
+    history.push("/posts/1");
   };
 
-  const bottomsCatClicked = () => {
-    history.push("/posts");
-    setLocalPosts(JSON.stringify(bottoms));
-    console.log("Bottoms Category");
+  const bottomsCatClicked = async () => {
+    history.push("/posts/2");
   };
 
-  const shoesCatClicked = () => {
-    history.push("/posts");
-    setLocalPosts(JSON.stringify(shoes));
-    console.log("Shoes Category");
-  };
-
-  const itemsCatClicked = () => {
-    history.push("/posts");
-    setLocalPosts(JSON.stringify(items));
-    console.log("Items Category");
+  const shoesCatClicked = async () => {
+    history.push("/posts/3");
   };
 
   const miscCatClicked = () => {
-    history.push("/posts");
+    history.push("/posts/4");
     console.log("Misc Category");
+  };
+
+  const itemsCatClicked = async () => {
+    history.push("/posts/5");
   };
 
   const sellSomethingClicked = () => {
@@ -71,7 +49,6 @@ const SideMenuPage = () => {
   const logoutClicked = () => {
     console.log("Logout User");
   };
-
   return (
     <SideMenu
       topPicksClicked={() => topPicksClicked()}

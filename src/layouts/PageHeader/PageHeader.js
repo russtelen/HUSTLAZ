@@ -1,9 +1,12 @@
 import React from "react";
 import TopNav from "../../components/TopNav/TopNav";
+import { useHistory } from "react-router-dom";
 
 const PageHeader = () => {
-  const homeClicked = () => {
-    console.log("home!");
+  const history = useHistory();
+
+  const homeClicked = async () => {
+    history.push("/posts");
   };
 
   const profileClicked = () => {
