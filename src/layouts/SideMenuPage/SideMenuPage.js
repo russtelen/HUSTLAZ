@@ -1,9 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
-import { PostsContext } from "../../context/PostsContext";
-import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
-import useLocalStorage from "react-use-localstorage";
+import { useHistory } from "react-router-dom";
 
 const SideMenuPage = () => {
   const history = useHistory();
