@@ -14,6 +14,7 @@ const PageHeader = () => {
 
   const profileClicked = () => {
     setTopnavValue("profile")
+    history.push("/profile")
   }
 
   const notificationClicked = () => {
