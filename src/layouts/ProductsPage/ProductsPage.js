@@ -3,7 +3,7 @@ import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
 import { useParams } from "react-router-dom"
-import { getAll, getOne, getPostingsByCategory } from "../../network"
+import { getAll, getPostingsByCategory } from "../../network"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
@@ -23,33 +23,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const fakePost = {
-  PostingId: "1",
-  UserId: "1",
-  title: "Tesla Roadster",
-  price: 200000,
-  imageUrl: "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
-  desc:
-    "Elon Musk's new baby. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  datePosted: Date.now(),
-  city: "Vancouver, BC",
-}
-
 const ProductsPage = () => {
   const classes = useStyles()
   // Context
   const { posts, setPosts } = useContext(PostsContext)
 
-  // Local State
+  // Local state
   const [postDetail, setPostDetail] = useState({})
 
   const [open, setOpen] = useState(false)
 
-  const handleClose = () => {
-    setOpen(false)
-  }
   // Params :category
-  const { categoryId, postingId } = useParams()
+  const { categoryId } = useParams()
 
   // ===================================================
   // On load
@@ -70,11 +55,14 @@ const ProductsPage = () => {
   // ===================================================
 
   // Handlers
-  const cardCliked = async (post) => {
-    // have all the info we need
+  const cardCliked = (post) => {
     setPostDetail(post)
-    // set the data in a local state
+    console.log(post)
     setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
 
   const closeClicked = () => {
@@ -88,10 +76,6 @@ const ProductsPage = () => {
   const contactClicked = () => {
     console.log("contact seller")
   }
-
-  // bring in material backdrop,
-
-  // Product detail page should be visible on click
 
   return (
     <div className="container">
@@ -125,6 +109,7 @@ const ProductsPage = () => {
             <ProductDetail
               post={{ ...postDetail }}
               closeClicked={() => closeClicked()}
+              isAuthorized="true"
             />
           </Fade>
         </Modal>
