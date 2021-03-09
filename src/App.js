@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import PageHeader from "./layouts/PageHeader/PageHeader";
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
+import { UserContext } from "./context/UserContext";
 import { PostsContext } from "./context/PostsContext";
 import { LoginFormContext } from "./context/LoginFormContext";
 import { fakePosts, topPicks } from "./fakeDb";
@@ -28,6 +29,8 @@ function App() {
     tabValue,
     setTabValue,
   ]);
+  const [user, setUser] = useState([]);
+  const userValueContext = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
     setPosts(topPicks);
@@ -36,12 +39,14 @@ function App() {
   return (
     <ThemeProvider theme={THEME}>
       <Router>
-        <LoginFormContext.Provider value={tabValueContext}>
-          <PostsContext.Provider value={value}>
-            <PageHeader />
-            <DashBoardPage />
-          </PostsContext.Provider>
-        </LoginFormContext.Provider>
+        <UserContext.Provider value={userValueContext}>
+          <LoginFormContext.Provider value={tabValueContext}>
+            <PostsContext.Provider value={value}>
+              <PageHeader />
+              <DashBoardPage />
+            </PostsContext.Provider>
+          </LoginFormContext.Provider>
+        </UserContext.Provider>
       </Router>
     </ThemeProvider>
   );

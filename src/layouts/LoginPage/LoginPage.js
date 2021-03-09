@@ -1,12 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { Auth } from "aws-amplify";
 import { LoginFormContext } from "../../context/LoginFormContext";
+import { UserContext } from "../../context/UserContext";
 import Login from "../../components/Login/Login";
 import { useLocation, useHistory } from "react-router-dom";
 
 const LoginPage = () => {
   // Context
   const { tabValue, setTabValue } = useContext(LoginFormContext);
+  const { user, setUser } = useContext(UserContext);
 
   // Router
   const location = useLocation();
@@ -26,7 +28,9 @@ const LoginPage = () => {
       if (type === "login") {
         const res = await Auth.signIn(username, password);
         if (res) {
-          // set authenticated in context === true
+          // set authenticated in context
+          console.log(res);
+          //   setUser(res);
 
           // redirect to protected
           history.push("/posts");
@@ -51,7 +55,9 @@ const LoginPage = () => {
         });
 
         if (res) {
-          // set authenticated user in context === true
+          console.log(res);
+          // set authenticated user in context
+          // setUser(res.username)
 
           // redirect to protected
           history.push("/posts");
