@@ -57,7 +57,7 @@ const Login = ({ onSubmit, error }) => {
     if (tabValue === 0) {
       onSubmit({ type: "login", username, password });
     } else {
-      onSubmit({ type: "signUp", email, username, password });
+      onSubmit({ type: "signUp", email, username, password, confirmPassword });
     }
     setEmail("");
     setUsername("");
