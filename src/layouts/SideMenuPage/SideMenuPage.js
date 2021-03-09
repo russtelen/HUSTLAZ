@@ -1,73 +1,73 @@
-import React, { useContext } from "react"
-import SideMenu from "../../components/SideMenu/SideMenu"
-import SideMenuUser from "../../components/SideMenuUser/SideMenuUser"
-import { TopNavValueContext } from "../../context/TopNavValueContext"
-import { UserContext } from "../../context/UserContext"
-import { Auth } from "aws-amplify"
-import { useHistory } from "react-router-dom"
+import React, { useContext } from "react";
+import SideMenu from "../../components/SideMenu/SideMenu";
+import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
+import { TopNavValueContext } from "../../context/TopNavValueContext";
+import { UserContext } from "../../context/UserContext";
+import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 
 const SideMenuPage = () => {
-  const history = useHistory()
-  const { user, setUser } = useContext(UserContext)
-  const { topnavValue, setTopnavValue } = useContext(TopNavValueContext)
+  const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
+  const { topnavValue, setTopnavValue } = useContext(TopNavValueContext);
 
   const topPicksClicked = async () => {
-    history.push("/posts")
-  }
+    history.push("/posts");
+  };
 
   // SideMenu Props
   const topsCatClicked = async () => {
-    history.push("/posts/1")
-  }
+    history.push("/posts/1");
+  };
 
   const bottomsCatClicked = async () => {
-    history.push("/posts/2")
-  }
+    history.push("/posts/2");
+  };
 
   const shoesCatClicked = async () => {
-    history.push("/posts/3")
-  }
+    history.push("/posts/3");
+  };
 
   const miscCatClicked = () => {
-    history.push("/posts/5")
-  }
+    history.push("/posts/5");
+  };
 
   const itemsCatClicked = async () => {
-    history.push("/posts/4")
-  }
+    history.push("/posts/4");
+  };
 
   const sellSomethingClicked = () => {
-    history.push("/newPost")
-  }
+    history.push("/newPost");
+  };
 
   const searchClicked = () => {
-    console.log("Search")
-  }
+    console.log("Search");
+  };
 
   const loginClicked = () => {
-    history.push("/login")
-  }
+    history.push("/login");
+  };
 
   const registerClicked = () => {
-    history.push("/register")
-  }
+    history.push("/register");
+  };
 
   const logoutClicked = async () => {
-    await Auth.signOut()
-    setUser(null)
-    console.log("Logout User")
-  }
+    await Auth.signOut();
+    setUser(null);
+    history.push("/");
+  };
 
   // SideMenuUser Props
   const favouritesClicked = () => {
-    console.log("favouritesClicked")
-  }
+    history.push("/profile/favourites");
+  };
   const profileClicked = () => {
-    console.log("profileClicked")
-  }
+    history.push("/profile");
+  };
   const myPostingsClicked = () => {
-    console.log("myPostingsClicked")
-  }
+    console.log("/profile/mypostings");
+  };
   return (
     <>
       {topnavValue === "profile" ? (
@@ -77,6 +77,7 @@ const SideMenuPage = () => {
           myPostingsClicked={() => myPostingsClicked()}
           sellSomethingClicked={() => sellSomethingClicked()}
           searchClicked={() => searchClicked()}
+          logoutClicked={() => logoutClicked()}
         />
       ) : (
         <SideMenu
@@ -94,7 +95,7 @@ const SideMenuPage = () => {
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export default SideMenuPage
+export default SideMenuPage;
