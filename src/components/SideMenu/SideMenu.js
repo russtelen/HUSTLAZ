@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
@@ -34,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideMenu = ({
-  user,
   topPicksClicked,
   topsCatClicked,
   bottomsCatClicked,
@@ -48,6 +49,7 @@ const SideMenu = ({
   logoutClicked,
 }) => {
   const classes = useStyles();
+  const { user, setUser } = useContext(UserContext);
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
@@ -140,7 +142,7 @@ const SideMenu = ({
       </List>
       <Divider />
       <List>
-        {user ? (
+        {user.username ? (
           <>
             <ListItem button onClick={() => logoutClicked()}>
               <ListItemIcon>
