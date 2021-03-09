@@ -30,7 +30,7 @@ const LoginPage = () => {
         if (res) {
           // set authenticated in context
           console.log(res);
-          //   setUser(res);
+          setUser(res);
 
           // redirect to protected
           history.push("/posts");

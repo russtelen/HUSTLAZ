@@ -43,14 +43,14 @@ export const postOne = async (
   // const authHeader = { Authorization: `Bearer ${token}` }
 
   // hard coded user - replace it with the user that comes from context api
-  // const user = {
-  //   userId: "123612836876",
-  //   username: "johndoe69",
-  //   email: "johndoe@gmail.com",
-  // }
+  const userObj = {
+    username: user.username,
+  };
+
   try {
+    console.log(user.username);
     const res = await axios.post(`${url}/postings`, {
-      user: user.username,
+      user: userObj,
       title,
       price,
       image_ref,
