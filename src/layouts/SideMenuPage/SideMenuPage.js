@@ -37,11 +37,11 @@ const SideMenuPage = () => {
   };
 
   const loginClicked = () => {
-    console.log("Login form");
+    history.push("/login");
   };
 
   const registerClicked = () => {
-    console.log("Register form");
+    history.push("/register");
   };
 
   const logoutClicked = () => {

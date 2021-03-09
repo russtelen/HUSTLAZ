@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import ProductsPage from "../ProductsPage/ProductsPage";
 import SideMenuPage from "../SideMenuPage/SideMenuPage";
 import NewPostingPage from "../NewPostingPage/NewPostingPage";
+import LoginPage from "../LoginPage/LoginPage";
 
 const DashBoardPage = () => {
   return (
@@ -19,8 +20,14 @@ const DashBoardPage = () => {
         <Route exact path="/posts/:categoryId">
           <ProductsPage />
         </Route>
-        <Route path="/newPost">
+        <Route exact path="/newPost">
           <NewPostingPage />
+        </Route>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+        <Route exact path="/register">
+          <LoginPage />
         </Route>
       </Switch>
     </div>

@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import PageHeader from "./layouts/PageHeader/PageHeader";
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
 import { PostsContext } from "./context/PostsContext";
+import { LoginFormContext } from "./context/LoginFormContext";
 import { fakePosts, topPicks } from "./fakeDb";
 
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -22,6 +23,11 @@ const THEME = createMuiTheme({
 function App() {
   const [posts, setPosts] = useState([]);
   const value = useMemo(() => ({ posts, setPosts }), [posts, setPosts]);
+  const [tabValue, setTabValue] = useState([]);
+  const tabValueContext = useMemo(() => ({ tabValue, setTabValue }), [
+    tabValue,
+    setTabValue,
+  ]);
 
   useEffect(() => {
     setPosts(topPicks);
@@ -30,10 +36,12 @@ function App() {
   return (
     <ThemeProvider theme={THEME}>
       <Router>
-        <PostsContext.Provider value={value}>
-          <PageHeader />
-          <DashBoardPage />
-        </PostsContext.Provider>
+        <LoginFormContext.Provider value={tabValueContext}>
+          <PostsContext.Provider value={value}>
+            <PageHeader />
+            <DashBoardPage />
+          </PostsContext.Provider>
+        </LoginFormContext.Provider>
       </Router>
     </ThemeProvider>
   );
