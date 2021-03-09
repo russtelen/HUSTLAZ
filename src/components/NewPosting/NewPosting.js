@@ -133,7 +133,7 @@ const NewPosting = ({ error, submit }) => {
                 <MenuItem value={"Tops"}>Tops</MenuItem>
                 <MenuItem value={"Bottoms"}>Bottoms</MenuItem>
                 <MenuItem value={"Shoes"}>Shoes</MenuItem>
-                <MenuItem value={"Items"}>Items</MenuItem>
+                <MenuItem value={"Collectables"}>Items</MenuItem>
                 <MenuItem value={"Misc"}>Misc</MenuItem>
               </TextField>
             </Grid>

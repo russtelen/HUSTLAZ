@@ -21,17 +21,15 @@ const SideMenuPage = () => {
   };
 
   const miscCatClicked = () => {
-    history.push("/posts/4");
-    console.log("Misc Category");
+    history.push("/posts/5");
   };
 
   const itemsCatClicked = async () => {
-    history.push("/posts/5");
+    history.push("/posts/4");
   };
 
   const sellSomethingClicked = () => {
     history.push("/newPost");
-    console.log("Sell Form");
   };
 
   const searchClicked = () => {
