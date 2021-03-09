@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import useLocalStorage from "react-use-localstorage";
+import jwtDecode from "jwt-decode";
 
 import PageHeader from "./layouts/PageHeader/PageHeader";
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage";
-import { UserContext } from "./context/UserContext";
 import { PostsContext } from "./context/PostsContext";
+import { TopNavValueContext } from "./context/TopNavValueContext";
+import { UserContext } from "./context/UserContext";
 import { LoginFormContext } from "./context/LoginFormContext";
 import { fakePosts, topPicks } from "./fakeDb";
+import config from "./config.json";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -22,8 +26,21 @@ const THEME = createMuiTheme({
 });
 
 function App() {
+  const [lastAuthUser, setLastAuthUser] = useLocalStorage(
+    `CognitoIdentityServiceProvider.${config.cognito.APP_CLIENT_ID}.LastAuthUser`
+  );
+  const [token, setToken] = useLocalStorage(
+    `CognitoIdentityServiceProvider.61bn1juvbshul8k0850o6s5b7b.${lastAuthUser}.accessToken`
+  );
+
   const [posts, setPosts] = useState([]);
   const value = useMemo(() => ({ posts, setPosts }), [posts, setPosts]);
+
+  const [topnavValue, setTopnavValue] = useState([]);
+  const topnavValueContext = useMemo(() => ({ topnavValue, setTopnavValue }), [
+    topnavValue,
+    setTopnavValue,
+  ]);
   const [tabValue, setTabValue] = useState([]);
   const tabValueContext = useMemo(() => ({ tabValue, setTabValue }), [
     tabValue,
@@ -34,6 +51,14 @@ function App() {
 
   useEffect(() => {
     setPosts(topPicks);
+
+    if (!token) {
+      return;
+    }
+    const currentUser = token ? jwtDecode(token) : null;
+    console.log(token);
+    console.log(currentUser);
+    setUser(currentUser);
   }, []);
 
   return (
@@ -42,8 +67,10 @@ function App() {
         <UserContext.Provider value={userValueContext}>
           <LoginFormContext.Provider value={tabValueContext}>
             <PostsContext.Provider value={value}>
-              <PageHeader />
-              <DashBoardPage />
+              <TopNavValueContext.Provider value={topnavValueContext}>
+                <PageHeader />
+                <DashBoardPage />
+              </TopNavValueContext.Provider>
             </PostsContext.Provider>
           </LoginFormContext.Provider>
         </UserContext.Provider>

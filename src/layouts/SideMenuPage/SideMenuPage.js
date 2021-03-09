@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
+import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
+import { TopNavValueContext } from "../../context/TopNavValueContext";
 import { UserContext } from "../../context/UserContext";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
@@ -7,11 +9,13 @@ import { useHistory } from "react-router-dom";
 const SideMenuPage = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+  const { topnavValue, setTopnavValue } = useContext(TopNavValueContext);
 
   const topPicksClicked = async () => {
     history.push("/posts");
   };
 
+  // SideMenu Props
   const topsCatClicked = async () => {
     history.push("/posts/1");
   };
@@ -51,22 +55,46 @@ const SideMenuPage = () => {
   const logoutClicked = async () => {
     await Auth.signOut();
     setUser(null);
-    console.log("Logout User");
+    history.push("/");
+  };
+
+  // SideMenuUser Props
+  const favouritesClicked = () => {
+    history.push("/profile/favourites");
+  };
+  const profileClicked = () => {
+    history.push("/profile");
+  };
+  const myPostingsClicked = () => {
+    console.log("/profile/mypostings");
   };
   return (
-    <SideMenu
-      topPicksClicked={() => topPicksClicked()}
-      topsCatClicked={() => topsCatClicked()}
-      bottomsCatClicked={() => bottomsCatClicked()}
-      shoesCatClicked={() => shoesCatClicked()}
-      itemsCatClicked={() => itemsCatClicked()}
-      miscCatClicked={() => miscCatClicked()}
-      sellSomethingClicked={() => sellSomethingClicked()}
-      searchClicked={() => searchClicked()}
-      loginClicked={() => loginClicked()}
-      registerClicked={() => registerClicked()}
-      logoutClicked={() => logoutClicked()}
-    />
+    <>
+      {topnavValue === "profile" && user?.username ? (
+        <SideMenuUser
+          favouritesClicked={() => favouritesClicked()}
+          profileClicked={() => profileClicked()}
+          myPostingsClicked={() => myPostingsClicked()}
+          sellSomethingClicked={() => sellSomethingClicked()}
+          searchClicked={() => searchClicked()}
+          logoutClicked={() => logoutClicked()}
+        />
+      ) : (
+        <SideMenu
+          topPicksClicked={() => topPicksClicked()}
+          topsCatClicked={() => topsCatClicked()}
+          bottomsCatClicked={() => bottomsCatClicked()}
+          shoesCatClicked={() => shoesCatClicked()}
+          itemsCatClicked={() => itemsCatClicked()}
+          miscCatClicked={() => miscCatClicked()}
+          sellSomethingClicked={() => sellSomethingClicked()}
+          searchClicked={() => searchClicked()}
+          loginClicked={() => loginClicked()}
+          registerClicked={() => registerClicked()}
+          logoutClicked={() => logoutClicked()}
+        />
+      )}
+    </>
   );
 };
 
