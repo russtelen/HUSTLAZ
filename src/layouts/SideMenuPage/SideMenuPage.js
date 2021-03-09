@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
+import { UserContext } from "../../context/UserContext";
+import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
 const SideMenuPage = () => {
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
+
   const topPicksClicked = async () => {
     history.push("/posts");
   };
@@ -37,14 +41,16 @@ const SideMenuPage = () => {
   };
 
   const loginClicked = () => {
-    console.log("Login form");
+    history.push("/login");
   };
 
   const registerClicked = () => {
-    console.log("Register form");
+    history.push("/register");
   };
 
-  const logoutClicked = () => {
+  const logoutClicked = async () => {
+    await Auth.signOut();
+    setUser(null);
     console.log("Logout User");
   };
   return (
