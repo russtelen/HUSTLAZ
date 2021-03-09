@@ -1,46 +1,91 @@
-import React, { useEffect, useContext } from "react";
-import ProductItem from "../../components/ProductItem/ProductItem";
-import { PostsContext } from "../../context/PostsContext";
-import { useParams } from "react-router-dom";
-import { getAll, getPostingsByCategory } from "../../network";
-import axios from "axios";
+import React, { useEffect, useContext } from "react"
+import ProductItem from "../../components/ProductItem/ProductItem"
+import ProductDetail from "../../components/ProductDetail/ProductDetail"
+import { PostsContext } from "../../context/PostsContext"
+import { useParams } from "react-router-dom"
+import { getAll, getPostingsByCategory } from "../../network"
+import Modal from "@material-ui/core/Modal"
+import Backdrop from "@material-ui/core/Backdrop"
+import Fade from "@material-ui/core/Fade"
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}))
+
+const fakePost = {
+  PostingId: "1",
+  UserId: "1",
+  title: "Tesla Roadster",
+  price: 200000,
+  imageUrl: "https://cdn.motor1.com/images/mgl/Yp07j/s1/tesla-pricing-lead.jpg",
+  desc:
+    "Elon Musk's new baby. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  datePosted: Date.now(),
+  city: "Vancouver, BC",
+}
 
 const ProductsPage = () => {
+  const classes = useStyles()
   // Context
-  const { posts, setPosts } = useContext(PostsContext);
+  const { posts, setPosts } = useContext(PostsContext)
+
+  const [open, setOpen] = React.useState(false)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   // Params :category
-  const { categoryId } = useParams();
+  const { categoryId } = useParams()
 
   // ===================================================
   // On load
   // Set post === category in the params
   // if != category in params, set post === all post
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (categoryId != undefined) {
-        const data = await getPostingsByCategory(categoryId);
-        setPosts(data);
-        return;
+        const data = await getPostingsByCategory(categoryId)
+        setPosts(data)
+        return
       }
 
-      const allPosts = await getAll();
-      setPosts(allPosts);
-    })();
-  }, [categoryId]);
+      const allPosts = await getAll()
+      setPosts(allPosts)
+    })()
+  }, [categoryId])
   // ===================================================
 
   // Handlers
   const cardCliked = () => {
-    console.log("Open product detail");
-  };
+    setOpen(true)
+  }
+
+  const closeClicked = () => {
+    setOpen(false)
+  }
 
   const likeCliked = () => {
-    console.log("product saved");
-  };
+    console.log("product saved")
+  }
 
   const contactClicked = () => {
-    console.log("contact seller");
-  };
+    console.log("contact seller")
+  }
+
+  // bring in material backdrop,
+
+  // Product detail page should be visible on click
 
   return (
     <div className="container">
@@ -57,8 +102,29 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <ProductDetail
+              post={{ ...fakePost }}
+              closeClicked={() => closeClicked()}
+            />
+          </Fade>
+        </Modal>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductsPage;
+export default ProductsPage

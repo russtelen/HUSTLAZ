@@ -108,13 +108,13 @@ const ProductDetail = ({
                 className={classes.image}
                 component="img"
                 alt="tesla"
-                image={post.images[0]}
+                image={post.imageUrl}
                 title="tesla"
               />
             </Grid>
 
             <div className=""></div>
-            <Grid item xs={12} container justify="space-between">
+            {/* <Grid item xs={12} container justify="space-between">
               <GridList className={classes.gridList} cols={2}>
                 {post?.images.map((image, idx) => {
                   return (
@@ -128,7 +128,7 @@ const ProductDetail = ({
                   )
                 })}
               </GridList>
-            </Grid>
+            </Grid> */}
           </Grid>
           <Grid item xs={4} sm container>
             <Grid item xs>
