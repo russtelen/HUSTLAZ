@@ -6,12 +6,15 @@ import ProductsPage from "../ProductsPage/ProductsPage";
 import SideMenuPage from "../SideMenuPage/SideMenuPage";
 import NewPostingPage from "../NewPostingPage/NewPostingPage";
 import LoginPage from "../LoginPage/LoginPage";
+import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
 
 const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
   const PrivateRoute = ({ path, children }) => {
     return (
-      <Route path={path}>{!!user ? children : <Redirect to="/login" />}</Route>
+      <Route path={path}>
+        {!!user?.username ? children : <Redirect to="/login" />}
+      </Route>
     );
   };
 
@@ -31,6 +34,7 @@ const DashBoardPage = () => {
         <PrivateRoute exact path="/newPost">
           <NewPostingPage />
         </PrivateRoute>
+        <PrivateRoute path="/profile" />
         <Route exact path="/login">
           <LoginPage />
         </Route>
