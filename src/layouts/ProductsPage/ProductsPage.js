@@ -30,7 +30,6 @@ const ProductsPage = () => {
 
   // Local state
   const [postDetail, setPostDetail] = useState({})
-
   const [open, setOpen] = useState(false)
 
   // Params :category
@@ -57,7 +56,6 @@ const ProductsPage = () => {
   // Handlers
   const cardCliked = (post) => {
     setPostDetail(post)
-    console.log(post)
     setOpen(true)
   }
 
@@ -75,6 +73,14 @@ const ProductsPage = () => {
 
   const contactClicked = () => {
     console.log("contact seller")
+  }
+
+  const editClicked = () => {
+    console.log("edit clicked")
+  }
+
+  const deleteClicked = () => {
+    console.log("delete clicked")
   }
 
   return (
@@ -109,7 +115,9 @@ const ProductsPage = () => {
             <ProductDetail
               post={{ ...postDetail }}
               closeClicked={() => closeClicked()}
-              isAuthorized="true"
+              editClicked={() => editClicked()}
+              deleteClicked={() => deleteClicked()}
+              isAuthorized={true}
             />
           </Fade>
         </Modal>
