@@ -64,6 +64,7 @@ const ProductDetail = ({
   editClicked,
   deleteClicked,
   imageClicked,
+  isAuthorized,
 }) => {
   const classes = useStyles()
 
@@ -78,24 +79,26 @@ const ProductDetail = ({
           <IconButton aria-label="close" onClick={onClose}>
             <CloseIcon />
           </IconButton>
-          <Grid item>
-            <ButtonGroup>
-              <Button
-                variant="contained"
-                style={{ background: "orange" }}
-                onClick={() => editClicked()}
-              >
-                Edit
-              </Button>
-              <Button
-                onClick={() => deleteClicked()}
-                variant="contained"
-                color="secondary"
-              >
-                Delete
-              </Button>
-            </ButtonGroup>
-          </Grid>
+          {isAuthorized && (
+            <Grid item>
+              <ButtonGroup>
+                <Button
+                  variant="contained"
+                  style={{ background: "orange" }}
+                  onClick={() => editClicked()}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => deleteClicked()}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Delete
+                </Button>
+              </ButtonGroup>
+            </Grid>
+          )}
         </Grid>
         <Grid container spacing={5} style={{ padding: 20 }}>
           <Grid item xs={7} direction="column" spacing={4}>
@@ -107,9 +110,9 @@ const ProductDetail = ({
               <CardMedia
                 className={classes.image}
                 component="img"
-                alt="tesla"
-                image={post.imageUrl}
-                title="tesla"
+                alt={post.title}
+                image={post.image}
+                title={post.title}
               />
             </Grid>
 
@@ -138,7 +141,7 @@ const ProductDetail = ({
                 </Grid>
                 <Grid>
                   <Typography gutterBottom variant="h6">
-                    {post.username}
+                    {post.author}
                   </Typography>
                 </Grid>
               </Grid>
@@ -149,7 +152,7 @@ const ProductDetail = ({
                 <Grid item xs={10}>
                   <Typography variant="h6">Description</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {post.desc}
+                    {post.description}
                   </Typography>
                 </Grid>
               </Grid>
