@@ -13,6 +13,7 @@ const SideMenuPage = () => {
     history.push("/posts")
   }
 
+  // SideMenu Props
   const topsCatClicked = async () => {
     history.push("/posts/1")
   }
@@ -52,10 +53,28 @@ const SideMenuPage = () => {
   const logoutClicked = () => {
     console.log("Logout User")
   }
+
+  // SideMenuUser Props
+  const favouritesClicked = () => {
+    console.log("favouritesClicked")
+  }
+  const profileClicked = () => {
+    console.log("profileClicked")
+  }
+  const myPostingsClicked = () => {
+    console.log("myPostingsClicked")
+  }
+
   return (
     <>
       {topnavValue === "profile" ? (
-        <SideMenuUser />
+        <SideMenuUser
+          favouritesClicked={() => favouritesClicked()}
+          profileClicked={() => profileClicked()}
+          myPostingsClicked={() => myPostingsClicked()}
+          sellSomethingClicked={() => sellSomethingClicked()}
+          searchClicked={() => searchClicked()}
+        />
       ) : (
         <SideMenu
           topPicksClicked={() => topPicksClicked()}
