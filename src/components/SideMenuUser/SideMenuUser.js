@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 250,
     height: "100vh",
     backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    // display: "flex",
+    // flexDirection: "column",
+    // justifyContent: "space-between",
   },
   nested: {
     paddingLeft: theme.spacing(4),
