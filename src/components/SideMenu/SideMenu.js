@@ -1,27 +1,27 @@
-import React, { useContext } from "react"
-import { UserContext } from "../../context/UserContext"
+import React, { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
-import { makeStyles } from "@material-ui/core/styles"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import Collapse from "@material-ui/core/Collapse"
-import { Divider } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Collapse from "@material-ui/core/Collapse";
+import { Divider } from "@material-ui/core";
 
 // Icon Imports
-import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined"
-import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined"
-import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined"
-import CategoryIcon from "@material-ui/icons/Category"
-import ExpandLess from "@material-ui/icons/ExpandLess"
-import ExpandMore from "@material-ui/icons/ExpandMore"
-import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined"
-import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined"
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined"
-import { FaTshirt, FaRecordVinyl, FaCrown } from "react-icons/fa"
-import { GiArmoredPants, GiConverseShoe } from "react-icons/gi"
+import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
+import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined";
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import CategoryIcon from "@material-ui/icons/Category";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import VpnKeyOutlinedIcon from "@material-ui/icons/VpnKeyOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import { FaTshirt, FaRecordVinyl, FaCrown } from "react-icons/fa";
+import { GiArmoredPants, GiConverseShoe } from "react-icons/gi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
-}))
+}));
 
 const SideMenu = ({
   topPicksClicked,
@@ -48,13 +48,13 @@ const SideMenu = ({
   registerClicked,
   logoutClicked,
 }) => {
-  const classes = useStyles()
-  const { user, setUser } = useContext(UserContext)
-  const [open, setOpen] = React.useState(true)
+  const classes = useStyles();
+  const { user, setUser } = useContext(UserContext);
+  const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
     <div className={classes.root}>
@@ -142,7 +142,7 @@ const SideMenu = ({
       </List>
       <Divider />
       <List>
-        {user?.username ? (
+        {user ? (
           <>
             <ListItem button onClick={() => logoutClicked()}>
               <ListItemIcon>
@@ -169,7 +169,7 @@ const SideMenu = ({
         )}
       </List>
     </div>
-  )
-}
+  );
+};
 
-export default SideMenu
+export default SideMenu;

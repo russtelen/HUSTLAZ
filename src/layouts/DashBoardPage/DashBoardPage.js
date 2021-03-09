@@ -10,11 +10,10 @@ import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
 
 const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
+  console.log(user);
   const PrivateRoute = ({ path, children }) => {
     return (
-      <Route path={path}>
-        {!!user?.username ? children : <Redirect to="/login" />}
-      </Route>
+      <Route path={path}>{!!user ? children : <Redirect to="/login" />}</Route>
     );
   };
 
