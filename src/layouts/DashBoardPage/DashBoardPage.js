@@ -11,7 +11,9 @@ const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
   const PrivateRoute = ({ path, children }) => {
     return (
-      <Route path={path}>{!!user ? children : <Redirect to="/login" />}</Route>
+      <Route path={path}>
+        {!!user?.username ? children : <Redirect to="/login" />}
+      </Route>
     );
   };
 
@@ -28,9 +30,10 @@ const DashBoardPage = () => {
         <Route exact path="/posts/:categoryId">
           <ProductsPage />
         </Route>
-        <PrivateRoute exact path="/newPost">
+        {/* Todo: change back from Route => PrivateRoute */}
+        <Route exact path="/newPost">
           <NewPostingPage />
-        </PrivateRoute>
+        </Route>
         <Route exact path="/login">
           <LoginPage />
         </Route>

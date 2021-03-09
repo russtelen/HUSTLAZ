@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewPosting = ({ error, submit }) => {
+const NewPosting = ({ error, submit, regions, getCities, cities }) => {
   const classes = useStyles();
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
@@ -142,26 +142,47 @@ const NewPosting = ({ error, submit }) => {
               <TextField
                 variant="outlined"
                 required
+                select
                 fullWidth
-                name="city"
-                label="City"
-                id="city"
-                value={city || ""}
-                onChange={(e) => setCity(e.target.value)}
-              />
+                name="province"
+                label="Province"
+                id="province"
+                value={province || ""}
+                onChange={(e) => {
+                  setProvince(e.target.value);
+                  getCities(e.target.value);
+                }}
+              >
+                {regions.map((region) => (
+                  <MenuItem key={region} value={region}>
+                    {region}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
 
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
+                select
                 fullWidth
-                name="province"
-                label="Province"
-                id="province"
-                value={province || ""}
-                onChange={(e) => setProvince(e.target.value)}
-              />
+                name="city"
+                label="City"
+                id="city"
+                value={city || ""}
+                onChange={(e) => setCity(e.target.value)}
+              >
+                {cities ? (
+                  cities.map((city) => (
+                    <MenuItem key={city} value={city}>
+                      {city}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem value={""}>Choose a province</MenuItem>
+                )}
+              </TextField>
             </Grid>
 
             <Grid item xs={12}>
