@@ -8,15 +8,16 @@ const PageHeader = () => {
   const history = useHistory()
 
   const homeClicked = async () => {
+    setTopnavValue("home")
     history.push("/posts")
   }
 
   const profileClicked = () => {
-    console.log("profile!")
+    setTopnavValue("profile")
   }
 
   const notificationClicked = () => {
-    console.log("notifications!")
+    setTopnavValue("notifications")
   }
   return (
     <TopNav
