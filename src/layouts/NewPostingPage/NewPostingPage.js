@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { postOne } from "../../network";
+import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
 const NewPostingPage = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+
+  const [regions, setRegions] = useState([]);
+  const [cities, setCities] = useState("");
+
   // make post req
   const submit = async (data) => {
     await postOne(data, user);
@@ -14,7 +18,40 @@ const NewPostingPage = () => {
     history.push("/posts");
   };
 
-  return <NewPosting submit={submit} />;
+  const getRegions = async () => {
+    try {
+      const regions = await getAllRegions();
+      setRegions(regions);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCities = async (region) => {
+    try {
+      if (region) {
+        const cities = await getCitiesByRegion(region);
+        setCities(cities);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      getRegions();
+    })();
+  }, []);
+
+  return (
+    <NewPosting
+      submit={submit}
+      regions={regions}
+      getCities={getCities}
+      cities={cities}
+    />
+  );
 };
 
 export default NewPostingPage;

@@ -64,3 +64,23 @@ export const postOne = async (
     console.error(error);
   }
 };
+
+//  GET all regions
+export const getAllRegions = async () => {
+  try {
+    const res = await axios.get(`${url}/regions`);
+    return res.data.body;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//  GET all cities by region
+export const getCitiesByRegion = async (region) => {
+  try {
+    const res = await axios.get(`${url}/cities/${region}`);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
