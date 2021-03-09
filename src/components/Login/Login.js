@@ -1,5 +1,6 @@
-import React, { useState } from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import React, { useState, useContext } from "react";
+import { LoginFormContext } from "../../context/LoginFormContext";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
   Container,
@@ -10,12 +11,12 @@ import {
   Typography,
   Tabs,
   Tab,
-} from "@material-ui/core"
+} from "@material-ui/core";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
   TwitterLoginButton,
-} from "react-social-login-buttons"
+} from "react-social-login-buttons";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,33 +40,34 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     width: "100%",
   },
-}))
+}));
 
 const Login = ({ onSubmit, error }) => {
-  const classes = useStyles()
-
-  const [tabValue, setTabValue] = useState(0)
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const classes = useStyles();
+  // Context
+  const { tabValue, setTabValue } = useContext(LoginFormContext);
+  // const [tabValue, setTabValue] = useState(0);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const submit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (tabValue === 0) {
-      onSubmit({ type: "login", username, password })
+      onSubmit({ type: "login", username, password });
     } else {
-      onSubmit({ type: "signUp", email, username, password })
+      onSubmit({ type: "signUp", email, username, password, confirmPassword });
     }
-    setEmail("")
-    setUsername("")
-    setPassword("")
-    setConfirmPassword("")
-  }
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
+  };
 
   const handleTabChange = (_, newValue) => {
-    setTabValue(newValue)
-  }
+    setTabValue(newValue);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -182,7 +184,7 @@ const Login = ({ onSubmit, error }) => {
         </div>
       </div>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

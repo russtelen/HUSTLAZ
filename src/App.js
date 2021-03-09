@@ -5,7 +5,8 @@ import PageHeader from "./layouts/PageHeader/PageHeader"
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage"
 import { PostsContext } from "./context/PostsContext"
 import { TopNavValueContext } from "./context/TopNavValueContext"
-
+import { UserContext } from "./context/UserContext"
+import { LoginFormContext } from "./context/LoginFormContext"
 import { fakePosts, topPicks } from "./fakeDb"
 
 import { createMuiTheme } from "@material-ui/core/styles"
@@ -30,6 +31,13 @@ function App() {
     topnavValue,
     setTopnavValue,
   ])
+  const [tabValue, setTabValue] = useState([])
+  const tabValueContext = useMemo(() => ({ tabValue, setTabValue }), [
+    tabValue,
+    setTabValue,
+  ])
+  const [user, setUser] = useState([])
+  const userValueContext = useMemo(() => ({ user, setUser }), [user, setUser])
 
   useEffect(() => {
     setPosts(topPicks)
@@ -38,12 +46,16 @@ function App() {
   return (
     <ThemeProvider theme={THEME}>
       <Router>
-        <PostsContext.Provider value={value}>
-          <TopNavValueContext.Provider value={topnavValueContext}>
-            <PageHeader />
-            <DashBoardPage />
-          </TopNavValueContext.Provider>
-        </PostsContext.Provider>
+        <UserContext.Provider value={userValueContext}>
+          <LoginFormContext.Provider value={tabValueContext}>
+            <PostsContext.Provider value={value}>
+              <TopNavValueContext.Provider value={topnavValueContext}>
+                <PageHeader />
+                <DashBoardPage />
+              </TopNavValueContext.Provider>
+            </PostsContext.Provider>
+          </LoginFormContext.Provider>
+        </UserContext.Provider>
       </Router>
     </ThemeProvider>
   )
