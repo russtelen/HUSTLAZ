@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles"
 
 import {
   IconButton,
@@ -11,9 +11,9 @@ import {
   CardContent,
   CardMedia,
   Button,
-} from "@material-ui/core";
+} from "@material-ui/core"
 
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteIcon from "@material-ui/icons/Favorite"
 
 const useStyles = makeStyles({
   root: {
@@ -23,10 +23,13 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
-});
+  title: {
+    marginTop: 20,
+  },
+})
 
 const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Card className={classes.root}>
@@ -44,7 +47,9 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
               <Typography variant="h5" component="h1">
                 $ {post.price}
               </Typography>
-              <Typography gutterBottom>{post.title}</Typography>
+              <Typography gutterBottom className={classes.title}>
+                {post.title}
+              </Typography>
             </div>
             <div>
               <Typography>{post.city}</Typography>
@@ -65,7 +70,7 @@ const ProductItem = ({ post, likeClicked, cardClicked, contactClicked }) => {
         </Button>
       </CardActions>
     </Card>
-  );
-};
+  )
+}
 
-export default ProductItem;
+export default ProductItem
