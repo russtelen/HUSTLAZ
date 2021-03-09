@@ -70,7 +70,7 @@ const SideMenuPage = () => {
   };
   return (
     <>
-      {topnavValue === "profile" && user ? (
+      {topnavValue === "profile" && user?.username ? (
         <SideMenuUser
           favouritesClicked={() => favouritesClicked()}
           profileClicked={() => profileClicked()}

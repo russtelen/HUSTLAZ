@@ -13,7 +13,9 @@ const DashBoardPage = () => {
   console.log(user);
   const PrivateRoute = ({ path, children }) => {
     return (
-      <Route path={path}>{!!user ? children : <Redirect to="/login" />}</Route>
+      <Route path={path}>
+        {!!user?.username ? children : <Redirect to="/login" />}
+      </Route>
     );
   };
 

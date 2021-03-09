@@ -10,6 +10,7 @@ import { TopNavValueContext } from "./context/TopNavValueContext";
 import { UserContext } from "./context/UserContext";
 import { LoginFormContext } from "./context/LoginFormContext";
 import { fakePosts, topPicks } from "./fakeDb";
+import config from "./config.json";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -26,10 +27,10 @@ const THEME = createMuiTheme({
 
 function App() {
   const [lastAuthUser, setLastAuthUser] = useLocalStorage(
-    "CognitoIdentityServiceProvider.61bn1juvbshul8k0850o6s5b7b.LastAuthUser"
+    `CognitoIdentityServiceProvider.${config.cognito.APP_CLIENT_ID}.LastAuthUser`
   );
   const [token, setToken] = useLocalStorage(
-    `CognitoIdentityServiceProvider.61bn1juvbshul8k0850o6s5b7b.${lastAuthUser}.idToken`
+    `CognitoIdentityServiceProvider.61bn1juvbshul8k0850o6s5b7b.${lastAuthUser}.accessToken`
   );
 
   const [posts, setPosts] = useState([]);
@@ -55,6 +56,8 @@ function App() {
       return;
     }
     const currentUser = token ? jwtDecode(token) : null;
+    console.log(token);
+    console.log(currentUser);
     setUser(currentUser);
   }, []);
 

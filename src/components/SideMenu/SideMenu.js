@@ -142,7 +142,7 @@ const SideMenu = ({
       </List>
       <Divider />
       <List>
-        {user ? (
+        {user?.username ? (
           <>
             <ListItem button onClick={() => logoutClicked()}>
               <ListItemIcon>
