@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
 import { useParams } from "react-router-dom"
-import { getAll, getPostingsByCategory } from "../../network"
+import { getAll, getOne, getPostingsByCategory } from "../../network"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
@@ -40,13 +40,16 @@ const ProductsPage = () => {
   // Context
   const { posts, setPosts } = useContext(PostsContext)
 
-  const [open, setOpen] = React.useState(false)
+  // Local State
+  const [postDetail, setPostDetail] = useState({})
+
+  const [open, setOpen] = useState(false)
 
   const handleClose = () => {
     setOpen(false)
   }
   // Params :category
-  const { categoryId } = useParams()
+  const { categoryId, postingId } = useParams()
 
   // ===================================================
   // On load
@@ -67,7 +70,10 @@ const ProductsPage = () => {
   // ===================================================
 
   // Handlers
-  const cardCliked = () => {
+  const cardCliked = async (post) => {
+    // have all the info we need
+    setPostDetail(post)
+    // set the data in a local state
     setOpen(true)
   }
 
@@ -95,7 +101,7 @@ const ProductsPage = () => {
           <div className="col-4 mt-5">
             <ProductItem
               post={{ ...post }}
-              cardClicked={() => cardCliked()}
+              cardClicked={() => cardCliked(post)}
               likeClicked={() => likeCliked()}
               contactClicked={() => contactClicked()}
             />
@@ -117,7 +123,7 @@ const ProductsPage = () => {
         >
           <Fade in={open}>
             <ProductDetail
-              post={{ ...fakePost }}
+              post={{ ...postDetail }}
               closeClicked={() => closeClicked()}
             />
           </Fade>
