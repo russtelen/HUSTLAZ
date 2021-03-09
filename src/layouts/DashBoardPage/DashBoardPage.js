@@ -30,10 +30,9 @@ const DashBoardPage = () => {
         <Route exact path="/posts/:categoryId">
           <ProductsPage />
         </Route>
-        {/* Todo: change back from Route => PrivateRoute */}
-        <Route exact path="/newPost">
+        <PrivateRoute exact path="/newPost">
           <NewPostingPage />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/login">
           <LoginPage />
         </Route>

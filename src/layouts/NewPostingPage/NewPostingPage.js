@@ -1,10 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { postOne } from "../../network";
+import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-
-import axios from "axios";
 
 const NewPostingPage = () => {
   const history = useHistory();
@@ -22,22 +20,18 @@ const NewPostingPage = () => {
 
   const getRegions = async () => {
     try {
-      const response = await axios.get(
-        `https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/regions`
-      );
-      setRegions(response.data.body);
+      const regions = await getAllRegions();
+      setRegions(regions);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getCities = async (data) => {
+  const getCities = async (region) => {
     try {
-      if (data) {
-        const response = await axios.get(
-          `https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod/cities/${data}`
-        );
-        setCities(response.data);
+      if (region) {
+        const cities = await getCitiesByRegion(region);
+        setCities(cities);
       }
     } catch (err) {
       console.log(err);
