@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
@@ -33,13 +33,17 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   const classes = useStyles();
   const [title, setTitle] = useState(post ? post.title : "");
   const [price, setPrice] = useState(post ? post.price : "");
-  const [imageRef, setImageRef] = useState(post ? post.image_ref : "");
+  const [imageRef, setImageRef] = useState(post ? post.image : "");
   const [category, setCategory] = useState(post ? post.category : "");
   const [city, setCity] = useState(post ? post.city : "");
-  const [province, setProvince] = useState(post ? post.province : "");
-  const [description, setDescription] = useState(
-    post ? post.seller_description : ""
-  );
+  const [province, setProvince] = useState(post ? post.region : "");
+  const [description, setDescription] = useState(post ? post.description : "");
+
+  useEffect(() => {
+    if (province) {
+      getCities(province);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     // Prevent refresh
