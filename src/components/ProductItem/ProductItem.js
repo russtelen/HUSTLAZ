@@ -13,8 +13,8 @@ import {
   Button,
 } from "@material-ui/core";
 
+import EmailIcon from "@material-ui/icons/Email";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import userEvent from "@testing-library/user-event";
 
 const useStyles = makeStyles({
   root: {
@@ -40,6 +40,7 @@ const ProductItem = ({
 }) => {
   const classes = useStyles();
 
+  const substringTitle = post.title.substring(0, 19);
   return (
     <Card className={classes.root}>
       <CardActionArea onClick={() => cardClicked()}>
@@ -57,7 +58,7 @@ const ProductItem = ({
                 $ {post.price}
               </Typography>
               <Typography gutterBottom className={classes.title}>
-                {post.title}
+                {post.title.length < 20 ? post.title : `${substringTitle} ...`}
               </Typography>
             </div>
             <div>
@@ -65,9 +66,9 @@ const ProductItem = ({
             </div>
           </div>
 
-          <Typography variant="body2" color="textSecondary" component="p">
+          {/* <Typography variant="body2" color="textSecondary" component="p">
             {post.description}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.header}>
@@ -93,13 +94,13 @@ const ProductItem = ({
             <IconButton aria-label="add to favorites">
               <FavoriteIcon onClick={() => likeClicked()} />
             </IconButton>
-            <Button
+            <IconButton
               onClick={() => contactClicked()}
               size="small"
               color="primary"
             >
-              Contact Seller
-            </Button>
+              <EmailIcon />
+            </IconButton>
           </>
         )}
       </CardActions>
