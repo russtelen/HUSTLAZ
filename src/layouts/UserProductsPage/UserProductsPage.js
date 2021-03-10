@@ -5,12 +5,17 @@ import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
 import { PostsContext } from "../../context/PostsContext";
 import { useParams } from "react-router-dom";
-import { getAll, getPostingsByCategory } from "../../network";
+import {
+  getAll,
+  getAllUserPostings,
+  getPostingsByCategory,
+} from "../../network";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 import { EditPostContext } from "../../context/EditPostContext";
+import { UserContext } from "../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,16 +30,17 @@ const UserProductsPage = () => {
   const history = useHistory();
 
   //   const [myPosts, setMyPosts] = useState([]);
-  const { posts, setPosts } = useContext(PostsContext);
   const { editPost, setEditPost } = useContext(EditPostContext);
+  const { user, setUser } = useContext(UserContext);
 
+  const [userPosts, setUserPosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
-      // GET ALL POSTS that belong to current user
-      // if no posts display a message "You don't have any postings"
+      const res = await getAllUserPostings(user.username);
+      setUserPosts(res);
     })();
   }, []);
   // ===================================================
@@ -77,7 +83,7 @@ const UserProductsPage = () => {
       <h1 className="text-center mt-5">My Posts</h1>
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
-        {posts?.map((post, idx) => (
+        {userPosts?.map((post, idx) => (
           <div key={idx} className="col-sm-12 col-md-4 mt-5">
             <ProductItem
               post={{ ...post }}
