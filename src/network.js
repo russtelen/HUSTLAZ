@@ -48,7 +48,6 @@ export const postOne = async (
   };
 
   try {
-    console.log(user.username);
     const res = await axios.post(`${url}/postings`, {
       user: userObj,
       title,
@@ -81,6 +80,30 @@ export const getCitiesByRegion = async (region) => {
     const res = await axios.get(`${url}/cities/${region}`);
     return res.data;
   } catch (err) {
+    console.log(err);
+  }
+};
+
+// GET all post that belong to current user
+export const getAllUserPostings = async (username) => {
+  try {
+    const res = await axios.get(`${url}/users/${username}`)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// UPDATE ONE POST
+export const updateOne = async (
+  { title, price, image_ref, category, city, province, seller_description },
+  user
+) => {
+  try {
+    const res = await axios.put(`${url}/cities/${}`);
+    return res.data;
+  } catch (error) {
     console.log(err);
   }
 };
