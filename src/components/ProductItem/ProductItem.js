@@ -35,16 +35,10 @@ const ProductItem = ({
   cardClicked,
   contactClicked,
   myPostings,
+  editClicked,
+  deleteClicked,
 }) => {
   const classes = useStyles();
-
-  const editClicked = () => {
-    console.log("edit");
-  };
-
-  const deleteClicked = () => {
-    console.log("delete");
-  };
 
   return (
     <Card className={classes.root}>
