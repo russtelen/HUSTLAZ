@@ -10,6 +10,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
+import { EditPostContext } from "../../context/EditPostContext";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,6 +26,7 @@ const UserProductsPage = () => {
 
   //   const [myPosts, setMyPosts] = useState([]);
   const { posts, setPosts } = useContext(PostsContext);
+  const { editPost, setEditPost } = useContext(EditPostContext);
 
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
@@ -61,6 +63,8 @@ const UserProductsPage = () => {
 
   const editClicked = (post) => {
     // pass the post to the new posting component
+    setEditPost(post);
+    console.log(post);
     history.push("/dashboard/editposting");
   };
 

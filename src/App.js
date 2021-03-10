@@ -14,6 +14,7 @@ import config from "./config.json";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import { EditPostContext } from "./context/EditPostContext";
 
 const THEME = createMuiTheme({
   typography: {
@@ -49,6 +50,12 @@ function App() {
   const [user, setUser] = useState([]);
   const userValueContext = useMemo(() => ({ user, setUser }), [user, setUser]);
 
+  const [editPost, setEditPost] = useState({});
+  const editPostContext = useMemo(() => ({ editPost, setEditPost }), [
+    editPost,
+    setEditPost,
+  ]);
+
   useEffect(() => {
     setPosts(topPicks);
 
@@ -68,8 +75,10 @@ function App() {
           <LoginFormContext.Provider value={tabValueContext}>
             <PostsContext.Provider value={value}>
               <TopNavValueContext.Provider value={topnavValueContext}>
-                <PageHeader />
-                <DashBoardPage />
+                <EditPostContext.Provider value={editPostContext}>
+                  <PageHeader />
+                  <DashBoardPage />
+                </EditPostContext.Provider>
               </TopNavValueContext.Provider>
             </PostsContext.Provider>
           </LoginFormContext.Provider>
