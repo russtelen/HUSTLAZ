@@ -28,7 +28,9 @@ const LoginPage = () => {
       // ----------------------------------------------
       if (type === "login") {
         const res = await Auth.signIn(username, password);
-        if (res) {
+
+        if (res.attributes.email_verified) {
+          console.log(res);
           // set authenticated in context
           setUser(res);
 
@@ -58,9 +60,6 @@ const LoginPage = () => {
         });
 
         if (res) {
-          // set authenticated user in context
-          // setUser(res);
-
           // Success notification
           toastr["success"](`Successfully registered`);
 
