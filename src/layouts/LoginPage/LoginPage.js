@@ -4,6 +4,7 @@ import { LoginFormContext } from "../../context/LoginFormContext";
 import { UserContext } from "../../context/UserContext";
 import Login from "../../components/Login/Login";
 import { useLocation, useHistory } from "react-router-dom";
+import toastr from "toastr";
 
 const LoginPage = () => {
   // Context
@@ -29,8 +30,13 @@ const LoginPage = () => {
         const res = await Auth.signIn(username, password);
         if (res) {
           // set authenticated in context
-          console.log(res);
           setUser(res);
+
+          // Success notification
+          toastr["success"](
+            `Logged in as ${res.username}`,
+            "Welcome to Hustlaz"
+          );
 
           // redirect to protected
           history.push("/posts");
@@ -42,7 +48,7 @@ const LoginPage = () => {
       // ----------------------------------------------
       if (type === "signUp") {
         if (password !== confirmPassword) {
-          alert("Passwords don't match");
+          toastr["error"]("Passwords dont match", "Error");
           return;
         }
 
@@ -55,16 +61,21 @@ const LoginPage = () => {
         });
 
         if (res) {
-          console.log(res);
           // set authenticated user in context
           setUser(res);
+
+          // Success notification
+          toastr["success"](
+            `Logged in as ${res.username}`,
+            "Welcome to Hustlaz"
+          );
 
           // redirect to protected
           history.push("/posts");
         }
       }
     } catch (e) {
-      alert(e.message);
+      toastr["error"](e.message, "Error");
     }
   };
 
