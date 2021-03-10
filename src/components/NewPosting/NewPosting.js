@@ -29,15 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewPosting = ({ error, submit, regions, getCities, cities }) => {
+const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   const classes = useStyles();
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [imageRef, setImageRef] = useState("");
-  const [category, setCategory] = useState("");
-  const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(post ? post.title : "");
+  const [price, setPrice] = useState(post ? post.price : "");
+  const [imageRef, setImageRef] = useState(post ? post.image_ref : "");
+  const [category, setCategory] = useState(post ? post.category : "");
+  const [city, setCity] = useState(post ? post.city : "");
+  const [province, setProvince] = useState(post ? post.province : "");
+  const [description, setDescription] = useState(
+    post ? post.seller_description : ""
+  );
 
   const handleSubmit = (e) => {
     // Prevent refresh
@@ -72,7 +74,10 @@ const NewPosting = ({ error, submit, regions, getCities, cities }) => {
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
-        <CardHeader className={classes.header} title="Sell Something" />
+        <CardHeader
+          className={classes.header}
+          title={post ? "Update My Post" : "Sell Something"}
+        />
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
