@@ -34,7 +34,7 @@ const ProductItem = ({
   likeClicked,
   cardClicked,
   contactClicked,
-  userPosting,
+  myPostings,
 }) => {
   const classes = useStyles();
 
@@ -77,7 +77,7 @@ const ProductItem = ({
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.header}>
-        {userPosting ? (
+        {myPostings ? (
           <>
             <Button
               variant="contained"
