@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
 import { PostsContext } from "../../context/PostsContext";
@@ -19,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserProductsPage = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   //   const [myPosts, setMyPosts] = useState([]);
   const { posts, setPosts } = useContext(PostsContext);
@@ -56,8 +59,9 @@ const UserProductsPage = () => {
     console.log("contact seller");
   };
 
-  const editClicked = () => {
-    console.log("edit clicked");
+  const editClicked = (post) => {
+    // pass the post to the new posting component
+    history.push("/dashboard/editposting");
   };
 
   const deleteClicked = () => {
@@ -75,6 +79,8 @@ const UserProductsPage = () => {
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
               likeClicked={() => likeCliked()}
+              editClicked={() => editClicked(post)}
+              deleteClicked={() => deleteClicked()}
               myPostings={!!post}
             />
           </div>
