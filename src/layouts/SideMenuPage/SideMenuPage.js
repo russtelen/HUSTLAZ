@@ -60,6 +60,8 @@ const SideMenuPage = () => {
   const logoutClicked = async () => {
     await Auth.signOut();
     setUser(null);
+    // Success notification
+    toastr["success"]("Successfully logged out");
     history.push("/");
   };
 

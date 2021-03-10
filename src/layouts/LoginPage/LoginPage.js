@@ -30,8 +30,13 @@ const LoginPage = () => {
         const res = await Auth.signIn(username, password);
         if (res) {
           // set authenticated in context
-          console.log(res);
           setUser(res);
+
+          // Success notification
+          toastr["success"](
+            `Logged in as ${res.username}`,
+            "Welcome to Hustlaz"
+          );
 
           // redirect to protected
           history.push("/posts");
@@ -56,9 +61,14 @@ const LoginPage = () => {
         });
 
         if (res) {
-          console.log(res);
           // set authenticated user in context
           setUser(res);
+
+          // Success notification
+          toastr["success"](
+            `Logged in as ${res.username}`,
+            "Welcome to Hustlaz"
+          );
 
           // redirect to protected
           history.push("/posts");
