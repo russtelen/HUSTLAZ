@@ -3,6 +3,7 @@ import NewPosting from "../../components/NewPosting/NewPosting";
 import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import toastr from "toastr";
 
 const NewPostingPage = () => {
   const history = useHistory();
@@ -15,6 +16,7 @@ const NewPostingPage = () => {
   const submit = async (data) => {
     await postOne(data, user);
     console.log(data);
+    toastr["success"]("New posting added", "Success");
     history.push("/posts");
   };
 
