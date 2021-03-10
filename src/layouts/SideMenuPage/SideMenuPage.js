@@ -5,6 +5,7 @@ import { TopNavValueContext } from "../../context/TopNavValueContext";
 import { UserContext } from "../../context/UserContext";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
+import toastr from "toastr";
 
 const SideMenuPage = () => {
   const history = useHistory();
@@ -37,6 +38,10 @@ const SideMenuPage = () => {
   };
 
   const sellSomethingClicked = () => {
+    if (!user?.username) {
+      toastr["error"]("You need to be logged in to do that", "Login");
+    }
+
     history.push("/newPost");
   };
 
