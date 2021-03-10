@@ -87,8 +87,8 @@ const ProductsPage = () => {
     <div className="container">
       <h1 className="text-center mt-5">{posts[0]?.category}</h1>
       <div className="row d-flex justify-content-center">
-        {posts?.map((post) => (
-          <div className="col-sm-12 col-md-4 mt-5">
+        {posts?.map((post, idx) => (
+          <div key={idx} className="col-sm-12 col-md-4 mt-5">
             <ProductItem
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
