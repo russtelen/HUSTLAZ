@@ -67,13 +67,13 @@ const SideMenuPage = () => {
 
   // SideMenuUser Props
   const favouritesClicked = () => {
-    history.push("/profile/favourites");
+    history.push("/dashboard/favourites");
   };
   const profileClicked = () => {
-    history.push("/profile");
+    history.push("/dashboard");
   };
   const myPostingsClicked = () => {
-    console.log("/profile/mypostings");
+    history.push("/dashboard/mypostings");
   };
   return (
     <>

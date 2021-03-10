@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
 import { PostsContext } from "../../context/PostsContext";
@@ -8,6 +10,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
+import { EditPostContext } from "../../context/EditPostContext";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,42 +18,25 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
 }));
 
-const ProductsPage = () => {
+const UserProductsPage = () => {
   const classes = useStyles();
-  // Context
-  const { posts, setPosts } = useContext(PostsContext);
+  const history = useHistory();
 
-  // Local state
+  //   const [myPosts, setMyPosts] = useState([]);
+  const { posts, setPosts } = useContext(PostsContext);
+  const { editPost, setEditPost } = useContext(EditPostContext);
+
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
 
-  // Params :category
-  const { categoryId } = useParams();
-
-  // ===================================================
-  // On load
-  // Set post === category in the params
-  // if != category in params, set post === all post
   useEffect(() => {
     (async () => {
-      if (categoryId != undefined) {
-        const data = await getPostingsByCategory(categoryId);
-        setPosts(data);
-        return;
-      }
-
-      const allPosts = await getAll();
-      setPosts(allPosts);
+      // GET ALL POSTS that belong to current user
+      // if no posts display a message "You don't have any postings"
     })();
-  }, [categoryId]);
+  }, []);
   // ===================================================
 
   // Handlers
@@ -75,8 +61,11 @@ const ProductsPage = () => {
     console.log("contact seller");
   };
 
-  const editClicked = () => {
-    console.log("edit clicked");
+  const editClicked = (post) => {
+    // pass the post to the new posting component
+    setEditPost(post);
+    console.log(post);
+    history.push("/dashboard/editposting");
   };
 
   const deleteClicked = () => {
@@ -85,7 +74,8 @@ const ProductsPage = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">{posts[0]?.category}</h1>
+      <h1 className="text-center mt-5">My Posts</h1>
+      {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
         {posts?.map((post, idx) => (
           <div key={idx} className="col-sm-12 col-md-4 mt-5">
@@ -93,7 +83,9 @@ const ProductsPage = () => {
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
               likeClicked={() => likeCliked()}
-              contactClicked={() => contactClicked()}
+              editClicked={() => editClicked(post)}
+              deleteClicked={() => deleteClicked()}
+              myPostings={!!post}
             />
           </div>
         ))}
@@ -126,4 +118,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default UserProductsPage;

@@ -7,10 +7,12 @@ import SideMenuPage from "../SideMenuPage/SideMenuPage";
 import NewPostingPage from "../NewPostingPage/NewPostingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
+import UserProductsPage from "../UserProductsPage/UserProductsPage";
+import EditPostingPage from "../EditPostingPage/EditPostingPage";
 
 const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
+
   const PrivateRoute = ({ path, children }) => {
     return (
       <Route path={path}>
@@ -35,7 +37,13 @@ const DashBoardPage = () => {
         <PrivateRoute exact path="/newPost">
           <NewPostingPage />
         </PrivateRoute>
-        <PrivateRoute path="/profile" />
+        <PrivateRoute exact path="/dashboard" />
+        <PrivateRoute exact path="/dashboard/mypostings">
+          <UserProductsPage />
+        </PrivateRoute>
+        <PrivateRoute exact path="/dashboard/editposting">
+          <EditPostingPage />
+        </PrivateRoute>
         <Route exact path="/login">
           <LoginPage />
         </Route>

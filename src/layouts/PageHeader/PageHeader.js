@@ -20,7 +20,7 @@ const PageHeader = () => {
       toastr["error"]("You need to be logged in to do that", "Login");
     }
     setTopnavValue("profile");
-    history.push("/profile");
+    history.push("/dashboard");
   };
 
   const notificationClicked = () => {

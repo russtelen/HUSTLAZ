@@ -33,10 +33,7 @@ const LoginPage = () => {
           setUser(res);
 
           // Success notification
-          toastr["success"](
-            `Logged in as ${res.username}`,
-            "Welcome to Hustlaz"
-          );
+          toastr["success"](`Welcome to Hustlaz ${res.username}`);
 
           // redirect to protected
           history.push("/posts");
@@ -48,7 +45,7 @@ const LoginPage = () => {
       // ----------------------------------------------
       if (type === "signUp") {
         if (password !== confirmPassword) {
-          toastr["error"]("Passwords dont match", "Error");
+          toastr["error"]("Passwords don't match", "Error");
           return;
         }
 
@@ -65,10 +62,7 @@ const LoginPage = () => {
           setUser(res);
 
           // Success notification
-          toastr["success"](
-            `Logged in as ${res.username}`,
-            "Welcome to Hustlaz"
-          );
+          toastr["success"](`Welcome to Hustlaz ${res.username}`);
 
           // redirect to protected
           history.push("/posts");
