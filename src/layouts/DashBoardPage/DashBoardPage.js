@@ -6,9 +6,9 @@ import ProductsPage from "../ProductsPage/ProductsPage";
 import SideMenuPage from "../SideMenuPage/SideMenuPage";
 import NewPostingPage from "../NewPostingPage/NewPostingPage";
 import LoginPage from "../LoginPage/LoginPage";
-import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
 import UserProductsPage from "../UserProductsPage/UserProductsPage";
 import EditPostingPage from "../EditPostingPage/EditPostingPage";
+import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage";
 
 const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -49,6 +49,9 @@ const DashBoardPage = () => {
         </Route>
         <Route exact path="/register">
           <LoginPage />
+        </Route>
+        <Route exact path="/verifyEmail">
+          <VerifyEmailPage />
         </Route>
       </Switch>
     </div>
