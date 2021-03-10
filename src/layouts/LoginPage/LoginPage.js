@@ -59,13 +59,13 @@ const LoginPage = () => {
 
         if (res) {
           // set authenticated user in context
-          setUser(res);
+          // setUser(res);
 
           // Success notification
-          toastr["success"](`Welcome to Hustlaz ${res.username}`);
+          toastr["success"](`Successfully registered`);
 
           // redirect to protected
-          history.push("/posts");
+          history.push("/verifyEmail");
         }
       }
     } catch (e) {
