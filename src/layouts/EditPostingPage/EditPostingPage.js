@@ -15,9 +15,7 @@ const EditPostingPage = () => {
 
   const submit = async (data) => {
     await updateOne(data, postingId);
-    setTimeout(() => {
-      history.push("/dashboard/mypostings");
-    }, 500);
+    history.push("/dashboard/mypostings");
     toastr["success"](`Item successfully updated`);
   };
 
