@@ -45,13 +45,13 @@ const DashBoardPage = () => {
           <EditPostingPage />
         </PrivateRoute>
         <Route exact path="/login">
-          <LoginPage />
+          {!user ? <LoginPage /> : <Redirect to="/posts" />}
         </Route>
         <Route exact path="/register">
-          <LoginPage />
+          {!user ? <LoginPage /> : <Redirect to="/posts" />}
         </Route>
         <Route exact path="/verifyEmail">
-          <VerifyEmailPage />
+          {!user ? <VerifyEmailPage /> : <Redirect to="/posts" />}
         </Route>
       </Switch>
     </div>
