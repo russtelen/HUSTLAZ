@@ -72,7 +72,7 @@ const UserProductsPage = () => {
     // pass the post to the new posting component
     const res = await getOne(post.id);
     setEditPost(res);
-    history.push("/dashboard/editposting");
+    history.push(`/dashboard/editposting/${post.id}`);
   };
 
   const deleteClicked = () => {

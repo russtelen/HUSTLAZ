@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
-import { useHistory } from "react-router-dom";
+import { getAllRegions, getCitiesByRegion, updateOne } from "../../network";
+import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { EditPostContext } from "../../context/EditPostContext";
 
 const EditPostingPage = () => {
   const history = useHistory();
+  const { postingId } = useParams();
 
   const { user, setUser } = useContext(UserContext);
   const { editPost, setEditPost } = useContext(EditPostContext);
@@ -15,8 +16,10 @@ const EditPostingPage = () => {
   const [cities, setCities] = useState("");
 
   const submit = async (data) => {
-    await postOne(data, user);
-    history.push("/posts");
+    await updateOne(data, postingId);
+    setTimeout(() => {
+      history.push("/dashboard/mypostings");
+    }, 500);
   };
 
   const getRegions = async () => {
