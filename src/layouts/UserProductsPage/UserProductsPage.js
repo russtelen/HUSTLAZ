@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
-import { PostsContext } from "../../context/PostsContext";
-import { useParams } from "react-router-dom";
 import { getAllUserPostings, getOne, deleteOne } from "../../network";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -12,6 +10,7 @@ import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 import { EditPostContext } from "../../context/EditPostContext";
 import { UserContext } from "../../context/UserContext";
+import toastr from "toastr";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,6 +35,7 @@ const UserProductsPage = () => {
     (async () => {
       const res = await getAllUserPostings(user.username);
       setUserPosts(res);
+      console.log(userPosts);
     })();
   }, []);
   // ===================================================
@@ -72,11 +72,14 @@ const UserProductsPage = () => {
     await deleteOne(post.id);
     const res = await getAllUserPostings(user.username);
     setUserPosts(res);
+    toastr["success"](`Item successfully deleted`);
   };
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">My Posts</h1>
+      <h1 className="text-center mt-5">
+        {userPosts.length > 0 ? "My Posts" : "You have no posts yet!"}
+      </h1>
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
         {userPosts?.map((post, idx) => (
