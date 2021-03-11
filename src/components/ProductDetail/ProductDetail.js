@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 300,
   },
   header: {
-    padding: theme.spacing(0, 0, 2),
+    padding: theme.spacing(1, 2),
   },
   image: {
     width: "100%",
@@ -100,12 +100,20 @@ const ProductDetail = ({
             </Grid>
           )}
         </Grid>
-        <Grid container spacing={5} style={{ padding: 20 }}>
-          <Grid item xs={7} direction="column" spacing={4}>
-            <Grid container justify="space-between" className={classes.header}>
+        <Grid>
+          <Grid container justify="space-between" className={classes.header}>
+            <Grid xs={6}>
               <Typography variant="h6">{post.title} </Typography>
-              <Typography variant="h6">$ {post.price}</Typography>
             </Grid>
+            <Grid xs={6}>
+              <Typography align="right" variant="h4">
+                $ {post.price}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={5} style={{ padding: 20 }}>
+          <Grid item xs={6} direction="column" spacing={4}>
             <Grid item>
               <CardMedia
                 className={classes.image}
@@ -133,7 +141,7 @@ const ProductDetail = ({
               </GridList>
             </Grid> */}
           </Grid>
-          <Grid item xs={4} sm container>
+          <Grid item xs={6} sm container>
             <Grid item xs>
               <Grid container item className={classes.info}>
                 <Grid>
@@ -151,9 +159,17 @@ const ProductDetail = ({
                 </Grid>
                 <Grid item xs={10}>
                   <Typography variant="h6">Description</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {post.description}
-                  </Typography>
+                  <div
+                    style={{
+                      maxHeight: 250,
+                      overflow: "auto",
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    <Typography variant="body2" color="textSecondary">
+                      {post.description}
+                    </Typography>
+                  </div>
                 </Grid>
               </Grid>
               <Grid item className={classes.info} container>
@@ -163,7 +179,7 @@ const ProductDetail = ({
                 <Grid>
                   <Typography variant="h6">Location</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {post.city}
+                    {post.city}, {post.region}
                   </Typography>
                 </Grid>
               </Grid>

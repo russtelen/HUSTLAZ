@@ -14,9 +14,20 @@ const EditPostingPage = () => {
   const [cities, setCities] = useState("");
 
   const submit = async (data) => {
-    await updateOne(data, postingId);
-    history.push("/dashboard/mypostings");
-    toastr["success"](`Item successfully updated`);
+    try {
+      const res = await updateOne(data, postingId);
+
+      if (res) {
+        history.push("/dashboard/mypostings");
+        toastr["success"](`Item successfully updated`);
+        return;
+      }
+
+      history.push("/dashboard/mypostings");
+      toastr["error"](`Something went wrong. Could not update your post`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const getRegions = async () => {

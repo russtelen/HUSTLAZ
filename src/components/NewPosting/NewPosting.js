@@ -53,15 +53,19 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     let priceFloat = parseFloat(price);
     let rounded = parseFloat(priceFloat.toFixed(2));
 
+    // Replace ' => ''
+    const regDesc = description.replace(/'/g, "''");
+    const regTitle = title.replace(/'/g, "''");
+
     // Submit form
     submit({
-      title,
+      title: title.includes(`'`) ? regTitle : title,
       price: rounded,
       image_ref: imageRef,
       category,
       city,
       province,
-      seller_description: description,
+      seller_description: description.includes(`'`) ? regDesc : description,
     });
 
     // Reset state
@@ -77,7 +81,9 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div
+        className={`${classes.paper} animate__animated animate__fadeIn animate__faster`}
+      >
         <CardHeader
           className={classes.header}
           title={post ? "Update My Post" : "Sell Something"}
@@ -117,6 +123,7 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                type="url"
                 required
                 fullWidth
                 name="imageRef"

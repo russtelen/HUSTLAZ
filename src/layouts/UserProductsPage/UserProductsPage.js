@@ -29,11 +29,14 @@ const UserProductsPage = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
+  const [didChange, setDidChange] = useState(false);
 
   useEffect(() => {
     (async () => {
       const res = await getAllUserPostings(user.username);
+      setDidChange(false);
       setUserPosts(res);
+      setDidChange(true);
       console.log(userPosts);
     })();
   }, []);
@@ -52,11 +55,22 @@ const UserProductsPage = () => {
   };
 
   const deleteClicked = async (post) => {
-    await deleteOne(post.id);
-    const res = await getAllUserPostings(user.username);
-    setUserPosts(res);
-    setOpen(false);
-    toastr["success"](`Item successfully deleted`);
+    try {
+      const deleteRes = await deleteOne(post.id);
+      const res = await getAllUserPostings(user.username);
+      setUserPosts(res);
+      setOpen(false);
+
+      if (deleteRes) {
+        toastr["success"](`Item successfully deleted`);
+        return;
+      }
+
+      toastr["error"](`Something went wrong. Could not delete your post`);
+    } catch (e) {
+      toastr["error"](`${e.message}`);
+      console.log(e);
+    }
   };
 
   return (
@@ -67,7 +81,14 @@ const UserProductsPage = () => {
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
         {userPosts?.map((post, idx) => (
-          <div key={idx} className="col-sm-12 col-md-4 mt-5">
+          <div
+            key={idx}
+            className={
+              didChange
+                ? "col-sm-12 col-md-4 mt-5 animate__animated animate__fadeIn animate__faster"
+                : ""
+            }
+          >
             <ProductItem
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}

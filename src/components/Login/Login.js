@@ -72,7 +72,9 @@ const Login = ({ onSubmit, error }) => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div
+        className={`${classes.paper} animate__animated animate__fadeIn animate__faster`}
+      >
         <CardHeader
           className={classes.header}
           title={tabValue === 0 ? "Login" : "Sign Up"}
