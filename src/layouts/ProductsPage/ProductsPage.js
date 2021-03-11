@@ -26,9 +26,12 @@ const ProductsPage = () => {
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
   const [didChange, setDidChange] = useState(false);
+  const [category, setCategory] = useState("");
 
   // Params :category
   const { categoryId } = useParams();
+
+  const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
 
   // ===================================================
   // On load
@@ -49,6 +52,8 @@ const ProductsPage = () => {
       setDidChange(true);
       setPosts(allPosts);
     })();
+
+    setCategory(categoryId ? categories[categoryId] : "All Posts");
   }, [categoryId]);
   // ===================================================
 
@@ -68,7 +73,7 @@ const ProductsPage = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">{posts[0]?.category}</h1>
+      <h1 className="text-center mt-5">{category}</h1>
       <div className="row d-flex justify-content-center ">
         {posts?.map((post, idx) => (
           <div
