@@ -35,7 +35,7 @@ const UserProductsPage = () => {
     (async () => {
       const res = await getAllUserPostings(user.username);
       setDidChange(false);
-      setUserPosts(res);
+      setUserPosts(res.postings);
       setDidChange(true);
       console.log(userPosts);
     })();

@@ -9,6 +9,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import UserProductsPage from "../UserProductsPage/UserProductsPage";
 import EditPostingPage from "../EditPostingPage/EditPostingPage";
 import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage";
+import UserDetailPage from "../UserDetailPage/UserDetailPage";
 
 const DashBoardPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -37,7 +38,9 @@ const DashBoardPage = () => {
         <PrivateRoute exact path="/newPost">
           <NewPostingPage />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard" />
+        <PrivateRoute exact path="/dashboard/profile">
+          <UserDetailPage />
+        </PrivateRoute>
         <PrivateRoute exact path="/dashboard/mypostings">
           <UserProductsPage />
         </PrivateRoute>

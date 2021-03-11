@@ -88,7 +88,7 @@ export const getCitiesByRegion = async (region) => {
 export const getAllUserPostings = async (username) => {
   try {
     const res = await axios.get(`${url}/users/${username}`);
-    return res.data.postings;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
