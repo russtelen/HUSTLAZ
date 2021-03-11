@@ -42,7 +42,7 @@ const ProductItem = ({
 
   const substringTitle = post.title.substring(0, 19);
   return (
-    <Card className={classes.root}>
+    <Card className={`${classes.root}`}>
       <CardActionArea onClick={() => cardClicked()}>
         <CardMedia
           component="img"
