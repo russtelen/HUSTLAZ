@@ -65,13 +65,13 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     });
 
     // Reset state
-    setTitle("");
-    setPrice("");
-    setImageRef("");
-    setCategory("");
-    setCity("");
-    setProvince("");
-    setDescription("");
+    // setTitle("");
+    // setPrice("");
+    // setImageRef("");
+    // setCategory("");
+    // setCity("");
+    // setProvince("");
+    // setDescription("");
   };
 
   return (

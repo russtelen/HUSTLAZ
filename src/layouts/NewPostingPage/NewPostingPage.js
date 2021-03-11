@@ -17,7 +17,7 @@ const NewPostingPage = () => {
     await postOne(data, user);
     console.log(data);
     toastr["success"]("New posting added", "Success");
-    history.push("/posts");
+    history.push("/dashboard/mypostings");
   };
 
   const getRegions = async () => {

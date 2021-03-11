@@ -9,17 +9,11 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
 }));
 
@@ -59,28 +53,12 @@ const ProductsPage = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const closeClicked = () => {
-    setOpen(false);
-  };
-
   const likeCliked = () => {
     console.log("product saved");
   };
 
   const contactClicked = () => {
     console.log("contact seller");
-  };
-
-  const editClicked = () => {
-    console.log("edit clicked");
-  };
-
-  const deleteClicked = () => {
-    console.log("delete clicked");
   };
 
   return (
@@ -104,7 +82,7 @@ const ProductsPage = () => {
           aria-describedby="transition-modal-description"
           className={classes.modal}
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           closeAfterTransition
           BackdropComponent={Backdrop}
           BackdropProps={{
@@ -114,10 +92,8 @@ const ProductsPage = () => {
           <Fade in={open}>
             <ProductDetail
               post={{ ...postDetail }}
-              closeClicked={() => closeClicked()}
-              editClicked={() => editClicked()}
-              deleteClicked={() => deleteClicked()}
-              isAuthorized={true}
+              closeClicked={() => setOpen(false)}
+              isAuthorized={false}
             />
           </Fade>
         </Modal>

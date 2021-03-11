@@ -3,14 +3,14 @@ import { useHistory } from "react-router-dom";
 
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
-import { PostsContext } from "../../context/PostsContext";
-import { useParams } from "react-router-dom";
-import { getAll, getPostingsByCategory } from "../../network";
+import { getAllUserPostings, getOne, deleteOne } from "../../network";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 import { EditPostContext } from "../../context/EditPostContext";
+import { UserContext } from "../../context/UserContext";
+import toastr from "toastr";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -24,17 +24,17 @@ const UserProductsPage = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  //   const [myPosts, setMyPosts] = useState([]);
-  const { posts, setPosts } = useContext(PostsContext);
-  const { editPost, setEditPost } = useContext(EditPostContext);
-
+  const { setEditPost } = useContext(EditPostContext);
+  const { user } = useContext(UserContext);
+  const [userPosts, setUserPosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
-      // GET ALL POSTS that belong to current user
-      // if no posts display a message "You don't have any postings"
+      const res = await getAllUserPostings(user.username);
+      setUserPosts(res);
+      console.log(userPosts);
     })();
   }, []);
   // ===================================================
@@ -45,46 +45,34 @@ const UserProductsPage = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const editClicked = async (post) => {
+    const res = await getOne(post.id);
+    setEditPost(res);
+    history.push(`/dashboard/editposting/${post.id}`);
+  };
+
+  const deleteClicked = async (post) => {
+    await deleteOne(post.id);
+    const res = await getAllUserPostings(user.username);
+    setUserPosts(res);
     setOpen(false);
-  };
-
-  const closeClicked = () => {
-    setOpen(false);
-  };
-
-  const likeCliked = () => {
-    console.log("product saved");
-  };
-
-  const contactClicked = () => {
-    console.log("contact seller");
-  };
-
-  const editClicked = (post) => {
-    // pass the post to the new posting component
-    setEditPost(post);
-    console.log(post);
-    history.push("/dashboard/editposting");
-  };
-
-  const deleteClicked = () => {
-    console.log("delete clicked");
+    toastr["success"](`Item successfully deleted`);
   };
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">My Posts</h1>
+      <h1 className="text-center mt-5">
+        {userPosts.length > 0 ? "My Posts" : "You have no posts yet!"}
+      </h1>
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
-        {posts?.map((post, idx) => (
+        {userPosts?.map((post, idx) => (
           <div key={idx} className="col-sm-12 col-md-4 mt-5">
             <ProductItem
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
-              likeClicked={() => likeCliked()}
               editClicked={() => editClicked(post)}
-              deleteClicked={() => deleteClicked()}
+              deleteClicked={() => deleteClicked(post)}
               myPostings={!!post}
             />
           </div>
@@ -96,7 +84,7 @@ const UserProductsPage = () => {
           aria-describedby="transition-modal-description"
           className={classes.modal}
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           closeAfterTransition
           BackdropComponent={Backdrop}
           BackdropProps={{
@@ -106,9 +94,9 @@ const UserProductsPage = () => {
           <Fade in={open}>
             <ProductDetail
               post={{ ...postDetail }}
-              closeClicked={() => closeClicked()}
-              editClicked={() => editClicked()}
-              deleteClicked={() => deleteClicked()}
+              closeClicked={() => setOpen(false)}
+              editClicked={() => editClicked(postDetail)}
+              deleteClicked={() => deleteClicked(postDetail)}
               isAuthorized={true}
             />
           </Fade>

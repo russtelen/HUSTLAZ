@@ -1,24 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
-import { useHistory } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
+import { getAllRegions, getCitiesByRegion, updateOne } from "../../network";
+import { useHistory, useParams } from "react-router-dom";
 import { EditPostContext } from "../../context/EditPostContext";
+import toastr from "toastr";
 
 const EditPostingPage = () => {
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
-  const { editPost, setEditPost } = useContext(EditPostContext);
+  const { postingId } = useParams();
 
+  const { editPost } = useContext(EditPostContext);
   const [regions, setRegions] = useState([]);
-  const [region, setRegion] = useState("");
-
   const [cities, setCities] = useState("");
 
-  // make post req
   const submit = async (data) => {
-    await postOne(data, user);
-    history.push("/posts");
+    await updateOne(data, postingId);
+    history.push("/dashboard/mypostings");
+    toastr["success"](`Item successfully updated`);
   };
 
   const getRegions = async () => {
@@ -35,7 +33,6 @@ const EditPostingPage = () => {
       if (region) {
         const cities = await getCitiesByRegion(region);
         setCities(cities);
-        setRegion(region);
       }
     } catch (err) {
       console.log(err);

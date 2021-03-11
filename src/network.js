@@ -28,8 +28,8 @@ export const getPostingsByCategory = async (categoryId) => {
 // GET One
 export const getOne = async (postingId) => {
   try {
-    const res = await axios.get(`${url}/postings/category/${postingId}`);
-    console.log(res.data);
+    const res = await axios.get(`${url}/postings/${postingId}`);
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -48,7 +48,6 @@ export const postOne = async (
   };
 
   try {
-    console.log(user.username);
     const res = await axios.post(`${url}/postings`, {
       user: userObj,
       title,
@@ -82,5 +81,47 @@ export const getCitiesByRegion = async (region) => {
     return res.data;
   } catch (err) {
     console.log(err);
+  }
+};
+
+// GET all post that belong to current user
+export const getAllUserPostings = async (username) => {
+  try {
+    const res = await axios.get(`${url}/users/${username}`);
+    return res.data.postings;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// UPDATE posting
+export const updateOne = async (
+  { title, price, image_ref, category, city, province, seller_description },
+  postingId
+) => {
+  console.log(postingId);
+  try {
+    const res = await axios.put(`${url}/postings/${postingId}`, {
+      title,
+      price,
+      image_ref,
+      category,
+      city,
+      province,
+      seller_description,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// DELETE posting
+export const deleteOne = async (postingId) => {
+  try {
+    const res = await axios.delete(`${url}/postings/${postingId}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };

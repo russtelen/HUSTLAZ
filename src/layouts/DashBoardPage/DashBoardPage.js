@@ -41,7 +41,7 @@ const DashBoardPage = () => {
         <PrivateRoute exact path="/dashboard/mypostings">
           <UserProductsPage />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/editposting">
+        <PrivateRoute exact path="/dashboard/editposting/:postingId">
           <EditPostingPage />
         </PrivateRoute>
         <Route exact path="/login">

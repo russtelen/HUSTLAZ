@@ -94,11 +94,7 @@ const ProductItem = ({
             <IconButton aria-label="add to favorites">
               <FavoriteIcon onClick={() => likeClicked()} />
             </IconButton>
-            <IconButton
-              onClick={() => contactClicked()}
-              size="small"
-              color="primary"
-            >
+            <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
             </IconButton>
           </>
