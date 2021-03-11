@@ -7,6 +7,8 @@ import Amplify, { Auth } from "aws-amplify";
 import config from "./config.json";
 import "../node_modules/toastr/build/toastr.min.css";
 import "../node_modules/toastr/build/toastr.min";
+import "../node_modules/animate.css/animate.css";
+
 import toastr from "toastr";
 
 Amplify.configure({

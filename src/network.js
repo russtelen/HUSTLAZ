@@ -58,7 +58,7 @@ export const postOne = async (
       province,
       seller_description,
     });
-    console.log(res);
+    return res;
   } catch (error) {
     console.error(error);
   }

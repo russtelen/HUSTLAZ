@@ -57,8 +57,6 @@ function App() {
   ]);
 
   useEffect(() => {
-    setPosts(topPicks);
-
     if (!token) {
       return;
     }

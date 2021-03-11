@@ -25,9 +25,13 @@ const ProductsPage = () => {
   // Local state
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
+  const [didChange, setDidChange] = useState(false);
+  const [category, setCategory] = useState("");
 
   // Params :category
   const { categoryId } = useParams();
+
+  const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
 
   // ===================================================
   // On load
@@ -37,13 +41,19 @@ const ProductsPage = () => {
     (async () => {
       if (categoryId != undefined) {
         const data = await getPostingsByCategory(categoryId);
+        setDidChange(false);
         setPosts(data);
+        setDidChange(true);
         return;
       }
 
+      setDidChange(false);
       const allPosts = await getAll();
+      setDidChange(true);
       setPosts(allPosts);
     })();
+
+    setCategory(categoryId ? categories[categoryId] : "All Posts");
   }, [categoryId]);
   // ===================================================
 
@@ -63,10 +73,17 @@ const ProductsPage = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">{posts[0]?.category}</h1>
-      <div className="row d-flex justify-content-center">
+      <h1 className="text-center mt-5">{category}</h1>
+      <div className="row d-flex justify-content-center ">
         {posts?.map((post, idx) => (
-          <div key={idx} className="col-sm-12 col-md-4 mt-5">
+          <div
+            key={idx}
+            className={
+              didChange
+                ? "col-sm-12 col-md-4 mt-5 animate__animated animate__fadeIn animate__faster"
+                : ""
+            }
+          >
             <ProductItem
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
