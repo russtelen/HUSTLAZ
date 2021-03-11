@@ -5,12 +5,7 @@ import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
 import { PostsContext } from "../../context/PostsContext";
 import { useParams } from "react-router-dom";
-import {
-  getAll,
-  getAllUserPostings,
-  getOne,
-  getPostingsByCategory,
-} from "../../network";
+import { getAllUserPostings, getOne, deleteOne } from "../../network";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -40,7 +35,6 @@ const UserProductsPage = () => {
   useEffect(() => {
     (async () => {
       const res = await getAllUserPostings(user.username);
-      console.log(res);
       setUserPosts(res);
     })();
   }, []);
@@ -69,14 +63,15 @@ const UserProductsPage = () => {
   };
 
   const editClicked = async (post) => {
-    // pass the post to the new posting component
     const res = await getOne(post.id);
     setEditPost(res);
     history.push(`/dashboard/editposting/${post.id}`);
   };
 
-  const deleteClicked = () => {
-    console.log("delete clicked");
+  const deleteClicked = async (post) => {
+    await deleteOne(post.id);
+    const res = await getAllUserPostings(user.username);
+    setUserPosts(res);
   };
 
   return (
@@ -91,7 +86,7 @@ const UserProductsPage = () => {
               cardClicked={() => cardCliked(post)}
               likeClicked={() => likeCliked()}
               editClicked={() => editClicked(post)}
-              deleteClicked={() => deleteClicked()}
+              deleteClicked={() => deleteClicked(post)}
               myPostings={!!post}
             />
           </div>
