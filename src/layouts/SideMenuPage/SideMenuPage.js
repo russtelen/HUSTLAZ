@@ -70,7 +70,7 @@ const SideMenuPage = () => {
     history.push("/dashboard/favourites");
   };
   const profileClicked = () => {
-    history.push("/dashboard");
+    history.push("/dashboard/profile");
   };
   const myPostingsClicked = () => {
     history.push("/dashboard/mypostings");

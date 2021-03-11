@@ -33,7 +33,7 @@ const UserProductsPage = () => {
   useEffect(() => {
     (async () => {
       const res = await getAllUserPostings(user.username);
-      setUserPosts(res);
+      setUserPosts(res.postings);
       console.log(userPosts);
     })();
   }, []);

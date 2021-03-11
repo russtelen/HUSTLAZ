@@ -50,11 +50,7 @@ const UserDetail = ({ user, editClicked }) => {
         <Grid container spacing={5} style={{ padding: 20 }}>
           <Grid item direction="column" spacing={4}>
             <Grid item>
-              <Avatar
-                // alt="Remy Sharp"
-                src={user.image || ""}
-                className={classes.large}
-              />
+              <Avatar src={user.image || ""} className={classes.large} />
             </Grid>
           </Grid>
           <Grid item xs={6} sm container>
