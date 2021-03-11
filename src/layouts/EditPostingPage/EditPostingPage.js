@@ -7,15 +7,13 @@ import { EditPostContext } from "../../context/EditPostContext";
 
 const EditPostingPage = () => {
   const history = useHistory();
+
   const { user, setUser } = useContext(UserContext);
   const { editPost, setEditPost } = useContext(EditPostContext);
 
   const [regions, setRegions] = useState([]);
-  const [region, setRegion] = useState("");
-
   const [cities, setCities] = useState("");
 
-  // make post req
   const submit = async (data) => {
     await postOne(data, user);
     history.push("/posts");
@@ -35,7 +33,6 @@ const EditPostingPage = () => {
       if (region) {
         const cities = await getCitiesByRegion(region);
         setCities(cities);
-        setRegion(region);
       }
     } catch (err) {
       console.log(err);

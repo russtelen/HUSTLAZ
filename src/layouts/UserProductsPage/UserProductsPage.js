@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import {
   getAll,
   getAllUserPostings,
+  getOne,
   getPostingsByCategory,
 } from "../../network";
 import Modal from "@material-ui/core/Modal";
@@ -29,7 +30,6 @@ const UserProductsPage = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  //   const [myPosts, setMyPosts] = useState([]);
   const { editPost, setEditPost } = useContext(EditPostContext);
   const { user, setUser } = useContext(UserContext);
 
@@ -40,6 +40,7 @@ const UserProductsPage = () => {
   useEffect(() => {
     (async () => {
       const res = await getAllUserPostings(user.username);
+      console.log(res);
       setUserPosts(res);
     })();
   }, []);
@@ -67,10 +68,10 @@ const UserProductsPage = () => {
     console.log("contact seller");
   };
 
-  const editClicked = (post) => {
+  const editClicked = async (post) => {
     // pass the post to the new posting component
-    setEditPost(post);
-    console.log(post);
+    const res = await getOne(post.id);
+    setEditPost(res);
     history.push("/dashboard/editposting");
   };
 
