@@ -62,7 +62,9 @@ const ProductItem = ({
               </Typography>
             </div>
             <div>
-              <Typography>{post.city}</Typography>
+              <Typography variant="caption">
+                {post.city}, {post.region}
+              </Typography>
             </div>
           </div>
 

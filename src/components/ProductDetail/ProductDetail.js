@@ -179,7 +179,7 @@ const ProductDetail = ({
                 <Grid>
                   <Typography variant="h6">Location</Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {post.city}
+                    {post.city}, {post.region}
                   </Typography>
                 </Grid>
               </Grid>
