@@ -59,13 +59,13 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
 
     // Submit form
     submit({
-      title: regTitle,
+      title: title.includes(`'`) ? regTitle : title,
       price: rounded,
       image_ref: imageRef,
       category,
       city,
       province,
-      seller_description: regDesc,
+      seller_description: description.includes(`'`) ? regDesc : description,
     });
 
     // Reset state
