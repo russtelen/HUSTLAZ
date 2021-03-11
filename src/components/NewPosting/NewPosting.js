@@ -81,7 +81,9 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div
+        className={`${classes.paper} animate__animated animate__fadeIn animate__faster`}
+      >
         <CardHeader
           className={classes.header}
           title={post ? "Update My Post" : "Sell Something"}
