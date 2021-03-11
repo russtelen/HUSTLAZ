@@ -52,11 +52,22 @@ const UserProductsPage = () => {
   };
 
   const deleteClicked = async (post) => {
-    await deleteOne(post.id);
-    const res = await getAllUserPostings(user.username);
-    setUserPosts(res);
-    setOpen(false);
-    toastr["success"](`Item successfully deleted`);
+    try {
+      const deleteRes = await deleteOne(post.id);
+      const res = await getAllUserPostings(user.username);
+      setUserPosts(res);
+      setOpen(false);
+
+      if (deleteRes) {
+        toastr["success"](`Item successfully deleted`);
+        return;
+      }
+
+      toastr["error"](`Something went wrong. Could not delete your post`);
+    } catch (e) {
+      toastr["error"](`${e.message}`);
+      console.log(e);
+    }
   };
 
   return (
