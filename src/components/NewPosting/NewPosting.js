@@ -53,15 +53,19 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     let priceFloat = parseFloat(price);
     let rounded = parseFloat(priceFloat.toFixed(2));
 
+    // Replace ' => ''
+    const regDesc = description.replace(/'/g, "''");
+    const regTitle = title.replace(/'/g, "''");
+
     // Submit form
     submit({
-      title,
+      title: regTitle,
       price: rounded,
       image_ref: imageRef,
       category,
       city,
       province,
-      seller_description: description,
+      seller_description: regDesc,
     });
 
     // Reset state
@@ -117,6 +121,7 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                type="url"
                 required
                 fullWidth
                 name="imageRef"
