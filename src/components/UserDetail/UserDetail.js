@@ -3,15 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import {
-  CardMedia,
-  GridList,
-  Button,
-  IconButton,
-  ButtonGroup,
-  Avatar,
-} from "@material-ui/core";
+import { IconButton, Avatar } from "@material-ui/core";
 
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -30,16 +22,6 @@ const useStyles = makeStyles((theme) => ({
   header: {
     padding: theme.spacing(0, 0, 2),
   },
-  image: {
-    width: "100%",
-    maxHeight: 900,
-  },
-  img: {
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  },
   info: {
     marginBottom: "2em",
   },
@@ -52,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserDetail = ({ user, closeClicked, editClicked }) => {
+const UserDetail = ({ user, editClicked }) => {
   const classes = useStyles();
 
   return (
