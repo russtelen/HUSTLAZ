@@ -14,10 +14,13 @@ const NewPostingPage = () => {
 
   // make post req
   const submit = async (data) => {
-    await postOne(data, user);
-    console.log(data);
-    toastr["success"]("New posting added", "Success");
-    history.push("/dashboard/mypostings");
+    try {
+      await postOne(data, user);
+      toastr["success"]("New posting added", "Success");
+      history.push("/dashboard/mypostings");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const getRegions = async () => {
