@@ -94,7 +94,7 @@ export const getAllUserPostings = async (username) => {
   }
 };
 
-// UPDATE ONE POST
+// UPDATE posting
 export const updateOne = async (
   { title, price, image_ref, category, city, province, seller_description },
   postingId
@@ -110,6 +110,16 @@ export const updateOne = async (
       province,
       seller_description,
     });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// DELETE posting
+export const deleteOne = async (postingId) => {
+  try {
+    const res = await axios.delete(`${url}/postings/${postingId}`);
     return res.data;
   } catch (error) {
     console.log(error);
