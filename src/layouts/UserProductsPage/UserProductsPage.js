@@ -24,9 +24,8 @@ const UserProductsPage = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { editPost, setEditPost } = useContext(EditPostContext);
-  const { user, setUser } = useContext(UserContext);
-
+  const { setEditPost } = useContext(EditPostContext);
+  const { user } = useContext(UserContext);
   const [userPosts, setUserPosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
@@ -46,22 +45,6 @@ const UserProductsPage = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const closeClicked = () => {
-    setOpen(false);
-  };
-
-  const likeCliked = () => {
-    console.log("product saved");
-  };
-
-  const contactClicked = () => {
-    console.log("contact seller");
-  };
-
   const editClicked = async (post) => {
     const res = await getOne(post.id);
     setEditPost(res);
@@ -72,6 +55,7 @@ const UserProductsPage = () => {
     await deleteOne(post.id);
     const res = await getAllUserPostings(user.username);
     setUserPosts(res);
+    setOpen(false);
     toastr["success"](`Item successfully deleted`);
   };
 
@@ -87,7 +71,6 @@ const UserProductsPage = () => {
             <ProductItem
               post={{ ...post }}
               cardClicked={() => cardCliked(post)}
-              likeClicked={() => likeCliked()}
               editClicked={() => editClicked(post)}
               deleteClicked={() => deleteClicked(post)}
               myPostings={!!post}
@@ -101,7 +84,7 @@ const UserProductsPage = () => {
           aria-describedby="transition-modal-description"
           className={classes.modal}
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           closeAfterTransition
           BackdropComponent={Backdrop}
           BackdropProps={{
@@ -111,9 +94,9 @@ const UserProductsPage = () => {
           <Fade in={open}>
             <ProductDetail
               post={{ ...postDetail }}
-              closeClicked={() => closeClicked()}
-              editClicked={() => editClicked()}
-              deleteClicked={() => deleteClicked()}
+              closeClicked={() => setOpen(false)}
+              editClicked={() => editClicked(postDetail)}
+              deleteClicked={() => deleteClicked(postDetail)}
               isAuthorized={true}
             />
           </Fade>
