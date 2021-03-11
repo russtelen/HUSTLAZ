@@ -28,8 +28,8 @@ export const getPostingsByCategory = async (categoryId) => {
 // GET One
 export const getOne = async (postingId) => {
   try {
-    const res = await axios.get(`${url}/postings/category/${postingId}`);
-    console.log(res.data);
+    const res = await axios.get(`${url}/postings/${postingId}`);
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -87,23 +87,31 @@ export const getCitiesByRegion = async (region) => {
 // GET all post that belong to current user
 export const getAllUserPostings = async (username) => {
   try {
-    const res = await axios.get(`${url}/users/${username}`)
-    console.log(res.data)
-    return res.data
+    const res = await axios.get(`${url}/users/${username}`);
+    return res.data.postings;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 // UPDATE ONE POST
 export const updateOne = async (
   { title, price, image_ref, category, city, province, seller_description },
-  user
+  postingId
 ) => {
+  console.log(postingId);
   try {
-    const res = await axios.put(`${url}/cities/${}`);
+    const res = await axios.put(`${url}/postings/${postingId}`, {
+      title,
+      price,
+      image_ref,
+      category,
+      city,
+      province,
+      seller_description,
+    });
     return res.data;
   } catch (error) {
-    console.log(err);
+    console.log(error);
   }
 };
