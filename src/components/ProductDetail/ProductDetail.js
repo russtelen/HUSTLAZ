@@ -159,7 +159,13 @@ const ProductDetail = ({
                 </Grid>
                 <Grid item xs={10}>
                   <Typography variant="h6">Description</Typography>
-                  <div style={{ maxHeight: 250, overflow: "auto" }}>
+                  <div
+                    style={{
+                      maxHeight: 250,
+                      overflow: "auto",
+                      whiteSpace: "pre-line",
+                    }}
+                  >
                     <Typography variant="body2" color="textSecondary">
                       {post.description}
                     </Typography>
