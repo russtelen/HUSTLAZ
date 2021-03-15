@@ -1,4 +1,37 @@
 import axios from "axios";
+import { userToken } from './userAuth';
+
+// POST, UPDATE, DELETE, Get all user postings
+
+const tokenHeader = async () => {
+  const token = await userToken()
+  if (!token) {
+    return {}
+  }
+  return { Authorization: `${token}` }
+}
+
+const http = async ({ method, path, params }) => {
+  const token = await tokenHeader()
+  const headers = {
+    ...token,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+
+  try {
+    let result
+    if (method == 'get') {
+      result = await axios[method](url+path, { headers })
+    } else {
+      result = await axios[method](url+path, params, { headers })
+    }
+
+    return result.data
+  } catch (error) {
+    throw(error.response.data.error ? Error(error.response.data.error) : error)
+  }
+}
 
 // api url
 const url = "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod";
