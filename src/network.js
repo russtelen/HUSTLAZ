@@ -77,21 +77,6 @@ export function postOne(
     username: user.username,
   }
 
-  // try {
-  //   const res = await axios.post(`${url}/postings`, {
-  //     user: userObj,
-  //     title,
-  //     price,
-  //     image_ref,
-  //     category,
-  //     city,
-  //     province,
-  //     seller_description,
-  //   });
-  //   return res;
-  // } catch (error) {
-  //   console.error(error);
-  // }
   return http({
     method: 'post',
     path: '/postings',
@@ -134,13 +119,14 @@ export function getAllUserPostings(username) {
 }
 
 // UPDATE posting
-export const updateOne = async (
+export function updateOne(
   { title, price, image_ref, category, city, province, seller_description },
   postingId
-) => {
-  console.log(postingId)
-  try {
-    const res = await axios.put(`${url}/postings/${postingId}`, {
+) {
+  return http({
+    method: 'put',
+    path: `/postings/${postingId}`,
+    params: {
       title,
       price,
       image_ref,
@@ -148,11 +134,8 @@ export const updateOne = async (
       city,
       province,
       seller_description,
-    })
-    return res.data
-  } catch (error) {
-    console.log(error)
-  }
+    },
+  })
 }
 
 // DELETE posting
