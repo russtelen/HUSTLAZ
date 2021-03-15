@@ -93,8 +93,11 @@ const ProductItem = ({
           </>
         ) : (
           <>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon onClick={() => likeClicked()} />
+            <IconButton
+              aria-label="add to favorites"
+              onClick={() => likeClicked()}
+            >
+              <FavoriteIcon />
             </IconButton>
             <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
