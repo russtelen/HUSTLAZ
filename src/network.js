@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { userToken } from './userAuth'
 
-// POST, UPDATE, DELETE, Get all user postings
+const url = 'https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod'
 
 async function tokenHeader() {
   const token = await userToken()
@@ -32,11 +32,6 @@ async function http({ method, path, params }) {
     throw error.response.data.error ? Error(error.response.data.error) : error
   }
 }
-
-// api url
-const url = 'https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod'
-
-// @todo GET the user from context
 
 // GET all postings
 export const getAll = async () => {
@@ -139,11 +134,12 @@ export function updateOne(
 }
 
 // DELETE posting
-export const deleteOne = async (postingId) => {
-  try {
-    const res = await axios.delete(`${url}/postings/${postingId}`)
-    return res.data
-  } catch (error) {
-    console.log(error)
-  }
+export function deleteOne(postingId) {
+  // try {
+  //   const res = await axios.delete(`${url}/postings/${postingId}`)
+  //   return res.data
+  // } catch (error) {
+  //   console.log(error)
+  // }
+  return http({ method: 'delete', path: `/postings/${postingId}` })
 }
