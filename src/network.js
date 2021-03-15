@@ -118,13 +118,8 @@ export const getCitiesByRegion = async (region) => {
 };
 
 // GET all post that belong to current user
-export const getAllUserPostings = async (username) => {
-  try {
-    const res = await axios.get(`${url}/users/${username}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+export const getAllUserPostings = (username) => {
+  return http({ method: 'get', path: `/users/${username}` })
 };
 
 // UPDATE posting
