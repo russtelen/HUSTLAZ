@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import {
-  CardMedia,
-  GridList,
-  Button,
-  IconButton,
-  ButtonGroup,
-} from "@material-ui/core";
+import { CardMedia, Button, IconButton, ButtonGroup } from "@material-ui/core";
 
 import CloseIcon from "@material-ui/icons/Close";
 import LocationOnIcon from "@material-ui/icons/LocationOn";

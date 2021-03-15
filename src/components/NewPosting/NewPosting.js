@@ -8,7 +8,6 @@ import {
   Button,
   CardHeader,
   Typography,
-  Select,
   MenuItem,
 } from "@material-ui/core";
 
@@ -43,6 +42,7 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     if (province) {
       getCities(province);
     }
+    console.log(province);
   }, []);
 
   const handleSubmit = (e) => {

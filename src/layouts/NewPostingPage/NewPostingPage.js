@@ -7,7 +7,7 @@ import toastr from "toastr";
 
 const NewPostingPage = () => {
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState("");

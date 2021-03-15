@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -48,8 +48,8 @@ const UserDetail = ({ user, editClicked }) => {
           </Grid>
         </Grid>
         <Grid container spacing={5} style={{ padding: 20 }}>
-          <Grid item direction="column" spacing={4}>
-            <Grid item>
+          <Grid item container direction="column" spacing={4}>
+            <Grid className="d-flex justify-content-center" item>
               <Avatar src={user.image || ""} className={classes.large} />
             </Grid>
           </Grid>

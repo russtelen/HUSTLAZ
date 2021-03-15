@@ -1,20 +1,18 @@
-import React, { useState } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import Collapse from "@material-ui/core/Collapse"
-import { Divider } from "@material-ui/core"
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { Divider } from "@material-ui/core";
 
 // Icon Imports
-import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined"
-import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined"
-import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined"
-import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined"
-import { AccountCircle, Favorite, FavoriteOutlined } from "@material-ui/icons"
-import PostAddIcon from "@material-ui/icons/PostAdd"
+import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined";
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import { AccountCircle, FavoriteOutlined } from "@material-ui/icons";
+import PostAddIcon from "@material-ui/icons/PostAdd";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
-}))
+}));
 
 const SideMenuUser = ({
   user,
@@ -40,7 +38,7 @@ const SideMenuUser = ({
   searchClicked,
   logoutClicked,
 }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -91,7 +89,7 @@ const SideMenuUser = ({
         </List>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SideMenuUser
+export default SideMenuUser;

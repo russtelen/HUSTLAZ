@@ -31,15 +31,13 @@ const ProductsPage = () => {
   // Params :category
   const { categoryId } = useParams();
 
-  const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
-
   // ===================================================
   // On load
   // Set post === category in the params
   // if != category in params, set post === all post
   useEffect(() => {
     (async () => {
-      if (categoryId != undefined) {
+      if (categoryId !== undefined) {
         const data = await getPostingsByCategory(categoryId);
         setDidChange(false);
         setPosts(data);
@@ -52,6 +50,8 @@ const ProductsPage = () => {
       setDidChange(true);
       setPosts(allPosts);
     })();
+
+    const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
 
     setCategory(categoryId ? categories[categoryId] : "All Posts");
   }, [categoryId]);
