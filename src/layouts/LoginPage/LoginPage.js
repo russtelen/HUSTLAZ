@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     location.pathname === "/login" ? setTabValue(0) : setTabValue(1);
-  }, [location, setTabValue]);
+  }, [location]);
 
   const onSubmit = async (formData) => {
     try {

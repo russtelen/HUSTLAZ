@@ -54,7 +54,7 @@ const ProductsPage = () => {
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
 
     setCategory(categoryId ? categories[categoryId] : "All Posts");
-  }, [categoryId, setPosts]);
+  }, [categoryId]);
   // ===================================================
 
   // Handlers

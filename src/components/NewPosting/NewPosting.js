@@ -42,7 +42,8 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     if (province) {
       getCities(province);
     }
-  }, [getCities, province]);
+    console.log(province);
+  }, []);
 
   const handleSubmit = (e) => {
     // Prevent refresh

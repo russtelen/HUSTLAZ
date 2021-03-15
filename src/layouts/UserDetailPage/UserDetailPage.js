@@ -12,7 +12,7 @@ const UserDetailPage = () => {
       const res = await getAllUserPostings(user.username);
       setUserDetail(res);
     })();
-  }, [user]);
+  }, []);
 
   const editClicked = () => {
     // PLACEHOLDER: Allow user to edit their info
