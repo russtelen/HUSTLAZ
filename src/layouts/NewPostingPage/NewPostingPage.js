@@ -12,14 +12,26 @@ const NewPostingPage = () => {
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState("");
 
+  const [error, setError] = useState()
+
   // make post req
   const submit = async (data) => {
+    setError(null)
     try {
-      await postOne(data, user);
-      toastr["success"]("New posting added", "Success");
-      history.push("/dashboard/mypostings");
-      return;
-
+      switch (data.type) {
+        case 'url':
+          await postOne(data, user);
+          toastr["success"]("New posting added", "Success");
+          history.push("/dashboard/mypostings");
+          break;
+        case 'file':
+          await postOneImageFile(data, user);
+          toastr["success"]("New posting added", "Success");
+          history.push("/dashboard/mypostings");
+          break;
+        default:
+          throw Error("Unexpected Error")
+      }
     } catch (e) {
       toastr["error"](
         "Something went wrong, we couldnt' add your posting",

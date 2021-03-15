@@ -105,15 +105,29 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
     const regTitle = title.replace(/'/g, "''")
 
     // Submit form
-    submit({
-      title: title.includes(`'`) ? regTitle : title,
-      price: rounded,
-      image_ref: imageRef,
-      category,
-      city,
-      province,
-      seller_description: description.includes(`'`) ? regDesc : description,
-    })
+    if (tabValue === 0)  {
+      submit({
+        type: "url",
+        title: title.includes(`'`) ? regTitle : title,
+        price: rounded,
+        image_ref: imageRef,
+        category,
+        city,
+        province,
+        seller_description: description.includes(`'`) ? regDesc : description,
+      })
+    } else {
+      submit({
+        type: "file",
+        title: title.includes(`'`) ? regTitle : title,
+        price: rounded,
+        image_ref: imageRef,
+        category,
+        city,
+        province,
+        seller_description: description.includes(`'`) ? regDesc : description,
+      })
+    }
 
     // Reset state
     // setTitle("");
