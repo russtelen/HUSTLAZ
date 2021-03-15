@@ -1,3 +1,3 @@
-import React, { createContext } from "react"
+import { createContext } from "react";
 
-export const TopNavValueContext = createContext([])
+export const TopNavValueContext = createContext([]);
