@@ -6,10 +6,12 @@ import { UserContext } from "../../context/UserContext";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import toastr from "toastr";
+import { LoginFormContext } from "../../context/LoginFormContext";
 
 const SideMenuPage = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+  const { setTabValue } = useContext(LoginFormContext);
   const { topnavValue } = useContext(TopNavValueContext);
 
   const topPicksClicked = async () => {
@@ -50,10 +52,12 @@ const SideMenuPage = () => {
   };
 
   const loginClicked = () => {
+    setTabValue(0);
     history.push("/login");
   };
 
   const registerClicked = () => {
+    setTabValue(1);
     history.push("/register");
   };
 
