@@ -64,9 +64,10 @@ const UserProductsPage = () => {
       if (deleteRes) {
         toastr["success"](`Item successfully deleted`);
         return;
+      } else {
+        toastr["error"](`Something went wrong. Could not delete your post`);
       }
 
-      toastr["error"](`Something went wrong. Could not delete your post`);
     } catch (e) {
       toastr["error"](`${e.message}`);
       console.log(e);
@@ -80,7 +81,7 @@ const UserProductsPage = () => {
       </h1>
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
-        {userPosts?.map((post, idx) => (
+        {userPosts.length > 0 && userPosts?.map((post, idx) => (
           <div
             key={idx}
             className={
