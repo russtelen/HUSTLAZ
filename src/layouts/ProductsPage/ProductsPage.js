@@ -39,7 +39,7 @@ const ProductsPage = () => {
   // if != category in params, set post === all post
   useEffect(() => {
     (async () => {
-      if (categoryId != undefined) {
+      if (categoryId !== undefined) {
         const data = await getPostingsByCategory(categoryId);
         setDidChange(false);
         setPosts(data);
