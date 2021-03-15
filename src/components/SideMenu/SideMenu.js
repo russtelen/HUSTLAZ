@@ -49,7 +49,7 @@ const SideMenu = ({
   logoutClicked,
 }) => {
   const classes = useStyles();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
