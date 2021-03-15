@@ -63,6 +63,19 @@ export const getOne = async (postingId) => {
   }
 }
 
+export async function postImageFile(
+  { title, price, file, category, city, province, seller_description },
+  user
+) {
+  let signedURLResult = await http({ method: 'get', path: '/secureToken' })
+  const { uploadURL, Key } = signedURLResult
+
+  await axios.put(uploadURL, file)
+  const image_ref = uploadURL.split('?')[0]
+
+  return await postOne({ title, price, image_ref, category, city, province, seller_description }, user)
+}
+
 // POST One
 export function postOne(
   { title, price, image_ref, category, city, province, seller_description },

@@ -121,7 +121,7 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
         type: "file",
         title: title.includes(`'`) ? regTitle : title,
         price: rounded,
-        image_ref: imageRef,
+        file,
         category,
         city,
         province,

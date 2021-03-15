@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { getAllRegions, getCitiesByRegion, postOne } from "../../network";
+import { getAllRegions, getCitiesByRegion, postOne, postOneImageFile } from "../../network";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import toastr from "toastr";
