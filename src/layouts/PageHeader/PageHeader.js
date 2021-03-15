@@ -6,8 +6,8 @@ import { TopNavValueContext } from "../../context/TopNavValueContext";
 import toastr from "toastr";
 
 const PageHeader = () => {
-  const { user, setUser } = useContext(UserContext);
-  const { topnavValue, setTopnavValue } = useContext(TopNavValueContext);
+  const { user } = useContext(UserContext);
+  const { setTopnavValue } = useContext(TopNavValueContext);
   const history = useHistory();
 
   const homeClicked = async () => {
