@@ -12,7 +12,7 @@ import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage";
 import UserDetailPage from "../UserDetailPage/UserDetailPage";
 
 const DashBoardPage = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const PrivateRoute = ({ path, children }) => {
     return (
