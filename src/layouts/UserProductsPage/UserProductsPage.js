@@ -37,9 +37,8 @@ const UserProductsPage = () => {
       setDidChange(false);
       setUserPosts(res.postings);
       setDidChange(true);
-      console.log(userPosts);
     })();
-  }, []);
+  }, [userPosts.length]);
   // ===================================================
 
   // Handlers
@@ -56,17 +55,12 @@ const UserProductsPage = () => {
 
   const deleteClicked = async (post) => {
     try {
-      const deleteRes = await deleteOne(post.id);
+      await deleteOne(post.id);
       const res = await getAllUserPostings(user.username);
       setUserPosts(res);
       setOpen(false);
-
-      if (deleteRes) {
-        toastr["success"](`Item successfully deleted`);
-        return;
-      } else {
-        toastr["error"](`Something went wrong. Could not delete your post`);
-      }
+      toastr["success"](`Item successfully deleted`);
+      return;
 
     } catch (e) {
       toastr["error"](`${e.message}`);
