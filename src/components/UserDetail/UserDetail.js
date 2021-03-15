@@ -48,8 +48,8 @@ const UserDetail = ({ user, editClicked }) => {
           </Grid>
         </Grid>
         <Grid container spacing={5} style={{ padding: 20 }}>
-          <Grid item direction="column" spacing={4}>
-            <Grid item>
+          <Grid item container direction="column" spacing={4}>
+            <Grid className="d-flex justify-content-center" item>
               <Avatar src={user.image || ""} className={classes.large} />
             </Grid>
           </Grid>
