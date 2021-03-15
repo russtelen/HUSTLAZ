@@ -31,8 +31,6 @@ const ProductsPage = () => {
   // Params :category
   const { categoryId } = useParams();
 
-  const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
-
   // ===================================================
   // On load
   // Set post === category in the params
@@ -53,8 +51,10 @@ const ProductsPage = () => {
       setPosts(allPosts);
     })();
 
+    const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];
+
     setCategory(categoryId ? categories[categoryId] : "All Posts");
-  }, [categoryId]);
+  }, [categoryId, setPosts]);
   // ===================================================
 
   // Handlers
