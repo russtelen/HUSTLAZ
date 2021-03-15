@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -36,7 +36,7 @@ const TopNav = ({ homeClicked, profileClicked, notificationClicked }) => {
           <p className="text-center h3">
             Hu
             <span>
-              <img src={dollar} className={classes.logo} />
+              <img src={dollar} className={classes.logo} alt="Hustlaz Logo" />
             </span>
             tlaz
           </p>
