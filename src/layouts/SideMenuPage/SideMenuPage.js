@@ -10,7 +10,7 @@ import toastr from "toastr";
 const SideMenuPage = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
-  const { topnavValue, setTopnavValue } = useContext(TopNavValueContext);
+  const { topnavValue } = useContext(TopNavValueContext);
 
   const topPicksClicked = async () => {
     history.push("/posts");
