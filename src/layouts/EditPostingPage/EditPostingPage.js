@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import NewPosting from "../../components/NewPosting/NewPosting";
-import { getAllRegions, getCitiesByRegion, updateOne } from "../../network";
+import { getAllRegions, getCitiesByRegion, updateOne, updateOneImageFile } from "../../network";
 import { useHistory, useParams } from "react-router-dom";
 import { EditPostContext } from "../../context/EditPostContext";
 import toastr from "toastr";
@@ -12,20 +12,26 @@ const EditPostingPage = () => {
   const { editPost } = useContext(EditPostContext);
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState("");
+  const [error, setError] = useState();
 
   const submit = async (data) => {
+    setError(null)
     try {
-      const res = await updateOne(data, postingId);
-
-      if (res) {
-        history.push("/dashboard/mypostings");
-        toastr["success"](`Item successfully updated`);
-        return;
+      switch (data.type) {
+        case 'url':
+          await updateOne(data, postingId)
+          toastr["success"](`Item successfully updated`);
+          break;
+        case 'file':
+          await updateOneImageFile(data, postingId)
+          toastr["success"](`Item successfully updated`);
+          break;
+        default:
+          throw Error("Unexpected Error")
       }
-
       history.push("/dashboard/mypostings");
-      toastr["error"](`Something went wrong. Could not update your post`);
     } catch (e) {
+      toastr["error"](`${e.message}`);
       console.log(e);
     }
   };

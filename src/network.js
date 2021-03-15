@@ -3,6 +3,7 @@ import { userToken } from './userAuth'
 
 const url = 'https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod'
 
+
 async function tokenHeader() {
   const token = await userToken()
   if (!token) {
@@ -21,7 +22,7 @@ async function http({ method, path, params }) {
 
   try {
     let result
-    if (method == 'get') {
+    if (method == 'get' || method == 'delete') {
       result = await axios[method](url + path, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
@@ -63,11 +64,11 @@ export const getOne = async (postingId) => {
   }
 }
 
-export async function postImageFile(
+export async function postOneImageFile(
   { title, price, file, category, city, province, seller_description },
   user
 ) {
-  let signedURLResult = await http({ method: 'get', path: '/secureToken' })
+  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
   const { uploadURL, Key } = signedURLResult
 
   await axios.put(uploadURL, file)
@@ -124,6 +125,16 @@ export const getCitiesByRegion = async (region) => {
 // GET all post that belong to current user
 export function getAllUserPostings(username) {
   return http({ method: 'get', path: `/users/${username}` })
+}
+
+export async function updateOneImageFile({title, price, file, category, city, province, seller_description}, postingId) {
+  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
+  const { uploadURL, Key } = signedURLResult
+
+  await axios.put(uploadURL, file)
+  const image_ref = uploadURL.split('?')[0]
+
+  return await updateOne({ title, price, image_ref, category, city, province, seller_description }, postingId)
 }
 
 // UPDATE posting
