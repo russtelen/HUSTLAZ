@@ -23,7 +23,7 @@ export function signUp({ username, password, email }) {
 
     userPool.signUp(username, password, attributeList, null, (err, result) => {
       if (err) {
-        alert(err.message || JSON.stringify(err))
+        // alert(err.message || JSON.stringify(err))
         reject(err)
         return
       }
@@ -52,7 +52,7 @@ export function loginUser({ username, password }) {
       },
       onFailure: function (err) {
         reject(err)
-        alert(err.message || JSON.stringify(err))
+        // alert(err.message || JSON.stringify(err))
       },
     })
   })
