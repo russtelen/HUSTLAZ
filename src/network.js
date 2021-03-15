@@ -135,11 +135,5 @@ export function updateOne(
 
 // DELETE posting
 export function deleteOne(postingId) {
-  // try {
-  //   const res = await axios.delete(`${url}/postings/${postingId}`)
-  //   return res.data
-  // } catch (error) {
-  //   console.log(error)
-  // }
   return http({ method: 'delete', path: `/postings/${postingId}` })
 }
