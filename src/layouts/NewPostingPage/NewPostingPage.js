@@ -15,18 +15,16 @@ const NewPostingPage = () => {
   // make post req
   const submit = async (data) => {
     try {
-      const res = await postOne(data, user);
-      if (res) {
-        toastr["success"]("New posting added", "Success");
-        history.push("/dashboard/mypostings");
-        return;
-      }
+      await postOne(data, user);
+      toastr["success"]("New posting added", "Success");
+      history.push("/dashboard/mypostings");
+      return;
 
+    } catch (e) {
       toastr["error"](
         "Something went wrong, we couldnt' add your posting",
         "Error"
       );
-    } catch (e) {
       console.log(e);
     }
   };

@@ -37,9 +37,8 @@ const UserProductsPage = () => {
       setDidChange(false);
       setUserPosts(res.postings);
       setDidChange(true);
-      console.log(userPosts);
     })();
-  }, []);
+  }, [userPosts.length]);
   // ===================================================
 
   // Handlers
