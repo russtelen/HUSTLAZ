@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { makeStyles } from "@material-ui/core/styles"
 
@@ -44,12 +44,15 @@ const ProductItem = ({
 }) => {
   const classes = useStyles()
 
-  const [liked, setLiked] = useState(favourite ? true : false)
+  const [liked, setLiked] = useState(favourite)
+
+  useEffect(() => {
+    setLiked(favourite)
+  }, [favourite])
 
   const postLiked = () => {
     setLiked(!liked)
-    likeClicked(post.id)
-    console.log(post.id)
+    likeClicked({ postingId: post.id, liked })
   }
 
   const substringTitle = post.title.substring(0, 19)
