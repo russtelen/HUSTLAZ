@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,6 +17,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const useStyles = makeStyles({
   root: {
@@ -41,6 +42,13 @@ const ProductItem = ({
   deleteClicked,
 }) => {
   const classes = useStyles();
+
+  const [liked, setLiked] = useState(false);
+
+  const postLiked = () => {
+    setLiked(!liked);
+    likeClicked(post.id);
+  };
 
   const substringTitle = post.title.substring(0, 19);
   return (
@@ -97,9 +105,13 @@ const ProductItem = ({
           <>
             <IconButton
               aria-label="add to favorites"
-              onClick={() => likeClicked()}
+              onClick={() => postLiked()}
             >
-              <FavoriteIcon />
+              {liked ? (
+                <FavoriteIcon color="secondary" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
             </IconButton>
             <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
