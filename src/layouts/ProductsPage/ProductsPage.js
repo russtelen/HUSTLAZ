@@ -102,8 +102,11 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = () => {
-    console.log("product saved")
+  const likeCliked = (data) => {
+    // user can unlike the posting
+    // const res = await addUserFavourite(data) = data is going to be the req body comes from the product item component
+    // user can like the posting
+    // const res = await removeUserFavourite(data) = data is going to be postingId
   }
 
   const contactClicked = () => {

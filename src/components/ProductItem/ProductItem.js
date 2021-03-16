@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react"
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles"
 
 import {
   IconButton,
@@ -11,10 +11,13 @@ import {
   CardContent,
   CardMedia,
   Button,
-} from "@material-ui/core";
+} from "@material-ui/core"
 
-import EmailIcon from "@material-ui/icons/Email";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import EmailIcon from "@material-ui/icons/Email"
+import FavoriteIcon from "@material-ui/icons/Favorite"
+import EditIcon from "@material-ui/icons/Edit"
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder"
 
 const useStyles = makeStyles({
   root: {
@@ -27,20 +30,29 @@ const useStyles = makeStyles({
   title: {
     marginTop: 20,
   },
-});
+})
 
 const ProductItem = ({
   post,
   likeClicked,
+  favourite,
   cardClicked,
   contactClicked,
   myPostings,
   editClicked,
   deleteClicked,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const substringTitle = post.title.substring(0, 19);
+  const [liked, setLiked] = useState(favourite ? true : false)
+
+  const postLiked = () => {
+    setLiked(!liked)
+    likeClicked(post.id)
+    console.log(post.id)
+  }
+
+  const substringTitle = post.title.substring(0, 19)
   return (
     <Card className={`${classes.root}`}>
       <CardActionArea onClick={() => cardClicked()}>
@@ -76,28 +88,32 @@ const ProductItem = ({
       <CardActions className={classes.header}>
         {myPostings ? (
           <>
-            <Button
+            <IconButton
               variant="contained"
-              style={{ background: "orange" }}
+              style={{ background: "orange", color: "white" }}
               onClick={() => editClicked()}
             >
-              Edit
-            </Button>
-            <Button
+              <EditIcon />
+            </IconButton>
+            <IconButton
               onClick={() => deleteClicked()}
               variant="contained"
-              color="secondary"
+              style={{ background: "red", color: "white" }}
             >
-              Delete
-            </Button>
+              <DeleteForeverIcon />
+            </IconButton>
           </>
         ) : (
           <>
             <IconButton
               aria-label="add to favorites"
-              onClick={() => likeClicked()}
+              onClick={() => postLiked()}
             >
-              <FavoriteIcon />
+              {liked ? (
+                <FavoriteIcon color="secondary" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
             </IconButton>
             <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
@@ -106,7 +122,7 @@ const ProductItem = ({
         )}
       </CardActions>
     </Card>
-  );
-};
+  )
+}
 
-export default ProductItem;
+export default ProductItem
