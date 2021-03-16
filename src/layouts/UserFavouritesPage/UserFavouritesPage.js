@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
-import { PostsContext } from "../../context/PostsContext";
+import { UserContext } from "../../context/PostsContext";
 import { useParams } from "react-router-dom";
 import { getAll, getPostingsByCategory } from "../../network";
 import Modal from "@material-ui/core/Modal";
@@ -19,10 +19,10 @@ const useStyles = makeStyles(() => ({
 
 const ProductsPage = () => {
   const classes = useStyles();
-  // Context
-  const { posts, setPosts } = useContext(PostsContext);
 
-  // Local state
+  // State Variables
+  const { user } = useContext(UserContext);
+  const [favouritePosts, setFavouritePosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
   const [didChange, setDidChange] = useState(false);
@@ -38,9 +38,9 @@ const ProductsPage = () => {
   useEffect(() => {
     (async () => {
       if (categoryId !== undefined) {
-        const data = await getPostingsByCategory(categoryId);
+        // const res = await getAllUserFavourites(user)
         setDidChange(false);
-        setPosts(data);
+        //setFavouritePosts(res)
         setDidChange(true);
         return;
       }
@@ -64,10 +64,9 @@ const ProductsPage = () => {
   };
 
   const likeCliked = (data) => {
-    // user can unlike the posting
-    // const res = await addUserFavourite(data) = data is going to be the req body comes from the product item component
-    // user can like the posting
+    // Inside of this page user can only unlike a page
     // const res = await removeUserFavourite(data) = data is going to be postingId
+    // fetch data again from the database to update ui
   };
 
   const contactClicked = () => {
