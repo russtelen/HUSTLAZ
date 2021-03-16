@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,8 +13,10 @@
     "animate.css": "^4.1.1",
     "aws-amplify": "^3.3.22",
     "axios": "^0.21.1",
+    "install": "^0.13.0",
     "jwt-decode": "^3.1.2",
     "material-icons": "^0.5.4",
+    "npm": "^7.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
