@@ -164,9 +164,10 @@ export function deleteOne(postingId) {
 
 // GET search postings by title or author
 export async function searchPostings(searchValue) {
+  const params = new URLSearchParams([['searchValue', searchValue]])
   try {
-    const res = await axios.get(`${url}/postings/search`, searchValue)
-    console.log('Search Response:', res);
+    const res = await axios.get(`${url}/postings/search`, { params })
+    return res.data.body
   } catch (err) {
     console.log(err);
   }
