@@ -94,17 +94,7 @@ const ProductsPage = () => {
   return (
     <div className="container">
       <h1 className="text-center mt-5">{category}</h1>
-      <Pagination
-        count={posts.length / 2 - 1}
-        onChange={handlePageChange}
-        hideNextButton={true}
-        hidePrevButton={true}
-        variant="outlined"
-        shape="rounded"
-        size="large"
-        color="secondary"
-      />
-      <div className="row d-flex justify-content-center ">
+      <div className="row d-flex justify-content-center mb-5">
         {posts?.map((post, idx) => (
           <div
             key={idx}
@@ -144,6 +134,18 @@ const ProductsPage = () => {
             />
           </Fade>
         </Modal>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Pagination
+          count={posts.length / 2 - 1}
+          onChange={handlePageChange}
+          hideNextButton={true}
+          hidePrevButton={true}
+          variant="outlined"
+          shape="rounded"
+          size="large"
+          color="secondary"
+        />
       </div>
     </div>
   )
