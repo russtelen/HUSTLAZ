@@ -176,10 +176,10 @@ export function getAllUserFavourites(username) {
   return http({ method: "get", path: `/users/favourites/${username}` })
 }
 // POST FAVOURITES
-export function postUserFavourites(username, postingId) {
+export function addUserFavourite(username, postingId) {
   return http({
     method: "post",
-    path: `/users/favourites/`,
+    path: `/users/favourites`,
     params: { username, postingId },
   })
 }
@@ -200,11 +200,11 @@ export async function removeUserFavourite(postingId) {
 
 // GET search postings by title or author
 export async function searchPostings(searchValue) {
-  const params = new URLSearchParams([['searchValue', searchValue]])
+  const params = new URLSearchParams([["searchValue", searchValue]])
   try {
     const res = await axios.get(`${url}/postings/search`, { params })
     return res.data.body
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 }
