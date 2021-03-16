@@ -8,7 +8,7 @@ import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
-import PaginationPage from "../PaginationPage/PaginationPage"
+import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
 
 const useStyles = makeStyles(() => ({
@@ -18,11 +18,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
 }))
-
-function paginate(array, page_size, page_number) {
-  // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
-  return array.slice((page_number - 1) * page_size, page_number * page_size)
-}
 
 const ProductsPage = () => {
   const classes = useStyles()
