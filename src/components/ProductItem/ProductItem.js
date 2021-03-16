@@ -15,6 +15,8 @@ import {
 
 import EmailIcon from "@material-ui/icons/Email";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles({
   root: {
@@ -76,20 +78,20 @@ const ProductItem = ({
       <CardActions className={classes.header}>
         {myPostings ? (
           <>
-            <Button
+            <IconButton
               variant="contained"
-              style={{ background: "orange" }}
+              style={{ background: "orange", color: "white" }}
               onClick={() => editClicked()}
             >
-              Edit
-            </Button>
-            <Button
+              <EditIcon />
+            </IconButton>
+            <IconButton
               onClick={() => deleteClicked()}
               variant="contained"
-              color="secondary"
+              style={{ background: "red", color: "white" }}
             >
-              Delete
-            </Button>
+              <DeleteForeverIcon />
+            </IconButton>
           </>
         ) : (
           <>
