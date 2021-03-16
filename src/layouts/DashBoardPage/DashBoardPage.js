@@ -1,27 +1,28 @@
-import React, { useContext } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
+import React, { useContext } from "react"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
 
-import ProductsPage from "../ProductsPage/ProductsPage";
-import SideMenuPage from "../SideMenuPage/SideMenuPage";
-import NewPostingPage from "../NewPostingPage/NewPostingPage";
-import LoginPage from "../LoginPage/LoginPage";
-import UserProductsPage from "../UserProductsPage/UserProductsPage";
-import EditPostingPage from "../EditPostingPage/EditPostingPage";
-import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage";
-import UserDetailPage from "../UserDetailPage/UserDetailPage";
-import FooterPage from "../FooterPage/FooterPage";
+import ProductsPage from "../ProductsPage/ProductsPage"
+import SideMenuPage from "../SideMenuPage/SideMenuPage"
+import NewPostingPage from "../NewPostingPage/NewPostingPage"
+import LoginPage from "../LoginPage/LoginPage"
+import UserProductsPage from "../UserProductsPage/UserProductsPage"
+import EditPostingPage from "../EditPostingPage/EditPostingPage"
+import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage"
+import UserDetailPage from "../UserDetailPage/UserDetailPage"
+import UserFavouritesPage from "../UserFavouritesPage/UserFavouritesPage"
+import FooterPage from "../FooterPage/FooterPage"
 
 const DashBoardPage = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext)
 
   const PrivateRoute = ({ path, children }) => {
     return (
       <Route path={path}>
         {!!user?.username ? children : <Redirect to="/login" />}
       </Route>
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -49,6 +50,9 @@ const DashBoardPage = () => {
           <PrivateRoute exact path="/dashboard/editposting/:postingId">
             <EditPostingPage />
           </PrivateRoute>
+          <PrivateRoute exact path="/dashboard/favourites">
+            <UserFavouritesPage />
+          </PrivateRoute>
           <Route exact path="/login">
             {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
           </Route>
@@ -62,7 +66,7 @@ const DashBoardPage = () => {
       </div>
       <FooterPage />
     </div>
-  );
-};
+  )
+}
 
-export default DashBoardPage;
+export default DashBoardPage

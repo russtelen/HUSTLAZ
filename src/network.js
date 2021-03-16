@@ -1,8 +1,7 @@
-import axios from 'axios'
-import { userToken } from './userAuth'
+import axios from "axios"
+import { userToken } from "./userAuth"
 
-const url = 'https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod'
-
+const url = "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod"
 
 async function tokenHeader() {
   const token = await userToken()
@@ -12,22 +11,23 @@ async function tokenHeader() {
   return { Authorization: `${token}` }
 }
 
-async function http({ method, path, params }) {
+async function http({ method, path, data, params }) {
   const token = await tokenHeader()
   const headers = {
     ...token,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   }
 
   try {
     let result
-    if (method == 'get' || method == 'delete') {
+    if (method == "get") {
       result = await axios[method](url + path, { headers })
+    } else if (method == "delete") {
+      result = await axios[method](url + path, data, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
     }
-
     return result.data
   } catch (error) {
     throw error.response.data.error ? Error(error.response.data.error) : error
@@ -68,13 +68,16 @@ export async function postOneImageFile(
   { title, price, file, category, city, province, seller_description },
   user
 ) {
-  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
+  let signedURLResult = await http({ method: "get", path: "/securetoken" })
   const { uploadURL, Key } = signedURLResult
 
   await axios.put(uploadURL, file)
-  const image_ref = uploadURL.split('?')[0]
+  const image_ref = uploadURL.split("?")[0]
 
-  return await postOne({ title, price, image_ref, category, city, province, seller_description }, user)
+  return await postOne(
+    { title, price, image_ref, category, city, province, seller_description },
+    user
+  )
 }
 
 // POST One
@@ -87,8 +90,8 @@ export function postOne(
   }
 
   return http({
-    method: 'post',
-    path: '/postings',
+    method: "post",
+    path: "/postings",
     params: {
       user: userObj,
       title,
@@ -124,17 +127,23 @@ export const getCitiesByRegion = async (region) => {
 
 // GET all post that belong to current user
 export function getAllUserPostings(username) {
-  return http({ method: 'get', path: `/users/${username}` })
+  return http({ method: "get", path: `/users/${username}` })
 }
 
-export async function updateOneImageFile({title, price, file, category, city, province, seller_description}, postingId) {
-  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
+export async function updateOneImageFile(
+  { title, price, file, category, city, province, seller_description },
+  postingId
+) {
+  let signedURLResult = await http({ method: "get", path: "/securetoken" })
   const { uploadURL, Key } = signedURLResult
 
   await axios.put(uploadURL, file)
-  const image_ref = uploadURL.split('?')[0]
+  const image_ref = uploadURL.split("?")[0]
 
-  return await updateOne({ title, price, image_ref, category, city, province, seller_description }, postingId)
+  return await updateOne(
+    { title, price, image_ref, category, city, province, seller_description },
+    postingId
+  )
 }
 
 // UPDATE posting
@@ -143,7 +152,7 @@ export function updateOne(
   postingId
 ) {
   return http({
-    method: 'put',
+    method: "put",
     path: `/postings/${postingId}`,
     params: {
       title,
@@ -159,7 +168,34 @@ export function updateOne(
 
 // DELETE posting
 export function deleteOne(postingId) {
-  return http({ method: 'delete', path: `/postings/${postingId}` })
+  return http({ method: "delete", path: `/postings/${postingId}`, params: {} })
+}
+
+// GET FAVOURITES
+export function getAllUserFavourites(username) {
+  return http({ method: "get", path: `/users/favourites/${username}` })
+}
+// POST FAVOURITES
+export function postUserFavourites(username, postingId) {
+  return http({
+    method: "post",
+    path: `/users/favourites/`,
+    params: { username, postingId },
+  })
+}
+
+// DELETE FAVOURITES
+export async function removeUserFavourite(postingId) {
+  const token = await userToken()
+
+  try {
+    const res = await axios.delete(`${url}/users/favourites`, {
+      data: { postingId },
+      headers: { Authorization: `${token}` },
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // GET search postings by title or author
