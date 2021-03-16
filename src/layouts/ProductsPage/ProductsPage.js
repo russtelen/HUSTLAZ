@@ -29,6 +29,7 @@ const ProductsPage = () => {
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
   const [category, setCategory] = useState("")
+  const [pageCount, setPageCount] = useState(1)
 
   // Params :category
   const { categoryId } = useParams()
@@ -41,15 +42,18 @@ const ProductsPage = () => {
     ;(async () => {
       if (categoryId !== undefined) {
         const postsByCategory = await getPostingsByCategory(categoryId)
+        setPageCount(Math.ceil(postsByCategory.length / 6))
         const page1 = paginate(postsByCategory, 6, 1)
         setDidChange(false)
         setPosts(page1)
         setDidChange(true)
+
         return
       }
 
       setDidChange(false)
       const allPosts = await getAll()
+      setPageCount(Math.ceil(allPosts.length / 6))
       const page1 = paginate(allPosts, 6, 1)
       setDidChange(true)
       setPosts(page1)
@@ -137,7 +141,7 @@ const ProductsPage = () => {
       </div>
       <div className="d-flex justify-content-center">
         <Pagination
-          count={posts.length / 2 - 1}
+          count={pageCount}
           onChange={handlePageChange}
           hideNextButton={true}
           hidePrevButton={true}
