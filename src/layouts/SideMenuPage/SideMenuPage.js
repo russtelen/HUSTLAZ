@@ -48,10 +48,6 @@ const SideMenuPage = () => {
     history.push("/newPost");
   };
 
-  const searchClicked = () => {
-    console.log("Search");
-  };
-
   const loginClicked = () => {
     setTabValue(0);
     history.push("/login");
@@ -88,7 +84,6 @@ const SideMenuPage = () => {
           profileClicked={() => profileClicked()}
           myPostingsClicked={() => myPostingsClicked()}
           sellSomethingClicked={() => sellSomethingClicked()}
-          searchClicked={() => searchClicked()}
           logoutClicked={() => logoutClicked()}
         />
       ) : (
@@ -100,7 +95,6 @@ const SideMenuPage = () => {
           itemsCatClicked={() => itemsCatClicked()}
           miscCatClicked={() => miscCatClicked()}
           sellSomethingClicked={() => sellSomethingClicked()}
-          searchClicked={() => searchClicked()}
           loginClicked={() => loginClicked()}
           registerClicked={() => registerClicked()}
           logoutClicked={() => logoutClicked()}
