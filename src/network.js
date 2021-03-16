@@ -163,7 +163,7 @@ export function deleteOne(postingId) {
 }
 
 // GET search postings by title or author
-export function searchPostings(searchValue) {
+export async function searchPostings(searchValue) {
   try {
     const res = await axios.get(`${url}/postings/search`, searchValue)
     console.log('Search Response:', res);

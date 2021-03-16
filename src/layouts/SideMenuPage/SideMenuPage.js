@@ -7,6 +7,7 @@ import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import toastr from "toastr";
 import { LoginFormContext } from "../../context/LoginFormContext";
+import { signOut } from '../../userAuth';
 
 const SideMenuPage = () => {
   const history = useHistory();
@@ -62,7 +63,7 @@ const SideMenuPage = () => {
   };
 
   const logoutClicked = async () => {
-    await Auth.signOut();
+    signOut();
     setUser(null);
     // Success notification
     toastr["success"]("Successfully logged out");
