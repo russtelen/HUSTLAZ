@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductDetail from "../../components/ProductDetail/ProductDetail";
 import { PostsContext } from "../../context/PostsContext";
@@ -8,7 +8,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, TextField, FormControl, Input, InputAdornment } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 import { searchPostings } from '../../network'
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -37,6 +37,9 @@ const ProductsPage = () => {
   const classes = useStyles();
   // Context
   const { posts, setPosts } = useContext(PostsContext);
+  
+  const setPostsReference = useRef(() => {})
+  setPostsReference.current = setPosts
 
   // Local state
   const [postDetail, setPostDetail] = useState({});
@@ -57,7 +60,7 @@ const ProductsPage = () => {
       if (categoryId !== undefined) {
         const data = await getPostingsByCategory(categoryId);
         setDidChange(false);
-        setPosts(data);
+        setPostsReference.current(data);
         setDidChange(true);
         return;
       }
@@ -65,7 +68,7 @@ const ProductsPage = () => {
       setDidChange(false);
       const allPosts = await getAll();
       setDidChange(true);
-      setPosts(allPosts);
+      setPostsReference.current(allPosts);
     })();
 
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"];

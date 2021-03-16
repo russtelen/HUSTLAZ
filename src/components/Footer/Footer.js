@@ -43,6 +43,7 @@ const Footer = () => {
                     className={classes.a}
                     href="https://github.com/nickchvt"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Nick Charvat
                   </a>
@@ -52,6 +53,7 @@ const Footer = () => {
                     className={classes.a}
                     href="https://github.com/gokay-abay"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Gokay Abay
                   </a>
@@ -61,6 +63,7 @@ const Footer = () => {
                     className={classes.a}
                     href="https://github.com/russtelen"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Russell Telen
                   </a>

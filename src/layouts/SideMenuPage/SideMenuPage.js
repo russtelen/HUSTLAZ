@@ -3,7 +3,6 @@ import SideMenu from "../../components/SideMenu/SideMenu";
 import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
 import { TopNavValueContext } from "../../context/TopNavValueContext";
 import { UserContext } from "../../context/UserContext";
-import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import toastr from "toastr";
 import { LoginFormContext } from "../../context/LoginFormContext";

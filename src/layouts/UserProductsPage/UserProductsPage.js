@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef} from "react";
 import { useHistory } from "react-router-dom";
 
 import ProductItem from "../../components/ProductItem/ProductItem";
@@ -23,9 +23,12 @@ const useStyles = makeStyles((theme) => ({
 const UserProductsPage = () => {
   const classes = useStyles();
   const history = useHistory();
-
   const { setEditPost } = useContext(EditPostContext);
   const { user } = useContext(UserContext);
+
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user.username
+  
   const [userPosts, setUserPosts] = useState([]);
   const [postDetail, setPostDetail] = useState({});
   const [open, setOpen] = useState(false);
@@ -33,11 +36,12 @@ const UserProductsPage = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await getAllUserPostings(user.username);
+      const res = await getAllUserPostings(usernameReference.current);
       setDidChange(false);
       setUserPosts(res.postings);
       setDidChange(true);
     })();
+    console.log('rendered')
   }, [userPosts.length]);
   // ===================================================
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   TextField,
@@ -64,6 +64,13 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   const [province, setProvince] = useState(post ? post.region : '')
   const [description, setDescription] = useState(post ? post.description : '')
 
+  const provinceReference = useRef(() => {})
+  provinceReference.current = province
+
+  const getCitiesReference = useRef(() => {})
+  getCitiesReference.current = getCities
+
+
   const [file, setFile] = useState()
   const [filePreview, setFilePreview] = useState()
   const [tabValue, setTabValue] = useState(0)
@@ -86,10 +93,9 @@ const NewPosting = ({ error, submit, regions, getCities, cities, post }) => {
   }
 
   useEffect(() => {
-    if (province) {
-      getCities(province)
+    if (provinceReference.current) {
+      getCitiesReference.current(provinceReference.current)
     }
-    console.log(province)
   }, [])
 
   const handleSubmit = (e) => {

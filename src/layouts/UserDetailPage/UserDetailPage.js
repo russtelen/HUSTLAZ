@@ -1,15 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import UserDetail from "../../components/UserDetail/UserDetail";
 import { UserContext } from "../../context/UserContext";
 import { getAllUserPostings } from "../../network";
 
 const UserDetailPage = () => {
   const { user } = useContext(UserContext);
+
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user.username
+
   const [userDetail, setUserDetail] = useState({});
 
   useEffect(() => {
     (async () => {
-      const res = await getAllUserPostings(user.username);
+      const res = await getAllUserPostings(usernameReference);
       setUserDetail(res);
     })();
   }, []);

@@ -11,12 +11,10 @@ const NewPostingPage = () => {
 
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState("");
-
-  const [error, setError] = useState()
+  // const getCitiesReference = useRef(() => {})
 
   // make post req
   const submit = async (data) => {
-    setError(null)
     try {
       switch (data.type) {
         case 'url':
@@ -65,7 +63,8 @@ const NewPostingPage = () => {
     (async () => {
       getRegions();
     })();
-  }, []);
+    console.log('rendered')
+  }, [])
 
   return (
     <NewPosting
