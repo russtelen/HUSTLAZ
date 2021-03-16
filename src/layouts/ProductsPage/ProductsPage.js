@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
+  noPostingsCont: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }));
 
 const ProductsPage = () => {
@@ -110,6 +116,7 @@ const ProductsPage = () => {
             variant="outlined" />
         </form>
       </div>
+      {posts.length > 0 ?
       <div className="row d-flex justify-content-center ">
         {posts?.map((post, idx) => (
           <div
@@ -129,6 +136,11 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
+      : 
+      <div className={classes.noPostingsCont}>
+        <h1>No postings!</h1>
+      </div>
+      }
       <div>
         <Modal
           aria-labelledby="transition-modal-title"
