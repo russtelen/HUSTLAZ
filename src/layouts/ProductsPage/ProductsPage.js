@@ -66,12 +66,16 @@ const ProductsPage = () => {
   const handlePageChange = async (e) => {
     if (categoryId !== undefined) {
       const postsByCategory = await getPostingsByCategory(categoryId)
+      setDidChange(false)
       setPosts(paginate(postsByCategory, 6, e.target.innerText))
+      setDidChange(true)
       return
     }
 
     const allPosts = await getAll()
+    setDidChange(false)
     setPosts(paginate(allPosts, 6, e.target.innerText))
+    setDidChange(true)
   }
 
   const cardCliked = (post) => {
