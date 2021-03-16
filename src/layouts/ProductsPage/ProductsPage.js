@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
+import { PageCountContext } from "../../context/PageCountContext"
 import { useParams } from "react-router-dom"
 import { getAll, getPostingsByCategory } from "../../network"
 import Modal from "@material-ui/core/Modal"
@@ -38,13 +39,12 @@ const ProductsPage = () => {
   const classes = useStyles()
   // Context
   const { posts, setPosts } = useContext(PostsContext)
-
+  const { pageCount, setPageCount } = useContext(PageCountContext)
   // Local state
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
   const [category, setCategory] = useState("")
-  const [pageCount, setPageCount] = useState(1)
   const [searchValue, setSearchValue] = useState("")
 
   // Params :category
@@ -116,7 +116,7 @@ const ProductsPage = () => {
   const handleSearch = async (e) => {
     e.preventDefault()
     const res = await searchPostings(searchValue)
-    setPageCount(Math.ceil(res.length / 6))
+    setPageCount(0)
     setPosts(res)
     setSearchValue("")
   }

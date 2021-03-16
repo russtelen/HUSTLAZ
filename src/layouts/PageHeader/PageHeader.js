@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import TopNav from "../../components/TopNav/TopNav"
 import { getAll } from "../../network"
+import { PageCountContext } from "../../context/PageCountContext"
 import { PostsContext } from "../../context/PostsContext"
 import { useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
@@ -11,11 +12,13 @@ import toastr from "toastr"
 const PageHeader = () => {
   const { user } = useContext(UserContext)
   const { posts, setPosts } = useContext(PostsContext)
+  const { pageCount, setPageCount } = useContext(PageCountContext)
   const { setTopnavValue } = useContext(TopNavValueContext)
   const history = useHistory()
 
   const homeClicked = async () => {
     const allPosts = await getAll()
+    setPageCount(Math.ceil(allPosts.length / 6))
     setTopnavValue("home")
     setPosts(paginate(allPosts, 6, 1))
     history.push("/posts")

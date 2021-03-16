@@ -9,6 +9,7 @@ import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
 import { EditPostContext } from "../../context/EditPostContext"
+import { PageCountContext } from "../../context/PageCountContext"
 import { UserContext } from "../../context/UserContext"
 import toastr from "toastr"
 import { paginate } from "../../utils/utils"
@@ -28,11 +29,11 @@ const UserProductsPage = () => {
 
   const { setEditPost } = useContext(EditPostContext)
   const { user } = useContext(UserContext)
+  const { pageCount, setPageCount } = useContext(PageCountContext)
   const [userPosts, setUserPosts] = useState([])
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
-  const [pageCount, setPageCount] = useState(1)
 
   useEffect(() => {
     ;(async () => {
