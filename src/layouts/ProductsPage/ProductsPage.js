@@ -8,13 +8,29 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
+import { IconButton, TextField, FormControl, Input, InputAdornment } from "@material-ui/core";
+import { searchPostings } from '../../network'
+import SearchIcon from '@material-ui/icons/Search';
 
-const useStyles = makeStyles(() => ({
+
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
+  searchInput: {
+    width: 250,
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  noPostingsCont: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }));
 
 const ProductsPage = () => {
@@ -27,6 +43,7 @@ const ProductsPage = () => {
   const [open, setOpen] = useState(false);
   const [didChange, setDidChange] = useState(false);
   const [category, setCategory] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
   // Params :category
   const { categoryId } = useParams();
@@ -71,9 +88,35 @@ const ProductsPage = () => {
     console.log("contact seller");
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    const res = await searchPostings(searchValue)
+    setPosts(res)
+    setSearchValue('')
+  }
+
   return (
     <div className="container">
-      <h1 className="text-center mt-5">{category}</h1>
+      <div className="row d-flex justify-content-around align-items-center">
+        <h1 className="text-center mt-5">{category}</h1>
+        <form className="mt-5" onSubmit={handleSearch} noValidate autoComplete="off">
+          <TextField
+          InputProps={{
+            startAdornment:
+            <IconButton onClick={handleSearch}><SearchIcon/></IconButton>,
+            classes: {
+              adornedEnd: classes.adornedStart
+            }
+          }}
+            className={classes.searchInput}
+            onChange={(e) => setSearchValue(e.target.value)}
+            value={searchValue}
+            id="search-input" 
+            label="Search by user or title" 
+            variant="outlined" />
+        </form>
+      </div>
+      {posts.length > 0 ?
       <div className="row d-flex justify-content-center ">
         {posts?.map((post, idx) => (
           <div
@@ -93,6 +136,11 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
+      : 
+      <div className={classes.noPostingsCont}>
+        <h1>No postings!</h1>
+      </div>
+      }
       <div>
         <Modal
           aria-labelledby="transition-modal-title"

@@ -80,5 +80,5 @@ export function userToken() {
 }
 
 export function signOut() {
-  currentUser.signOut()
+  currentUser().signOut()
 }
