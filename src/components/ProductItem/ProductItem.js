@@ -10,7 +10,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
 } from "@material-ui/core"
 
 import EmailIcon from "@material-ui/icons/Email"
