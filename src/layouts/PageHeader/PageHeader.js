@@ -5,6 +5,7 @@ import { PostsContext } from "../../context/PostsContext"
 import { useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { TopNavValueContext } from "../../context/TopNavValueContext"
+import { paginate } from "../../utils/utils"
 import toastr from "toastr"
 
 const PageHeader = () => {
@@ -16,7 +17,7 @@ const PageHeader = () => {
   const homeClicked = async () => {
     const allPosts = await getAll()
     setTopnavValue("home")
-    setPosts(allPosts)
+    setPosts(paginate(allPosts, 6, 1))
     history.push("/posts")
   }
 
