@@ -63,7 +63,6 @@ const ProductsPage = () => {
         setDidChange(false)
         setPosts(page1)
         setDidChange(true)
-
         return
       }
 
@@ -114,6 +113,7 @@ const ProductsPage = () => {
   const handleSearch = async (e) => {
     e.preventDefault()
     const res = await searchPostings(searchValue)
+    setPageCount(Math.ceil(res.length / 6))
     setPosts(res)
     setSearchValue("")
   }
