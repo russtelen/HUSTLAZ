@@ -161,3 +161,13 @@ export function updateOne(
 export function deleteOne(postingId) {
   return http({ method: 'delete', path: `/postings/${postingId}` })
 }
+
+// GET search postings by title or author
+export function searchPostings(searchValue) {
+  try {
+    const res = await axios.get(`${url}/postings/search`, searchValue)
+    console.log('Search Response:', res);
+  } catch (err) {
+    console.log(err);
+  }
+}
