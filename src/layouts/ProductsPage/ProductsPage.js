@@ -3,6 +3,7 @@ import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
 import { UserContext } from "../../context/UserContext"
+import { PageCountContext } from "../../context/PageCountContext"
 import { useParams } from "react-router-dom"
 import {
   getAll,
@@ -18,6 +19,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import { IconButton, TextField } from "@material-ui/core"
 import { searchPostings } from "../../network"
 import SearchIcon from "@material-ui/icons/Search"
+import { paginate } from "../../utils/utils"
+import Pagination from "@material-ui/lab/Pagination"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -45,6 +48,7 @@ const ProductsPage = () => {
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
 
+  const { pageCount, setPageCount } = useContext(PageCountContext)
   // Local state
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
@@ -63,29 +67,49 @@ const ProductsPage = () => {
   useEffect(() => {
     ;(async () => {
       if (categoryId !== undefined) {
-        const data = await getPostingsByCategory(categoryId)
+        const postsByCategory = await getPostingsByCategory(categoryId)
+        setPageCount(Math.ceil(postsByCategory.length / 6))
+        const page1 = paginate(postsByCategory, 6, 1)
         setDidChange(false)
-        setPosts(data)
+        setPosts(page1)
         setDidChange(true)
         return
       }
 
       setDidChange(false)
       const allPosts = await getAll()
+      setPageCount(Math.ceil(allPosts.length / 6))
+      const page1 = paginate(allPosts, 6, 1)
       setDidChange(true)
-      setPosts(allPosts)
+      setPosts(page1)
 
       const res = await getAllUserFavourites(user.username)
       setFavouritePosts(res)
     })()
 
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]
+
     setCategory(categoryId ? categories[categoryId] : "All Posts")
   }, [categoryId])
-
   // ===================================================
 
   // Handlers
+
+  const handlePageChange = async (e) => {
+    if (categoryId !== undefined) {
+      const postsByCategory = await getPostingsByCategory(categoryId)
+      setDidChange(false)
+      setPosts(paginate(postsByCategory, 6, e.target.innerText))
+      setDidChange(true)
+      return
+    }
+
+    const allPosts = await getAll()
+    setDidChange(false)
+    setPosts(paginate(allPosts, 6, e.target.innerText))
+    setDidChange(true)
+  }
+
   const cardCliked = (post) => {
     setPostDetail(post)
     setOpen(true)
@@ -111,6 +135,7 @@ const ProductsPage = () => {
   const handleSearch = async (e) => {
     e.preventDefault()
     const res = await searchPostings(searchValue)
+    setPageCount(0)
     setPosts(res)
     setSearchValue("")
   }
@@ -192,6 +217,18 @@ const ProductsPage = () => {
             />
           </Fade>
         </Modal>
+      </div>
+      <div className="d-flex justify-content-center mt-5">
+        <Pagination
+          count={pageCount}
+          onChange={handlePageChange}
+          hideNextButton={true}
+          hidePrevButton={true}
+          variant="outlined"
+          shape="rounded"
+          size="large"
+          color="secondary"
+        />
       </div>
     </div>
   )
