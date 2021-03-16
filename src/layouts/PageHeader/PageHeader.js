@@ -1,38 +1,43 @@
-import React, { useContext } from "react";
-import TopNav from "../../components/TopNav/TopNav";
-import { useHistory } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import { TopNavValueContext } from "../../context/TopNavValueContext";
-import toastr from "toastr";
+import React, { useContext } from "react"
+import TopNav from "../../components/TopNav/TopNav"
+import { getAll } from "../../network"
+import { PostsContext } from "../../context/PostsContext"
+import { useHistory } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
+import { TopNavValueContext } from "../../context/TopNavValueContext"
+import toastr from "toastr"
 
 const PageHeader = () => {
-  const { user } = useContext(UserContext);
-  const { setTopnavValue } = useContext(TopNavValueContext);
-  const history = useHistory();
+  const { user } = useContext(UserContext)
+  const { posts, setPosts } = useContext(PostsContext)
+  const { setTopnavValue } = useContext(TopNavValueContext)
+  const history = useHistory()
 
   const homeClicked = async () => {
-    setTopnavValue("home");
-    history.push("/posts");
-  };
+    const allPosts = await getAll()
+    setTopnavValue("home")
+    setPosts(allPosts)
+    history.push("/posts")
+  }
 
   const profileClicked = () => {
     if (!user?.username) {
-      toastr["error"]("You need to be logged in to do that", "Login");
+      toastr["error"]("You need to be logged in to do that", "Login")
     }
-    setTopnavValue("profile");
-    history.push("/dashboard/profile");
-  };
+    setTopnavValue("profile")
+    history.push("/dashboard/profile")
+  }
 
   const notificationClicked = () => {
-    setTopnavValue("notifications");
-  };
+    setTopnavValue("notifications")
+  }
   return (
     <TopNav
       homeClicked={() => homeClicked()}
       profileClicked={() => profileClicked()}
       notificationClicked={() => notificationClicked()}
     />
-  );
-};
+  )
+}
 
-export default PageHeader;
+export default PageHeader
