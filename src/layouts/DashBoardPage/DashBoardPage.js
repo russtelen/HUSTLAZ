@@ -10,6 +10,7 @@ import UserProductsPage from "../UserProductsPage/UserProductsPage";
 import EditPostingPage from "../EditPostingPage/EditPostingPage";
 import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage";
 import UserDetailPage from "../UserDetailPage/UserDetailPage";
+import FooterPage from "../FooterPage/FooterPage";
 
 const DashBoardPage = () => {
   const { user } = useContext(UserContext);
@@ -23,40 +24,43 @@ const DashBoardPage = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <SideMenuPage />
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/posts" />
-        </Route>
-        <Route exact path="/posts">
-          <ProductsPage />
-        </Route>
-        <Route exact path="/posts/:categoryId">
-          <ProductsPage />
-        </Route>
-        <PrivateRoute exact path="/newPost">
-          <NewPostingPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/profile">
-          <UserDetailPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/mypostings">
-          <UserProductsPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/editposting/:postingId">
-          <EditPostingPage />
-        </PrivateRoute>
-        <Route exact path="/login">
-          {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
-        </Route>
-        <Route exact path="/register">
-          {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
-        </Route>
-        <Route exact path="/verifyEmail">
-          {!user?.username ? <VerifyEmailPage /> : <Redirect to="/posts" />}
-        </Route>
-      </Switch>
+    <div>
+      <div style={{ display: "flex" }}>
+        <SideMenuPage />
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/posts" />
+          </Route>
+          <Route exact path="/posts">
+            <ProductsPage />
+          </Route>
+          <Route exact path="/posts/:categoryId">
+            <ProductsPage />
+          </Route>
+          <PrivateRoute exact path="/newPost">
+            <NewPostingPage />
+          </PrivateRoute>
+          <PrivateRoute exact path="/dashboard/profile">
+            <UserDetailPage />
+          </PrivateRoute>
+          <PrivateRoute exact path="/dashboard/mypostings">
+            <UserProductsPage />
+          </PrivateRoute>
+          <PrivateRoute exact path="/dashboard/editposting/:postingId">
+            <EditPostingPage />
+          </PrivateRoute>
+          <Route exact path="/login">
+            {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
+          </Route>
+          <Route exact path="/register">
+            {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
+          </Route>
+          <Route exact path="/verifyEmail">
+            {!user?.username ? <VerifyEmailPage /> : <Redirect to="/posts" />}
+          </Route>
+        </Switch>
+      </div>
+      <FooterPage />
     </div>
   );
 };
