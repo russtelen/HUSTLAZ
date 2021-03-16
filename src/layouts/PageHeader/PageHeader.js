@@ -11,8 +11,8 @@ import toastr from "toastr"
 
 const PageHeader = () => {
   const { user } = useContext(UserContext)
-  const { posts, setPosts } = useContext(PostsContext)
-  const { pageCount, setPageCount } = useContext(PageCountContext)
+  const { setPosts } = useContext(PostsContext)
+  const { setPageCount } = useContext(PageCountContext)
   const { setTopnavValue } = useContext(TopNavValueContext)
   const history = useHistory()
 
