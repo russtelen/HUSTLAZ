@@ -26,10 +26,6 @@ const ProductsPage = () => {
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
-  const [category, setCategory] = useState("")
-
-  // Params :category
-  const { categoryId } = useParams()
 
   // ===================================================
   // On load
@@ -52,10 +48,7 @@ const ProductsPage = () => {
   }
 
   const likeCliked = async (data) => {
-    console.log(data)
-    // Inside of this page user can only unlike a page
     await removeUserFavourite(data)
-    // fetch data again from the database to update ui
     const res = await getAllUserFavourites(user.username)
     setFavouritePosts(res)
   }
