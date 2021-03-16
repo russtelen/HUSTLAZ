@@ -7,6 +7,7 @@ import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import toastr from "toastr";
 import { LoginFormContext } from "../../context/LoginFormContext";
+import { signOut } from '../../userAuth';
 
 const SideMenuPage = () => {
   const history = useHistory();
@@ -47,10 +48,6 @@ const SideMenuPage = () => {
     history.push("/newPost");
   };
 
-  const searchClicked = () => {
-    console.log("Search");
-  };
-
   const loginClicked = () => {
     setTabValue(0);
     history.push("/login");
@@ -62,7 +59,7 @@ const SideMenuPage = () => {
   };
 
   const logoutClicked = async () => {
-    await Auth.signOut();
+    signOut();
     setUser(null);
     // Success notification
     toastr["success"]("Successfully logged out");
@@ -87,7 +84,6 @@ const SideMenuPage = () => {
           profileClicked={() => profileClicked()}
           myPostingsClicked={() => myPostingsClicked()}
           sellSomethingClicked={() => sellSomethingClicked()}
-          searchClicked={() => searchClicked()}
           logoutClicked={() => logoutClicked()}
         />
       ) : (
@@ -99,7 +95,6 @@ const SideMenuPage = () => {
           itemsCatClicked={() => itemsCatClicked()}
           miscCatClicked={() => miscCatClicked()}
           sellSomethingClicked={() => sellSomethingClicked()}
-          searchClicked={() => searchClicked()}
           loginClicked={() => loginClicked()}
           registerClicked={() => registerClicked()}
           logoutClicked={() => logoutClicked()}

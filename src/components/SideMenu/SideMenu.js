@@ -43,7 +43,6 @@ const SideMenu = ({
   itemsCatClicked,
   miscCatClicked,
   sellSomethingClicked,
-  searchClicked,
   loginClicked,
   registerClicked,
   logoutClicked,
@@ -132,12 +131,6 @@ const SideMenu = ({
             <ControlPointOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Sell Something" />
-        </ListItem>
-        <ListItem button onClick={() => searchClicked()}>
-          <ListItemIcon>
-            <SearchOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Search" />
         </ListItem>
       </List>
       <Divider />
