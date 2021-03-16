@@ -1,16 +1,19 @@
-import React, { useEffect, useState, useContext, useRef} from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState, useContext, useRef } from "react"
+import { useHistory } from "react-router-dom"
 
-import ProductItem from "../../components/ProductItem/ProductItem";
-import ProductDetail from "../../components/ProductDetail/ProductDetail";
-import { getAllUserPostings, getOne, deleteOne } from "../../network";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { makeStyles } from "@material-ui/core/styles";
-import { EditPostContext } from "../../context/EditPostContext";
-import { UserContext } from "../../context/UserContext";
-import toastr from "toastr";
+import ProductItem from "../../components/ProductItem/ProductItem"
+import ProductDetail from "../../components/ProductDetail/ProductDetail"
+import { getAllUserPostings, getOne, deleteOne } from "../../network"
+import Modal from "@material-ui/core/Modal"
+import Backdrop from "@material-ui/core/Backdrop"
+import Fade from "@material-ui/core/Fade"
+import { makeStyles } from "@material-ui/core/styles"
+import { EditPostContext } from "../../context/EditPostContext"
+import { PageCountContext } from "../../context/PageCountContext"
+import { UserContext } from "../../context/UserContext"
+import toastr from "toastr"
+import { paginate } from "../../utils/utils"
+import Pagination from "@material-ui/lab/Pagination"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -18,59 +21,66 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-}));
+}))
 
 const UserProductsPage = () => {
-  const classes = useStyles();
-  const history = useHistory();
-  const { setEditPost } = useContext(EditPostContext);
-  const { user } = useContext(UserContext);
+  const classes = useStyles()
+  const history = useHistory()
 
+  const { setEditPost } = useContext(EditPostContext)
+  const { user } = useContext(UserContext)
   const usernameReference = useRef(() => {})
   usernameReference.current = user.username
-  
-  const [userPosts, setUserPosts] = useState([]);
-  const [postDetail, setPostDetail] = useState({});
-  const [open, setOpen] = useState(false);
-  const [didChange, setDidChange] = useState(false);
+  const { pageCount, setPageCount } = useContext(PageCountContext)
+  const [userPosts, setUserPosts] = useState([])
+  const [postDetail, setPostDetail] = useState({})
+  const [open, setOpen] = useState(false)
+  const [didChange, setDidChange] = useState(false)
 
   useEffect(() => {
-    (async () => {
-      const res = await getAllUserPostings(usernameReference.current);
-      setDidChange(false);
-      setUserPosts(res.postings);
-      setDidChange(true);
-    })();
-    console.log('rendered')
-  }, [userPosts.length]);
+    ;(async () => {
+      const res = await getAllUserPostings(usernameReference.current)
+      const page1 = paginate(res.postings, 6, 1)
+      setPageCount(Math.ceil(res.postings.length / 6))
+      setDidChange(false)
+      setUserPosts(page1)
+      setDidChange(true)
+    })()
+  }, [userPosts.length])
   // ===================================================
 
   // Handlers
+  const handlePageChange = async (e) => {
+    const res = await getAllUserPostings(user.username)
+    setDidChange(false)
+    setUserPosts(paginate(res.postings, 6, e.target.innerText))
+    setDidChange(true)
+  }
+
   const cardCliked = (post) => {
-    setPostDetail(post);
-    setOpen(true);
-  };
+    setPostDetail(post)
+    setOpen(true)
+  }
 
   const editClicked = async (post) => {
-    const res = await getOne(post.id);
-    setEditPost(res);
-    history.push(`/dashboard/editposting/${post.id}`);
-  };
+    const res = await getOne(post.id)
+    setEditPost(res)
+    history.push(`/dashboard/editposting/${post.id}`)
+  }
 
   const deleteClicked = async (post) => {
     try {
-      await deleteOne(post.id);
-      const res = await getAllUserPostings(user.username);
-      setUserPosts(res);
-      setOpen(false);
-      toastr["success"](`Item successfully deleted`);
-      return;
-
+      await deleteOne(post.id)
+      const res = await getAllUserPostings(user.username)
+      setUserPosts(res)
+      setOpen(false)
+      toastr["success"](`Item successfully deleted`)
+      return
     } catch (e) {
-      toastr["error"](`${e.message}`);
-      console.log(e);
+      toastr["error"](`${e.message}`)
+      console.log(e)
     }
-  };
+  }
 
   return (
     <div className="container">
@@ -79,24 +89,25 @@ const UserProductsPage = () => {
       </h1>
       {/* <h1 className="text-center mt-5">{posts[0]?.category}</h1> */}
       <div className="row d-flex justify-content-center">
-        {userPosts.length > 0 && userPosts?.map((post, idx) => (
-          <div
-            key={idx}
-            className={
-              didChange
-                ? "col-sm-12 col-md-4 mt-5 animate__animated animate__fadeIn animate__faster"
-                : ""
-            }
-          >
-            <ProductItem
-              post={{ ...post }}
-              cardClicked={() => cardCliked(post)}
-              editClicked={() => editClicked(post)}
-              deleteClicked={() => deleteClicked(post)}
-              myPostings={!!post}
-            />
-          </div>
-        ))}
+        {userPosts.length > 0 &&
+          userPosts?.map((post, idx) => (
+            <div
+              key={idx}
+              className={
+                didChange
+                  ? "col-sm-12 col-md-4 mt-5 animate__animated animate__fadeIn animate__faster"
+                  : ""
+              }
+            >
+              <ProductItem
+                post={{ ...post }}
+                cardClicked={() => cardCliked(post)}
+                editClicked={() => editClicked(post)}
+                deleteClicked={() => deleteClicked(post)}
+                myPostings={!!post}
+              />
+            </div>
+          ))}
       </div>
       <div>
         <Modal
@@ -122,8 +133,20 @@ const UserProductsPage = () => {
           </Fade>
         </Modal>
       </div>
+      <div className="d-flex justify-content-center mt-5">
+        <Pagination
+          count={pageCount}
+          onChange={handlePageChange}
+          hideNextButton={true}
+          hidePrevButton={true}
+          variant="outlined"
+          shape="rounded"
+          size="large"
+          color="secondary"
+        />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserProductsPage;
+export default UserProductsPage
