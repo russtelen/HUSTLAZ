@@ -21,10 +21,8 @@ async function http({ method, path, data, params }) {
 
   try {
     let result
-    if (method == "get") {
+    if (method == "get" || method == "delete") {
       result = await axios[method](url + path, { headers })
-    } else if (method == "delete") {
-      result = await axios[method](url + path, data, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
     }
@@ -168,13 +166,14 @@ export function updateOne(
 
 // DELETE posting
 export function deleteOne(postingId) {
-  return http({ method: "delete", path: `/postings/${postingId}`, params: {} })
+  return http({ method: "delete", path: `/postings/${postingId}` })
 }
 
 // GET FAVOURITES
 export function getAllUserFavourites(username) {
   return http({ method: "get", path: `/users/favourites/${username}` })
 }
+
 // POST FAVOURITES
 export function addUserFavourite(username, postingId) {
   return http({
