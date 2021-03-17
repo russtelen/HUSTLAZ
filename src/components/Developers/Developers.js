@@ -2,18 +2,18 @@ import React from "react"
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
 import { SiWebmoney } from "react-icons/si"
 const Developers = ({ developer }) => {
-  console.log(developer && developer)
+  console.log(developer ? developer.image : "")
   return (
     <div className="container">
       {!developer ? (
         <p>Loading...</p>
       ) : (
         <>
-          <h1 className="text-center mt-3">{developer.name}</h1>
+          <h1 className="text-center mt-5">{developer.name}</h1>
           <div className="my-5">
             <div className="row">
               <div className="col-6">
-                <img src={developer.img} style={{ width: "100%" }} />
+                <img src={developer.image} style={{ width: "100%" }} />
               </div>
               <div className="col-6">
                 <div className="row">
