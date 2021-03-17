@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import { useHistory } from "react-router-dom"
 
 import ProductItem from "../../components/ProductItem/ProductItem"
@@ -29,7 +29,11 @@ const UserProductsPage = () => {
 
   const { setEditPost } = useContext(EditPostContext)
   const { user } = useContext(UserContext)
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user.username
   const { pageCount, setPageCount } = useContext(PageCountContext)
+  const setPageCountReference = useRef(() => {})
+  setPageCountReference.current = setPageCount
   const [userPosts, setUserPosts] = useState([])
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
@@ -37,9 +41,9 @@ const UserProductsPage = () => {
 
   useEffect(() => {
     ;(async () => {
-      const res = await getAllUserPostings(user.username)
+      const res = await getAllUserPostings(usernameReference.current)
       const page1 = paginate(res.postings, 6, 1)
-      setPageCount(Math.ceil(res.postings.length / 6))
+      setPageCountReference.current(Math.ceil(res.postings.length / 6))
       setDidChange(false)
       setUserPosts(page1)
       setDidChange(true)

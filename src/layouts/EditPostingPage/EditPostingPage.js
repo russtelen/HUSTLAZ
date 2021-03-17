@@ -12,10 +12,8 @@ const EditPostingPage = () => {
   const { editPost } = useContext(EditPostContext);
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState("");
-  const [error, setError] = useState();
 
   const submit = async (data) => {
-    setError(null)
     try {
       switch (data.type) {
         case 'url':

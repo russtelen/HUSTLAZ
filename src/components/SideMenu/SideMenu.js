@@ -13,7 +13,6 @@ import { Divider } from "@material-ui/core";
 // Icon Imports
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import ControlPointOutlinedIcon from "@material-ui/icons/ControlPointOutlined";
-import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import CategoryIcon from "@material-ui/icons/Category";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";

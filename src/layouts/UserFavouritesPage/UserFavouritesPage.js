@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { UserContext } from "../../context/UserContext"
@@ -21,10 +21,17 @@ const ProductsPage = () => {
   const classes = useStyles()
 
   const { user } = useContext(UserContext)
+
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user.username
+
   const [favouritePosts, setFavouritePosts] = useState([])
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
+
+  // Params :category
+  // const { categoryId } = useParams()
 
   // ===================================================
   // On load
@@ -33,7 +40,7 @@ const ProductsPage = () => {
   useEffect(() => {
     ;(async () => {
       setDidChange(false)
-      const res = await getAllUserFavourites(user.username)
+      const res = await getAllUserFavourites(usernameReference.current)
       setDidChange(true)
       setFavouritePosts(res)
     })()

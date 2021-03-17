@@ -21,7 +21,7 @@ async function http({ method, path, data, params }) {
 
   try {
     let result
-    if (method == "get" || method == "delete") {
+    if (method === "get" || method === "delete") {
       result = await axios[method](url + path, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
@@ -67,7 +67,7 @@ export async function postOneImageFile(
   user
 ) {
   let signedURLResult = await http({ method: "get", path: "/securetoken" })
-  const { uploadURL, Key } = signedURLResult
+  const { uploadURL } = signedURLResult
 
   await axios.put(uploadURL, file)
   const image_ref = uploadURL.split("?")[0]
@@ -133,7 +133,7 @@ export async function updateOneImageFile(
   postingId
 ) {
   let signedURLResult = await http({ method: "get", path: "/securetoken" })
-  const { uploadURL, Key } = signedURLResult
+  const { uploadURL } = signedURLResult
 
   await axios.put(uploadURL, file)
   const image_ref = uploadURL.split("?")[0]
@@ -188,7 +188,7 @@ export async function removeUserFavourite(postingId) {
   const token = await userToken()
 
   try {
-    const res = await axios.delete(`${url}/users/favourites`, {
+    await axios.delete(`${url}/users/favourites`, {
       data: { postingId },
       headers: { Authorization: `${token}` },
     })
