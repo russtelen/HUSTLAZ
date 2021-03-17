@@ -12,6 +12,7 @@ import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage"
 import UserDetailPage from "../UserDetailPage/UserDetailPage"
 import UserFavouritesPage from "../UserFavouritesPage/UserFavouritesPage"
 import FooterPage from "../FooterPage/FooterPage"
+import DevelopersPage from "../DevelopersPage/DevelopersPage"
 
 const DashBoardPage = () => {
   const { user } = useContext(UserContext)
@@ -52,6 +53,9 @@ const DashBoardPage = () => {
           </PrivateRoute>
           <PrivateRoute exact path="/dashboard/favourites">
             <UserFavouritesPage />
+          </PrivateRoute>
+          <PrivateRoute exact path="/developers/:name">
+            <DevelopersPage />
           </PrivateRoute>
           <Route exact path="/login">
             {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
