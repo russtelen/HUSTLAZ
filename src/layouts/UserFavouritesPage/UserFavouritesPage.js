@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext, useRef } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { UserContext } from "../../context/UserContext"
-// import { useParams } from "react-router-dom"
 import { getAllUserFavourites, removeUserFavourite } from "../../network"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
+import toastr from "toastr"
 
 const useStyles = makeStyles(() => ({
   modal: {
@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
 const ProductsPage = () => {
   const classes = useStyles()
 
-  // State Variables
   const { user } = useContext(UserContext)
 
   const usernameReference = useRef(() => {})
@@ -54,13 +53,16 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = async (data) => {
-    console.log(data)
-    // Inside of this page user can only unlike a page
-    await removeUserFavourite(data)
-    // fetch data again from the database to update ui
-    const res = await getAllUserFavourites(user.username)
-    setFavouritePosts(res)
+  const likeCliked = async ({ postingId }) => {
+    try {
+      await removeUserFavourite(postingId)
+      const res = await getAllUserFavourites(user.username)
+      setFavouritePosts(res)
+      toastr["success"](`Item successfully removed`)
+    } catch (e) {
+      toastr["error"](`${e.message}`)
+      console.log(e)
+    }
   }
 
   const contactClicked = () => {

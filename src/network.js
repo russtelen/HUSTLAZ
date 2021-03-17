@@ -21,14 +21,15 @@ async function http({ method, path, data, params }) {
 
   try {
     let result
-    if (method === "get" || method === 'delete') {
+    if (method === "get" || method === "delete") {
       result = await axios[method](url + path, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
     }
     return result.data
   } catch (error) {
-    throw error.response.data.error ? Error(error.response.data.error) : error
+    // throw error.response.data.error ? Error(error.response.data.error) : error
+    console.error(error)
   }
 }
 
@@ -166,18 +167,19 @@ export function updateOne(
 
 // DELETE posting
 export function deleteOne(postingId) {
-  return http({ method: "delete", path: `/postings/${postingId}`})
+  return http({ method: "delete", path: `/postings/${postingId}` })
 }
 
 // GET FAVOURITES
 export function getAllUserFavourites(username) {
   return http({ method: "get", path: `/users/favourites/${username}` })
 }
+
 // POST FAVOURITES
-export function postUserFavourites(username, postingId) {
+export function addUserFavourite(username, postingId) {
   return http({
     method: "post",
-    path: `/users/favourites/`,
+    path: `/users/favourites`,
     params: { username, postingId },
   })
 }
@@ -187,10 +189,11 @@ export async function removeUserFavourite(postingId) {
   const token = await userToken()
 
   try {
-    await axios.delete(`${url}/users/favourites`, {
+    const res = await axios.delete(`${url}/users/favourites`, {
       data: { postingId },
       headers: { Authorization: `${token}` },
     })
+    return res.data
   } catch (err) {
     console.log(err)
   }
@@ -198,11 +201,11 @@ export async function removeUserFavourite(postingId) {
 
 // GET search postings by title or author
 export async function searchPostings(searchValue) {
-  const params = new URLSearchParams([['searchValue', searchValue]])
+  const params = new URLSearchParams([["searchValue", searchValue]])
   try {
     const res = await axios.get(`${url}/postings/search`, { params })
     return res.data.body
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 }

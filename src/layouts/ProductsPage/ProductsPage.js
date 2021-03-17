@@ -2,9 +2,16 @@ import React, { useEffect, useState, useContext, useRef } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
+import { UserContext } from "../../context/UserContext"
 import { PageCountContext } from "../../context/PageCountContext"
 import { useParams } from "react-router-dom"
-import { getAll, getPostingsByCategory } from "../../network"
+import {
+  getAll,
+  getPostingsByCategory,
+  getAllUserFavourites,
+  removeUserFavourite,
+  addUserFavourite,
+} from "../../network"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
@@ -14,6 +21,7 @@ import { searchPostings } from "../../network"
 import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
+import toastr from "toastr"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,6 +47,8 @@ const ProductsPage = () => {
   const classes = useStyles()
   // Context
   const { posts, setPosts } = useContext(PostsContext)
+  const { user } = useContext(UserContext)
+
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
   setPostsReference.current = setPosts
@@ -50,10 +60,13 @@ const ProductsPage = () => {
   const [didChange, setDidChange] = useState(false)
   const [category, setCategory] = useState("")
   const [searchValue, setSearchValue] = useState("")
+  const [favouritePosts, setFavouritePosts] = useState([])
 
   // Params :category
   const { categoryId } = useParams()
 
+  const usernameRef = useRef(() => {})
+  usernameRef.current = user ? user.username : ""
   // ===================================================
   // On load
   // Set post === category in the params
@@ -76,6 +89,11 @@ const ProductsPage = () => {
       const page1 = paginate(allPosts, 6, 1)
       setDidChange(true)
       setPostsReference.current(page1)
+
+      if (usernameRef.current) {
+        const res = await getAllUserFavourites(usernameRef.current)
+        setFavouritePosts(res)
+      }
     })()
 
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]
@@ -106,11 +124,29 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = (data) => {
-    // user can unlike the posting
-    // const res = await addUserFavourite(data) = data is going to be the req body comes from the product item component
-    // user can like the posting
-    // const res = await removeUserFavourite(data) = data is going to be postingId
+  const likeCliked = async ({ postingId, liked }) => {
+    if (liked) {
+      try {
+        await removeUserFavourite(postingId)
+        toastr["success"](`Item successfully removed from saved items`)
+      } catch (e) {
+        toastr["error"](`${e.message}`)
+        console.log(e)
+      }
+    } else {
+      try {
+        await addUserFavourite(user.username, postingId)
+        toastr["success"](`Item successfully added to saved items`)
+      } catch (e) {
+        toastr["error"](`${e.message}`)
+        console.log(e)
+      }
+    }
+  }
+
+  const checkFavourite = (postId) => {
+    const found = favouritePosts.some((fav) => fav.id === postId)
+    return found
   }
 
   const contactClicked = () => {
@@ -169,8 +205,9 @@ const ProductsPage = () => {
               <ProductItem
                 post={{ ...post }}
                 cardClicked={() => cardCliked(post)}
-                likeClicked={() => likeCliked()}
+                likeClicked={(data) => likeCliked(data)}
                 contactClicked={() => contactClicked()}
+                favourite={checkFavourite(post.id)}
               />
             </div>
           ))}
