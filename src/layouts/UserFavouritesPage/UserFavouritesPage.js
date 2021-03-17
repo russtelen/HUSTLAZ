@@ -47,8 +47,8 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = async (data) => {
-    await removeUserFavourite(data)
+  const likeCliked = async ({ postingId }) => {
+    await removeUserFavourite(postingId)
     const res = await getAllUserFavourites(user.username)
     setFavouritePosts(res)
   }
