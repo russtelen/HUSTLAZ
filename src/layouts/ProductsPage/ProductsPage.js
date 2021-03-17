@@ -21,6 +21,7 @@ import { searchPostings } from "../../network"
 import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
+import toastr from "toastr"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -117,9 +118,21 @@ const ProductsPage = () => {
 
   const likeCliked = async ({ postingId, liked }) => {
     if (liked) {
-      await removeUserFavourite(postingId)
+      try {
+        await removeUserFavourite(postingId)
+        toastr["success"](`Item successfully removed saved items`)
+      } catch (e) {
+        toastr["error"](`${e.message}`)
+        console.log(e)
+      }
     } else {
-      await addUserFavourite(user.username, postingId)
+      try {
+        await addUserFavourite(user.username, postingId)
+        toastr["success"](`Item successfully added to saved items`)
+      } catch (e) {
+        toastr["error"](`${e.message}`)
+        console.log(e)
+      }
     }
   }
 
