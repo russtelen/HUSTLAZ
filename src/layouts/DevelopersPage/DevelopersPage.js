@@ -17,7 +17,6 @@ const DevelopersPage = () => {
         "After having worked many years in the restaurant industry, then shifting over to the package handling industry, I was ready for a change. That change began at BCIT back in 2019. After some extensive research, I decided that programming is something that I wanted to pursue as a career. I quickly developed a passion for it after just a couple of evening courses, and continued to study part-time while I worked full-time at Fed Ex. After a year of studying part-time, I wanted to take my studies to the next level and enroll myself in a full-time program. I decided that the Software Systems Developer program was the best fit for me, and would be exactly what I needed to kickstart my career as a professional web developer. I'm now looking forward to the road ahead, and whatever opportunities may come my way. ",
       github: "https://github.com/nickchvt",
       linkedin: "https://www.linkedin.com/in/nicholas-charvat-1814771b7/",
-      portfolio: "https://www.linkedin.com/in/nicholas-charvat-1814771b7/",
     },
     {
       name: "Gokay",
@@ -35,12 +34,12 @@ const DevelopersPage = () => {
         "I am a full stack web developer based in Vancouver, BC with a background in Finance. Over the years of working in the Finance industry, I was exposed to a lot of repetitive reporting. I thought to myself, there's got to be a better way. There's got to be a way to automate this. That curiosity opened a door which revealed the world of programming. I eventually found a passion for technology which led me to enroll at British Columbia Institute of Technology's Software System's Developer Program (SSD). SSD is a hands on program that gave me solid knowledge in database management, front end and back end frameworks such as React, Angular, NodeJS, Express and ASP.NET. When I'm not figuring out how to fix a bug or finding answers in Stack Overflow, you will find me capturing the streets and people of Vancouver through the eyes of a film camera. Check out my work here.",
       github: "https://github.com/russtelen",
       linkedin: "https://github.com/russtelen",
-      porfolio: "https://russtelen.me/",
+      portfolio: "https://russtelen.me/",
     },
   ]
 
   const findDeveloper = async () => {
-    const res = developers.find((d) => d.name === name) // @ name === useParams
+    const res = developers.find((d) => d.name === name)
     return res
   }
 

@@ -1,6 +1,8 @@
 import React from "react"
-
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
+import { SiWebmoney } from "react-icons/si"
 const Developers = ({ developer }) => {
+  console.log(developer && developer)
   return (
     <div className="container">
       {!developer ? (
@@ -11,13 +13,53 @@ const Developers = ({ developer }) => {
           <div className="my-5">
             <div className="row">
               <div className="col-6">
-                <img src={developer.img} />
+                <img src={developer.img} style={{ width: "100%" }} />
               </div>
               <div className="col-6">
                 <div className="row">
-                  <div>
+                  <div className="col-12">
                     <h3>About</h3>
-                    <p>{developer.about}</p>
+                    <p className="mt-3" style={{ lineHeight: 2 }}>
+                      {developer.about}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <h3>Get Connected</h3>
+                    <div className="mt-3">
+                      <p>
+                        <a
+                          href={developer.github}
+                          target="_blank"
+                          style={{ color: "inherit" }}
+                        >
+                          Github <AiFillGithub size={30} />
+                        </a>
+                      </p>
+
+                      <p>
+                        <a
+                          href={developer.linkedin}
+                          target="_blank"
+                          style={{ color: "inherit" }}
+                        >
+                          LinkedIn <AiFillLinkedin size={30} />
+                        </a>
+                      </p>
+
+                      {developer.portfolio && (
+                        <>
+                          <p>
+                            <a
+                              href={developer.portfolio}
+                              target="_blank"
+                              style={{ color: "inherit" }}
+                            >
+                              Portfolio <SiWebmoney size={30} />{" "}
+                            </a>
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
