@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { UserContext } from "../../context/UserContext"
-import { useParams } from "react-router-dom"
+// import { useParams } from "react-router-dom"
 import { getAllUserFavourites, removeUserFavourite } from "../../network"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
@@ -22,14 +22,17 @@ const ProductsPage = () => {
 
   // State Variables
   const { user } = useContext(UserContext)
+
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user.username
+
   const [favouritePosts, setFavouritePosts] = useState([])
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
   const [didChange, setDidChange] = useState(false)
-  const [category, setCategory] = useState("")
 
   // Params :category
-  const { categoryId } = useParams()
+  // const { categoryId } = useParams()
 
   // ===================================================
   // On load
@@ -38,7 +41,7 @@ const ProductsPage = () => {
   useEffect(() => {
     ;(async () => {
       setDidChange(false)
-      const res = await getAllUserFavourites(user.username)
+      const res = await getAllUserFavourites(usernameReference.current)
       setDidChange(true)
       setFavouritePosts(res)
     })()

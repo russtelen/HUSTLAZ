@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import ProductItem from "../../components/ProductItem/ProductItem"
 import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
@@ -40,6 +40,10 @@ const ProductsPage = () => {
   // Context
   const { posts, setPosts } = useContext(PostsContext)
   const { pageCount, setPageCount } = useContext(PageCountContext)
+  const setPostsReference = useRef(() => {})
+  setPostsReference.current = setPosts
+  const setPageCountReference = useRef(() => {})
+  setPageCountReference.current = setPageCount
   // Local state
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
@@ -58,20 +62,20 @@ const ProductsPage = () => {
     ;(async () => {
       if (categoryId !== undefined) {
         const postsByCategory = await getPostingsByCategory(categoryId)
-        setPageCount(Math.ceil(postsByCategory.length / 6))
+        setPageCountReference.current(Math.ceil(postsByCategory.length / 6))
         const page1 = paginate(postsByCategory, 6, 1)
         setDidChange(false)
-        setPosts(page1)
+        setPostsReference.current(page1)
         setDidChange(true)
         return
       }
 
       setDidChange(false)
       const allPosts = await getAll()
-      setPageCount(Math.ceil(allPosts.length / 6))
+      setPageCountReference.current(Math.ceil(allPosts.length / 6))
       const page1 = paginate(allPosts, 6, 1)
       setDidChange(true)
-      setPosts(page1)
+      setPostsReference.current(page1)
     })()
 
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]

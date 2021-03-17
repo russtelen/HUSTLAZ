@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { LoginFormContext } from "../../context/LoginFormContext";
 import { UserContext } from "../../context/UserContext";
 import Login from "../../components/Login/Login";
@@ -9,6 +9,8 @@ import { signUp, loginUser, currentUser } from "../../userAuth";
 const LoginPage = () => {
   // Context
   const { setTabValue } = useContext(LoginFormContext);
+  const setTabValueReference = useRef(() => {})
+  setTabValueReference.current = setTabValue
   const { setUser } = useContext(UserContext);
 
   // Router
@@ -16,7 +18,7 @@ const LoginPage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    location.pathname === "/login" ? setTabValue(0) : setTabValue(1);
+    location.pathname === "/login" ? setTabValueReference.current(0) : setTabValueReference.current(1);
   }, [location]);
 
   const onSubmit = async (formData) => {
