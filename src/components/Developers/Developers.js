@@ -1,9 +1,9 @@
 import React from "react"
 
-const Developers = () => {
+const Developers = ({ developer }) => {
   return (
     <div>
-      <h1>Developers</h1>
+      <h1>{developer.name}</h1>
     </div>
   )
 }

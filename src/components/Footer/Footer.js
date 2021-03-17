@@ -40,17 +40,17 @@ const Footer = () => {
               </p>
               <ul className="list-unstyled">
                 <li className="my-2 text-muted text-center">
-                  <NavLink className={classes.a} to="/developers/nick">
+                  <NavLink className={classes.a} to="/developers/Nick">
                     Nick Charvat
                   </NavLink>
                 </li>
                 <li className="my-2 text-muted text-center">
-                  <NavLink className={classes.a} to="/developers/gokay">
+                  <NavLink className={classes.a} to="/developers/Gokay">
                     Gokay Abay
                   </NavLink>
                 </li>
                 <li className="my-2 text-muted text-center">
-                  <NavLink className={classes.a} to="/developers/russ">
+                  <NavLink className={classes.a} to="/developers/Russ">
                     Russ Telen
                   </NavLink>
                 </li>
