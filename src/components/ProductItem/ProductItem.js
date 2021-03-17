@@ -63,7 +63,7 @@ const ProductItem = ({
           alt={post.title}
           height="300"
           image={post.image}
-          title="Contemplative Reptile"
+          title={post.title}
         />
         <CardContent>
           <div className={classes.header}>

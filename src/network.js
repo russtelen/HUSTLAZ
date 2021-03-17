@@ -28,7 +28,8 @@ async function http({ method, path, data, params }) {
     }
     return result.data
   } catch (error) {
-    throw error.response.data.error ? Error(error.response.data.error) : error
+    // throw error.response.data.error ? Error(error.response.data.error) : error
+    console.error(error)
   }
 }
 
@@ -188,7 +189,7 @@ export async function removeUserFavourite(postingId) {
   const token = await userToken()
 
   try {
-    await axios.delete(`${url}/users/favourites`, {
+    const res = await axios.delete(`${url}/users/favourites`, {
       data: { postingId },
       headers: { Authorization: `${token}` },
     })

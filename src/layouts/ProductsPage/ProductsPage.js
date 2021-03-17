@@ -65,6 +65,8 @@ const ProductsPage = () => {
   // Params :category
   const { categoryId } = useParams()
 
+  const usernameRef = useRef(() => {})
+  usernameRef.current = user ? user.username : ""
   // ===================================================
   // On load
   // Set post === category in the params
@@ -88,8 +90,10 @@ const ProductsPage = () => {
       setDidChange(true)
       setPostsReference.current(page1)
 
-      const res = await getAllUserFavourites(user.username)
-      setFavouritePosts(res)
+      if (usernameRef.current) {
+        const res = await getAllUserFavourites(usernameRef.current)
+        setFavouritePosts(res)
+      }
     })()
 
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]

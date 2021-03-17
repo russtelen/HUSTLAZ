@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { IconButton, Avatar } from "@material-ui/core";
+import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
+import { IconButton, Avatar } from "@material-ui/core"
 
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import PhoneIcon from "@material-ui/icons/Phone";
-import EditIcon from "@material-ui/icons/Edit";
+import LocationOnIcon from "@material-ui/icons/LocationOn"
+import AccountCircleIcon from "@material-ui/icons/AccountCircle"
+import PhoneIcon from "@material-ui/icons/Phone"
+import EditIcon from "@material-ui/icons/Edit"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(25),
     height: theme.spacing(25),
   },
-}));
+}))
 
 const UserDetail = ({ user, editClicked }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
@@ -50,7 +50,7 @@ const UserDetail = ({ user, editClicked }) => {
         <Grid container spacing={5} style={{ padding: 20 }}>
           <Grid item container direction="column" spacing={4}>
             <Grid className="d-flex justify-content-center" item>
-              <Avatar src={user.image || ""} className={classes.large} />
+              <Avatar src={user ? user.image : ""} className={classes.large} />
             </Grid>
           </Grid>
           <Grid item xs={6} sm container>
@@ -104,6 +104,6 @@ const UserDetail = ({ user, editClicked }) => {
         </Grid>
       </Paper>
     </div>
-  );
-};
-export default UserDetail;
+  )
+}
+export default UserDetail

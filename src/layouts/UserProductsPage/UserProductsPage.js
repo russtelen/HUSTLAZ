@@ -42,6 +42,7 @@ const UserProductsPage = () => {
   useEffect(() => {
     ;(async () => {
       const res = await getAllUserPostings(usernameReference.current)
+      console.log(res)
       const page1 = paginate(res.postings, 6, 1)
       setPageCountReference.current(Math.ceil(res.postings.length / 6))
       setDidChange(false)
