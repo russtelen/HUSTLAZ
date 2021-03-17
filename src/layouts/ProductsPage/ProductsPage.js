@@ -120,7 +120,7 @@ const ProductsPage = () => {
     if (liked) {
       try {
         await removeUserFavourite(postingId)
-        toastr["success"](`Item successfully removed saved items`)
+        toastr["success"](`Item successfully removed from saved items`)
       } catch (e) {
         toastr["error"](`${e.message}`)
         console.log(e)
