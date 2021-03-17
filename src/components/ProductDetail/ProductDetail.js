@@ -1,15 +1,17 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { CardMedia, Button, IconButton, ButtonGroup } from "@material-ui/core";
+import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
+import { CardMedia, Button, IconButton, ButtonGroup } from "@material-ui/core"
 
-import CloseIcon from "@material-ui/icons/Close";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import PhoneIcon from "@material-ui/icons/Phone";
-import DescriptionIcon from "@material-ui/icons/Description";
+import CloseIcon from "@material-ui/icons/Close"
+import LocationOnIcon from "@material-ui/icons/LocationOn"
+import AccountCircleIcon from "@material-ui/icons/AccountCircle"
+import PhoneIcon from "@material-ui/icons/Phone"
+import DescriptionIcon from "@material-ui/icons/Description"
+import EditIcon from "@material-ui/icons/Edit"
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   icons: {
     marginRight: 12,
   },
-}));
+}))
 
 const ProductDetail = ({
   post,
@@ -59,11 +61,11 @@ const ProductDetail = ({
   imageClicked,
   isAuthorized,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const onClose = () => {
-    closeClicked();
-  };
+    closeClicked()
+  }
 
   return (
     <div className={classes.root}>
@@ -75,20 +77,24 @@ const ProductDetail = ({
           {isAuthorized && (
             <Grid item>
               <ButtonGroup>
-                <Button
+                <IconButton
                   variant="contained"
-                  style={{ background: "orange" }}
+                  style={{
+                    background: "orange",
+                    color: "white",
+                    opacity: "0.6",
+                  }}
                   onClick={() => editClicked()}
                 >
-                  Edit
-                </Button>
-                <Button
+                  <EditIcon />
+                </IconButton>
+                <IconButton
                   onClick={() => deleteClicked()}
                   variant="contained"
-                  color="secondary"
+                  style={{ background: "red", color: "white", opacity: "0.6" }}
                 >
-                  Delete
-                </Button>
+                  <DeleteForeverIcon />
+                </IconButton>
               </ButtonGroup>
             </Grid>
           )}
@@ -192,6 +198,6 @@ const ProductDetail = ({
         </Grid>
       </Paper>
     </div>
-  );
-};
-export default ProductDetail;
+  )
+}
+export default ProductDetail

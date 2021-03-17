@@ -92,7 +92,7 @@ const ProductItem = ({
           <>
             <IconButton
               variant="contained"
-              style={{ background: "orange", color: "white" }}
+              style={{ background: "orange", color: "white", opacity: "0.6" }}
               onClick={() => editClicked()}
             >
               <EditIcon />
@@ -100,7 +100,7 @@ const ProductItem = ({
             <IconButton
               onClick={() => deleteClicked()}
               variant="contained"
-              style={{ background: "red", color: "white" }}
+              style={{ background: "red", color: "white", opacity: "0.6" }}
             >
               <DeleteForeverIcon />
             </IconButton>
