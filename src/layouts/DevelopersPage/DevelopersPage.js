@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import Developers from "../../components/Developers/Developers"
 import { useParams } from "react-router-dom"
+import gokay from "../../assets/gokay.jpg"
+import nick from "../../assets/nick.jpg"
+import russ from "../../assets/russ.jpg"
 
 const DevelopersPage = () => {
   const { name } = useParams()
@@ -10,21 +13,21 @@ const DevelopersPage = () => {
   const developers = [
     {
       name: "Nick",
-      imageUrl: "",
+      image: nick,
       about: "Lorem Ipsum",
       github: "https://github.com/nickchvt",
       linkedin: "https://github.com/nickchvt",
     },
     {
       name: "Gokay",
-      imageUrl: "",
+      image: gokay,
       about: "Lorem Ipsum",
       github: "https://github.com/gokay-abay",
       linkedin: "https://github.com/gokay-abay",
     },
     {
       name: "Russ",
-      imageUrl: "",
+      image: russ,
       about: "Lorem Ipsum",
       github: "https://github.com/russtelen",
       linkedin: "https://github.com/russtelen",
