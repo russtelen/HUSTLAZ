@@ -214,6 +214,7 @@ const ProductsPage = () => {
                 cardClicked={() => cardCliked(post)}
                 likeClicked={(data) => likeCliked(data)}
                 contactClicked={() => contactClicked()}
+                isAuthorized={user}
                 favourite={checkFavourite(post.id)}
               />
             </div>
