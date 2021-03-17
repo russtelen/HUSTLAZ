@@ -193,6 +193,7 @@ export async function removeUserFavourite(postingId) {
       data: { postingId },
       headers: { Authorization: `${token}` },
     })
+    return res.data
   } catch (err) {
     console.log(err)
   }
