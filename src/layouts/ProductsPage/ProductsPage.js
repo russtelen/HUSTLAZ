@@ -53,6 +53,8 @@ const ProductsPage = () => {
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
 
+  console.log(posts)
+
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
   setPostsReference.current = setPosts
@@ -157,7 +159,7 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = async ({ postingId, liked }) => {
+  const likeClicked = async ({ postingId, liked }) => {
     if (!user) {
       toastr["error"]("You need to be logged in to do that")
       return
@@ -269,7 +271,7 @@ const ProductsPage = () => {
               <ProductItem
                 post={{ ...post }}
                 cardClicked={() => cardCliked(post)}
-                likeClicked={(data) => likeCliked(data)}
+                likeClicked={(data) => likeClicked(data)}
                 contactClicked={() => contactClicked()}
                 isAuthorized={user}
                 favourite={checkFavourite(post.id)}
