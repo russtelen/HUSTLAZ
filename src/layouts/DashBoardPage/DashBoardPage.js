@@ -54,9 +54,9 @@ const DashBoardPage = () => {
           <PrivateRoute exact path="/dashboard/favourites">
             <UserFavouritesPage />
           </PrivateRoute>
-          <PrivateRoute exact path="/developers/:name">
+          <Route exact path="/developers/:name">
             <DevelopersPage />
-          </PrivateRoute>
+          </Route>
           <Route exact path="/login">
             {!user?.username ? <LoginPage /> : <Redirect to="/posts" />}
           </Route>
