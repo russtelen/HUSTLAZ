@@ -49,6 +49,8 @@ const ProductsPage = () => {
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
 
+  console.log(posts)
+
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
   setPostsReference.current = setPosts
