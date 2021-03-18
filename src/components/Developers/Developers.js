@@ -19,33 +19,36 @@ const Developers = ({ developer }) => {
                     maxWidth: "100%",
                     boxShadow: "17px 25px 52px -17px rgba(0,0,0,0.75)",
                   }}
+                  alt={developer.name}
                 />
               </div>
               <div className="col-sm-12 col-md-6">
                 <div className="row">
                   <div className="col-12">
-                    <h3>About</h3>
-                    <p className="mt-3" style={{ lineHeight: 2 }}>
+                    <h3 className="text-right">About</h3>
+                    <p className="mt-3 text-right" style={{ lineHeight: 2 }}>
                       {developer.about}
                     </p>
                   </div>
                   <div className="col-12">
-                    <h3>Get Connected</h3>
+                    <h3 className="text-right">Get Connected</h3>
                     <div className="mt-3">
-                      <p>
+                      <p className="text-right">
                         <a
                           href={developer.github}
                           target="_blank"
+                          rel="noreferrer"
                           style={{ color: "inherit" }}
                         >
                           Github <AiFillGithub size={30} />
                         </a>
                       </p>
 
-                      <p>
+                      <p className="text-right">
                         <a
                           href={developer.linkedin}
                           target="_blank"
+                          rel="noreferrer"
                           style={{ color: "inherit" }}
                         >
                           LinkedIn <AiFillLinkedin size={30} />
@@ -54,10 +57,11 @@ const Developers = ({ developer }) => {
 
                       {developer.portfolio && (
                         <>
-                          <p>
+                          <p className="text-right">
                             <a
                               href={developer.portfolio}
                               target="_blank"
+                              rel="noreferrer"
                               style={{ color: "inherit" }}
                             >
                               Portfolio <SiWebmoney size={30} />{" "}
