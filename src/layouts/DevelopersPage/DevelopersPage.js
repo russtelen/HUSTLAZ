@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 const DevelopersPage = () => {
   const { name } = useParams()
   const [developer, setDeveloper] = useState()
+  const [newDeveloper, setNewDeveloper] = useState(false)
 
   const developers = [
     {
@@ -43,16 +44,23 @@ const DevelopersPage = () => {
   useEffect(() => {
     ;(async () => {
       const res = await findDeveloper()
+      setNewDeveloper(false)
       setDeveloper(res)
+      setTimeout(() => {
+        setNewDeveloper(true)
+      }, 50)
     })()
   }, [name])
 
   useEffect(() => {
-    console.log(developer)
     window.scrollTo(0, 0)
   }, [developer])
 
-  return <Developers developer={developer} />
+  return (
+    <div className={newDeveloper ? "animate__animated animate__fadeInUp" : ""}>
+      <Developers developer={developer} />
+    </div>
+  )
 }
 
 export default DevelopersPage
