@@ -51,10 +51,8 @@ const ProductItem = ({
   }, [favourite])
 
   const postLiked = () => {
-    console.log(isAuthorized)
     if (isAuthorized) {
       setLiked(!liked)
-      console.log("error")
     }
     likeClicked({ postingId: post.id, liked })
   }
