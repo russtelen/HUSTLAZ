@@ -110,6 +110,7 @@ const ProductsPage = () => {
       setDidChange(false)
       setPosts(paginate(postsByCategory, 6, e.target.innerText))
       setDidChange(true)
+      window.scrollTo(0, 0)
       return
     }
 
@@ -117,6 +118,7 @@ const ProductsPage = () => {
     setDidChange(false)
     setPosts(paginate(allPosts, 6, e.target.innerText))
     setDidChange(true)
+    window.scrollTo(0, 0)
   }
 
   const cardCliked = (post) => {
