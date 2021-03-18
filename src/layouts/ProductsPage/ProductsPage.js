@@ -17,7 +17,6 @@ import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
 import { IconButton, Select, TextField, MenuItem, InputLabel, FormControl} from "@material-ui/core"
-import { searchPostings } from "../../network"
 import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
@@ -189,9 +188,6 @@ const ProductsPage = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault()
-    // const res = await searchPostings(searchValue)
-    // setPageCount(0)
-    // setPosts(res)
     setSearchValue("")
     history.push(`/search/${searchValue}`)
   }

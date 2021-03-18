@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import PageHeader from "./layouts/PageHeader/PageHeader"
 import DashBoardPage from "./layouts/DashBoardPage/DashBoardPage"
 import { PostsContext } from "./context/PostsContext"
@@ -8,12 +8,9 @@ import { TopNavValueContext } from "./context/TopNavValueContext"
 import { UserContext } from "./context/UserContext"
 import { LoginFormContext } from "./context/LoginFormContext"
 import { currentUser } from "./userAuth"
-
 import { createMuiTheme } from "@material-ui/core/styles"
 import { ThemeProvider } from "@material-ui/styles"
 import { EditPostContext } from "./context/EditPostContext"
-import SearchResultPage from "./layouts/SearchResultPage/SearchResultPage"
-import FooterPage from "./layouts/FooterPage/FooterPage"
 
 const THEME = createMuiTheme({
   typography: {

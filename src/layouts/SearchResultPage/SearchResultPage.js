@@ -4,12 +4,9 @@ import { searchPostings } from '../../network'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { makeStyles } from '@material-ui/core/styles'
 import ProductDetail from '../../components/ProductDetail/ProductDetail'
-import { PostsContext } from '../../context/PostsContext'
 import { UserContext } from '../../context/UserContext'
 import { PageCountContext } from '../../context/PageCountContext'
 import {
-  getAll,
-  getPostingsByCategory,
   getAllUserFavourites,
   removeUserFavourite,
   addUserFavourite,
@@ -69,7 +66,6 @@ export default function SearchResultPage() {
   // Local state
   const [postDetail, setPostDetail] = useState({})
   const [open, setOpen] = useState(false)
-  const [category, setCategory] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [favouritePosts, setFavouritePosts] = useState([])
   const [priceFilterArray, setPriceFilterArray] = useState([])
@@ -80,7 +76,7 @@ export default function SearchResultPage() {
   usernameRef.current = user ? user.username : ''
 
   const handlePageChange = async (e) => {
-    const found = await searchPostings(query)
+    let found = await searchPostings(query)
 
     if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {  
       found = found.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
@@ -128,9 +124,6 @@ export default function SearchResultPage() {
 
   const handleSearch = async (e) => {
     e.preventDefault()
-    // const res = await searchPostings(searchValue)
-    // setPageCount(0)
-    // setPosts(res)
     setSearchValue('')
     history.push(`/search/${searchValue}`)
   }
@@ -161,6 +154,7 @@ export default function SearchResultPage() {
     })()
     console.log('rendered')
   }, [query, priceFilterArray])
+
   return (
     <div className="container">
       <div className="col">
