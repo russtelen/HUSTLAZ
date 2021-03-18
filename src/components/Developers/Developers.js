@@ -8,14 +8,14 @@ const Developers = ({ developer }) => {
       {!developer ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <div>
           <h1 className="text-center mt-5">{developer.name}</h1>
           <div className="my-5">
             <div className="row">
-              <div className="col-6">
-                <img src={developer.image} style={{ width: "100%" }} />
+              <div className="col-sm-12 col-md-6 mb-4">
+                <img src={developer.image} style={{ maxWidth: "100%" }} />
               </div>
-              <div className="col-6">
+              <div className="col-sm-12 col-md-6">
                 <div className="row">
                   <div className="col-12">
                     <h3>About</h3>
@@ -65,7 +65,7 @@ const Developers = ({ developer }) => {
               </div>
             </div>
           </div>{" "}
-        </>
+        </div>
       )}
     </div>
   )
