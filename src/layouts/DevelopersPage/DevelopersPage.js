@@ -49,6 +49,7 @@ const DevelopersPage = () => {
 
   useEffect(() => {
     console.log(developer)
+    window.scrollTo(0, 0)
   }, [developer])
 
   return <Developers developer={developer} />

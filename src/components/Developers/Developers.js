@@ -2,7 +2,6 @@ import React from "react"
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
 import { SiWebmoney } from "react-icons/si"
 const Developers = ({ developer }) => {
-  console.log(developer ? developer.image : "")
   return (
     <div className="container">
       {!developer ? (
