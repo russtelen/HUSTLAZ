@@ -12,6 +12,7 @@ import VerifyEmailPage from "../VerifyEmailPage/VerifyEmailPage"
 import UserDetailPage from "../UserDetailPage/UserDetailPage"
 import UserFavouritesPage from "../UserFavouritesPage/UserFavouritesPage"
 import FooterPage from "../FooterPage/FooterPage"
+import SearchResultPage from "../SearchResultPage/SearchResultPage"
 import DevelopersPage from "../DevelopersPage/DevelopersPage"
 
 const DashBoardPage = () => {
@@ -35,6 +36,9 @@ const DashBoardPage = () => {
           </Route>
           <Route exact path="/posts">
             <ProductsPage />
+          </Route>
+          <Route path="/search/:query">
+            <SearchResultPage />
           </Route>
           <Route exact path="/posts/:categoryId">
             <ProductsPage />

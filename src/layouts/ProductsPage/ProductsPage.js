@@ -4,7 +4,7 @@ import ProductDetail from "../../components/ProductDetail/ProductDetail"
 import { PostsContext } from "../../context/PostsContext"
 import { UserContext } from "../../context/UserContext"
 import { PageCountContext } from "../../context/PageCountContext"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import {
   getAll,
   getPostingsByCategory,
@@ -16,8 +16,7 @@ import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
-import { IconButton, TextField } from "@material-ui/core"
-import { searchPostings } from "../../network"
+import { IconButton, Select, TextField, MenuItem, InputLabel, FormControl} from "@material-ui/core"
 import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
@@ -41,13 +40,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  priceFormControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }))
 
 const ProductsPage = () => {
   const classes = useStyles()
+  const history = useHistory()
   // Context
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
+
+  console.log(posts)
 
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
@@ -61,6 +67,10 @@ const ProductsPage = () => {
   const [category, setCategory] = useState("")
   const [searchValue, setSearchValue] = useState("")
   const [favouritePosts, setFavouritePosts] = useState([])
+  const [priceFilterArray, setPriceFilterArray] = useState([])
+  const [priceFilterValue, setPriceFilterValue] = useState("")
+  const priceFilterValueRef = useRef(() => {})
+  priceFilterValueRef.current = priceFilterValue
 
   // Params :category
   const { categoryId } = useParams()
@@ -74,7 +84,13 @@ const ProductsPage = () => {
   useEffect(() => {
     ;(async () => {
       if (categoryId !== undefined) {
-        const postsByCategory = await getPostingsByCategory(categoryId)
+        let postsByCategory = await getPostingsByCategory(categoryId)
+
+        if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {  
+          postsByCategory = postsByCategory.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+          postsByCategory.sort((a, b) => a.price - b.price)
+        }
+
         setPageCountReference.current(Math.ceil(postsByCategory.length / 6))
         const page1 = paginate(postsByCategory, 6, 1)
         setDidChange(false)
@@ -84,7 +100,13 @@ const ProductsPage = () => {
       }
 
       setDidChange(false)
-      const allPosts = await getAll()
+      let allPosts = await getAll()
+
+      if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {  
+        allPosts = allPosts.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+        allPosts.sort((a, b) => a.price - b.price)
+      }
+
       setPageCountReference.current(Math.ceil(allPosts.length / 6))
       const page1 = paginate(allPosts, 6, 1)
       setDidChange(true)
@@ -99,14 +121,21 @@ const ProductsPage = () => {
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]
 
     setCategory(categoryId ? categories[categoryId] : "All Posts")
-  }, [categoryId])
+    console.log('rendered')
+  }, [categoryId, priceFilterArray])
   // ===================================================
 
   // Handlers
 
   const handlePageChange = async (e) => {
     if (categoryId !== undefined) {
-      const postsByCategory = await getPostingsByCategory(categoryId)
+      let postsByCategory = await getPostingsByCategory(categoryId)
+
+      if (priceFilterArray.length > 0 && priceFilterValue !== "0") {  
+        postsByCategory = postsByCategory.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+        postsByCategory.sort((a, b) => a.price - b.price)
+      }
+
       setDidChange(false)
       setPosts(paginate(postsByCategory, 6, e.target.innerText))
       setDidChange(true)
@@ -114,7 +143,13 @@ const ProductsPage = () => {
       return
     }
 
-    const allPosts = await getAll()
+    let allPosts = await getAll()
+
+    if (priceFilterArray.length > 0 && priceFilterValue !== "0") {  
+      allPosts = allPosts.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+      allPosts.sort((a, b) => a.price - b.price)
+    }
+
     setDidChange(false)
     setPosts(paginate(allPosts, 6, e.target.innerText))
     setDidChange(true)
@@ -126,7 +161,11 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = async ({ postingId, liked }) => {
+  const likeClicked = async ({ postingId, liked }) => {
+    if (!user) {
+      toastr["error"]("You need to be logged in to do that")
+      return
+    }
     if (liked) {
       try {
         await removeUserFavourite(postingId)
@@ -147,6 +186,9 @@ const ProductsPage = () => {
   }
 
   const checkFavourite = (postId) => {
+    if (!user) {
+      return false
+    }
     const found = favouritePosts.some((fav) => fav.id === postId)
     return found
   }
@@ -157,18 +199,40 @@ const ProductsPage = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault()
-    const res = await searchPostings(searchValue)
-    setPageCount(0)
-    setPosts(res)
     setSearchValue("")
+    history.push(`/search/${searchValue}`)
+  }
+
+  const handlePriceFilterChange = (event) => {
+    const str = event.target.value.toString()
+    setPriceFilterArray(str.split("-"))
+    setPriceFilterValue(event.target.value)
   }
 
   return (
     <div className="container">
-      <div className="row d-flex justify-content-around align-items-center">
-        <h1 className="text-center mt-5">{category}</h1>
+      <div className="col">
+        <div className="row justify-content-center align-items-center mt-5">
+        <FormControl variant="outlined" className={classes.priceFormControl}>
+          <InputLabel id="price-filter-label">Price</InputLabel>
+          <Select
+            labelId="price-filter-label"
+            id="price-filter"
+            value={priceFilterValue}
+            onChange={handlePriceFilterChange}
+            >
+              <MenuItem value="0">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={`0-100`}>$0-$100</MenuItem>
+              <MenuItem value={`100-500`}>$100-$500</MenuItem>
+              <MenuItem value={`500-1000`}>$500-$1000</MenuItem>
+              <MenuItem value={`1000`}>$1000+</MenuItem>
+            </Select>
+          </FormControl>
+          
         <form
-          className="mt-5"
+          // className="mt-5"
           onSubmit={handleSearch}
           noValidate
           autoComplete="off"
@@ -193,6 +257,8 @@ const ProductsPage = () => {
           />
         </form>
       </div>
+      <h1 className="text-center mt-5">{category}</h1>
+      </div>
       {posts.length > 0 ? (
         <div className="row d-flex justify-content-center ">
           {posts?.map((post, idx) => (
@@ -207,8 +273,9 @@ const ProductsPage = () => {
               <ProductItem
                 post={{ ...post }}
                 cardClicked={() => cardCliked(post)}
-                likeClicked={(data) => likeCliked(data)}
+                likeClicked={(data) => likeClicked(data)}
                 contactClicked={() => contactClicked()}
+                isAuthorized={user}
                 favourite={checkFavourite(post.id)}
               />
             </div>

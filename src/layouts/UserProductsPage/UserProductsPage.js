@@ -60,7 +60,7 @@ const UserProductsPage = () => {
     setDidChange(true)
   }
 
-  const cardCliked = (post) => {
+  const cardClicked = (post) => {
     setPostDetail(post)
     setOpen(true)
   }
@@ -104,7 +104,7 @@ const UserProductsPage = () => {
             >
               <ProductItem
                 post={{ ...post }}
-                cardClicked={() => cardCliked(post)}
+                cardClicked={() => cardClicked(post)}
                 editClicked={() => editClicked(post)}
                 deleteClicked={() => deleteClicked(post)}
                 myPostings={!!post}

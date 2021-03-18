@@ -40,6 +40,7 @@ const ProductItem = ({
   myPostings,
   editClicked,
   deleteClicked,
+  isAuthorized,
 }) => {
   const classes = useStyles()
 
@@ -50,7 +51,9 @@ const ProductItem = ({
   }, [favourite])
 
   const postLiked = () => {
-    setLiked(!liked)
+    if (isAuthorized) {
+      setLiked(!liked)
+    }
     likeClicked({ postingId: post.id, liked })
   }
 
