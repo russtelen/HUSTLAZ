@@ -15,6 +15,7 @@ const DevelopersPage = () => {
         "After having worked many years in the restaurant industry, then shifting over to the package handling industry, I was ready for a change. That change began at BCIT back in 2019. After some extensive research, I decided that programming is something that I wanted to pursue as a career. I quickly developed a passion for it after just a couple of evening courses, and continued to study part-time while I worked full-time at Fed Ex. After a year of studying part-time, I wanted to take my studies to the next level and enroll myself in a full-time program. I decided that the Software Systems Developer program was the best fit for me, and would be exactly what I needed to kickstart my career as a professional web developer. I'm now looking forward to the road ahead, and whatever opportunities may come my way. ",
       github: "https://github.com/nickchvt",
       linkedin: "https://www.linkedin.com/in/nicholas-charvat-1814771b7/",
+      portfolio: "https://nickchvt.netlify.app/",
     },
     {
       name: "Gokay",
