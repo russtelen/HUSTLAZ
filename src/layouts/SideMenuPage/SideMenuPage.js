@@ -1,80 +1,76 @@
-import React, { useContext } from "react";
-import SideMenu from "../../components/SideMenu/SideMenu";
-import SideMenuUser from "../../components/SideMenuUser/SideMenuUser";
-import { TopNavValueContext } from "../../context/TopNavValueContext";
-import { UserContext } from "../../context/UserContext";
-import { useHistory } from "react-router-dom";
-import toastr from "toastr";
-import { LoginFormContext } from "../../context/LoginFormContext";
-import { signOut } from '../../userAuth';
+import React, { useContext } from "react"
+import SideMenu from "../../components/SideMenu/SideMenu"
+import SideMenuUser from "../../components/SideMenuUser/SideMenuUser"
+import { TopNavValueContext } from "../../context/TopNavValueContext"
+import { UserContext } from "../../context/UserContext"
+import { useHistory } from "react-router-dom"
+import toastr from "toastr"
+import { LoginFormContext } from "../../context/LoginFormContext"
+import { signOut } from "../../userAuth"
 
 const SideMenuPage = () => {
-  const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
-  const { setTabValue } = useContext(LoginFormContext);
-  const { topnavValue } = useContext(TopNavValueContext);
-
-  const topPicksClicked = async () => {
-    history.push("/posts");
-  };
+  const history = useHistory()
+  const { user, setUser } = useContext(UserContext)
+  const { setTabValue } = useContext(LoginFormContext)
+  const { topnavValue } = useContext(TopNavValueContext)
 
   // SideMenu Props
   const topsCatClicked = async () => {
-    history.push("/posts/1");
-  };
+    history.push("/posts/1")
+  }
 
   const bottomsCatClicked = async () => {
-    history.push("/posts/2");
-  };
+    history.push("/posts/2")
+  }
 
   const shoesCatClicked = async () => {
-    history.push("/posts/3");
-  };
+    history.push("/posts/3")
+  }
 
   const miscCatClicked = () => {
-    history.push("/posts/5");
-  };
+    history.push("/posts/5")
+  }
 
   const itemsCatClicked = async () => {
-    history.push("/posts/4");
-  };
+    history.push("/posts/4")
+  }
 
   const sellSomethingClicked = () => {
     if (!user?.username) {
-      toastr["error"]("You need to be logged in to do that", "Login");
+      toastr["error"]("You need to be logged in to do that", "Login")
     }
 
-    history.push("/newPost");
-  };
+    history.push("/newPost")
+  }
 
   const loginClicked = () => {
-    setTabValue(0);
-    history.push("/login");
-  };
+    setTabValue(0)
+    history.push("/login")
+  }
 
   const registerClicked = () => {
-    setTabValue(1);
-    history.push("/register");
-  };
+    setTabValue(1)
+    history.push("/register")
+  }
 
   const logoutClicked = async () => {
-    signOut();
-    setUser(null);
+    signOut()
+    setUser(null)
     // Success notification
-    toastr["success"]("Successfully logged out");
-    history.push("/");
-  };
+    toastr["success"]("Successfully logged out")
+    history.push("/")
+  }
 
   // SideMenuUser Props
   const favouritesClicked = () => {
-    history.push("/dashboard/favourites");
-  };
+    history.push("/dashboard/favourites")
+  }
   const profileClicked = () => {
-    history.push("/dashboard/profile");
-  };
+    history.push("/dashboard/profile")
+  }
   const myPostingsClicked = () => {
-    history.push("/dashboard/mypostings");
-  };
+    history.push("/dashboard/mypostings")
+  }
   return (
     <>
       {topnavValue === "profile" && user?.username ? (
@@ -87,7 +83,6 @@ const SideMenuPage = () => {
         />
       ) : (
         <SideMenu
-          topPicksClicked={() => topPicksClicked()}
           topsCatClicked={() => topsCatClicked()}
           bottomsCatClicked={() => bottomsCatClicked()}
           shoesCatClicked={() => shoesCatClicked()}
@@ -100,7 +95,7 @@ const SideMenuPage = () => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default SideMenuPage;
+export default SideMenuPage
