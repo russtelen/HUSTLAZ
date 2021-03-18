@@ -17,10 +17,10 @@ const PageHeader = () => {
   const history = useHistory()
 
   const homeClicked = async () => {
-    const allPosts = await getAll()
-    setPageCount(Math.ceil(allPosts.length / 6))
+    // const allPosts = await getAll()
+    // setPageCount(Math.ceil(allPosts.length / 6))
     setTopnavValue("home")
-    setPosts(paginate(allPosts, 6, 1))
+    // setPosts(paginate(allPosts, 6, 1))
     history.push("/posts")
   }
 
