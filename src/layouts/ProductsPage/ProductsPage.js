@@ -158,6 +158,10 @@ const ProductsPage = () => {
   }
 
   const likeCliked = async ({ postingId, liked }) => {
+    if (!user) {
+      toastr["error"]("You need to be logged in to do that")
+      return
+    }
     if (liked) {
       try {
         await removeUserFavourite(postingId)
@@ -178,6 +182,9 @@ const ProductsPage = () => {
   }
 
   const checkFavourite = (postId) => {
+    if (!user) {
+      return false
+    }
     const found = favouritePosts.some((fav) => fav.id === postId)
     return found
   }
@@ -264,6 +271,7 @@ const ProductsPage = () => {
                 cardClicked={() => cardCliked(post)}
                 likeClicked={(data) => likeCliked(data)}
                 contactClicked={() => contactClicked()}
+                isAuthorized={user}
                 favourite={checkFavourite(post.id)}
               />
             </div>
