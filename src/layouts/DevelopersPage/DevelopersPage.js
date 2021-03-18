@@ -57,7 +57,13 @@ const DevelopersPage = () => {
   }, [developer])
 
   return (
-    <div className={newDeveloper ? "animate__animated animate__fadeInUp" : ""}>
+    <div
+      className={
+        newDeveloper
+          ? "animate__animated animate__fadeInUp container"
+          : "container"
+      }
+    >
       <Developers developer={developer} />
     </div>
   )
