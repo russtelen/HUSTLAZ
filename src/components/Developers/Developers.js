@@ -13,7 +13,13 @@ const Developers = ({ developer }) => {
           <div className="my-5">
             <div className="row">
               <div className="col-sm-12 col-md-6 mb-4">
-                <img src={developer.image} style={{ maxWidth: "100%" }} />
+                <img
+                  src={developer.image}
+                  style={{
+                    maxWidth: "100%",
+                    boxShadow: "17px 25px 52px -17px rgba(0,0,0,0.75)",
+                  }}
+                />
               </div>
               <div className="col-sm-12 col-md-6">
                 <div className="row">
