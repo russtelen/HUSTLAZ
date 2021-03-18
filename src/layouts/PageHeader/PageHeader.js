@@ -1,26 +1,26 @@
 import React, { useContext } from "react"
 import TopNav from "../../components/TopNav/TopNav"
-import { getAll } from "../../network"
-import { PageCountContext } from "../../context/PageCountContext"
-import { PostsContext } from "../../context/PostsContext"
+// import { getAll } from "../../network"
+// import { PageCountContext } from "../../context/PageCountContext"
+// import { PostsContext } from "../../context/PostsContext"
 import { useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { TopNavValueContext } from "../../context/TopNavValueContext"
-import { paginate } from "../../utils/utils"
+// import { paginate } from "../../utils/utils"
 import toastr from "toastr"
 
 const PageHeader = () => {
   const { user } = useContext(UserContext)
-  const { setPosts } = useContext(PostsContext)
-  const { setPageCount } = useContext(PageCountContext)
+  // const { setPosts } = useContext(PostsContext)
+  // const { setPageCount } = useContext(PageCountContext)
   const { setTopnavValue } = useContext(TopNavValueContext)
   const history = useHistory()
 
   const homeClicked = async () => {
-    const allPosts = await getAll()
-    setPageCount(Math.ceil(allPosts.length / 6))
+    // const allPosts = await getAll()
+    // setPageCount(Math.ceil(allPosts.length / 6))
     setTopnavValue("home")
-    setPosts(paginate(allPosts, 6, 1))
+    // setPosts(paginate(allPosts, 6, 1))
     history.push("/posts")
   }
 

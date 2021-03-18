@@ -8,7 +8,6 @@ import { TopNavValueContext } from "./context/TopNavValueContext"
 import { UserContext } from "./context/UserContext"
 import { LoginFormContext } from "./context/LoginFormContext"
 import { currentUser } from "./userAuth"
-
 import { createMuiTheme } from "@material-ui/core/styles"
 import { ThemeProvider } from "@material-ui/styles"
 import { EditPostContext } from "./context/EditPostContext"
@@ -51,6 +50,7 @@ function App() {
     editPost,
     setEditPost,
   ])
+
 
   return (
     <ThemeProvider theme={THEME}>
