@@ -3,22 +3,22 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Amplify from "aws-amplify";
-import config from "./config.json";
+// import Amplify from "aws-amplify";
+// import config from "./config.json";
 import "../node_modules/toastr/build/toastr.min.css";
 import "../node_modules/toastr/build/toastr.min";
 import "../node_modules/animate.css/animate.css";
 
 import toastr from "toastr";
 
-Amplify.configure({
-  Auth: {
-    mandatorySignId: true,
-    region: config.cognito.REGION,
-    userPoolId: config.cognito.USER_POOL_ID,
-    userPoolWebClientId: config.cognito.APP_CLIENT_ID,
-  },
-});
+// Amplify.configure({
+//   Auth: {
+//     mandatorySignId: true,
+//     region: config.cognito.REGION,
+//     userPoolId: config.cognito.USER_POOL_ID,
+//     userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+//   },
+// });
 
 toastr.options = {
   closeButton: true,
