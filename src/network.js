@@ -153,6 +153,23 @@ export async function updateUserDetailsFileUpload(
   )
 }
 
+export function updateUserAddress(
+  { address, city, province, postalCode },
+  username
+) {
+  console.log('network:', address, city, province, postalCode)
+  return http({
+    method: 'put',
+    path: `/users/address/${username}`,
+    params: {
+      address,
+      city,
+      province,
+      postalCode,
+    },
+  })
+}
+
 export function updateUserDetails(
   { firstName, lastName, phoneNumber, profilePicture },
   username

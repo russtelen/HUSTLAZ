@@ -22,6 +22,7 @@ import {
   getUser,
   getUserAddress,
   updateUserDetailsFileUpload,
+  updateUserAddress
 } from '../../network'
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserDetailPage = () => {
   const classes = useStyles()
+  const [userAddress, setUserAddress] = useState({})
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const [firstName, setFirstName] = useState('')
@@ -75,7 +77,7 @@ const UserDetailPage = () => {
   const [city, setCity] = useState('')
   const [province, setProvince] = useState('')
   const [postalCode, setPostalCode] = useState('')
-  const [userAddress, setUserAddress] = useState({})
+  
 
   const deleteImage = (image) => {
     setFile(null)
@@ -119,16 +121,14 @@ const UserDetailPage = () => {
     ;(async () => {
       const currentUserDetails = await getUser(user.username)
       const currentUserAddress = await getUserAddress(user.username)
-      console.log('current user address:', currentUserAddress)
-      if (currentUserAddress) {
-        // update address
-        // console.log(currentUserAddress)
-      } else {
-        // insert address
-        // console.log('NO ADDRESS')
+      setUserAddress(currentUserAddress)
+      if (userAddress) {
+        setCity(userAddress.city)
+        setProvince(userAddress.region)
+        setPostalCode(userAddress.postalCode)
+        setAddress(userAddress.street)
       }
       setUserDetail(currentUserDetails)
-      setUserAddress(currentUserAddress)
       getRegions()
       if (province) {
         getCities(province)
@@ -136,6 +136,7 @@ const UserDetailPage = () => {
         getCities(userAddress.region)
       }
     })()
+    console.log('user address:', userAddress)
   }, [open])
 
   const editClicked = () => {
@@ -144,6 +145,7 @@ const UserDetailPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('user address:', userAddress)
     setPostalCode(postalCode.toString().trim())
     let regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
     let match = regex.exec(postalCode)
@@ -152,7 +154,13 @@ const UserDetailPage = () => {
     } else {
       // set invalidPostalCode to true which triggers form error
     }
-    console.log('handle submit:', firstName, lastName, phoneNumber)
+    if (userAddress) {
+      // update address
+      await updateUserAddress({address, province, city, postalCode}, user.username)
+    } else {
+      // insert address
+      // console.log('NO ADDRESS')
+    }
     await updateUserDetailsFileUpload({firstName, lastName, phoneNumber, file}, user.username)
     setOpen(false)
   }
@@ -214,13 +222,13 @@ const UserDetailPage = () => {
                 className={classes.inputs}
                 id="first-name-input"
                 label="First Name"
-                value={userDetail.firstName}
+                value={firstName || userDetail.firstName || ''}
                 variant="outlined"
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
-                value={userDetail.lastName}
+                value={lastName || userDetail.lastName || ''}
                 id="last-name-input"
                 label="Last Name"
                 variant="outlined"
@@ -229,7 +237,7 @@ const UserDetailPage = () => {
               <TextField
                 className={classes.inputs}
                 id="address-input"
-                value={userAddress.street}
+                value={address || userAddress.street || ''}
                 label="Address"
                 variant="outlined"
                 onChange={(e) => setAddress(e.target.value)}
@@ -243,7 +251,7 @@ const UserDetailPage = () => {
                 name="province"
                 label="Province"
                 id="province"
-                value={userAddress.region}
+                value={province || userAddress.region || ''}
                 onChange={(e) => {
                   setProvince(e.target.value)
                   getCities(e.target.value)
@@ -264,7 +272,7 @@ const UserDetailPage = () => {
                 label="City"
                 id="city"
                 className={classes.inputs}
-                value={userAddress.city}
+                value={city || userAddress.city || ''}
                 onChange={(e) => setCity(e.target.value)}
               >
                 {cities.length > 0 ? (
@@ -282,12 +290,12 @@ const UserDetailPage = () => {
                 id="postal-code-input"
                 label="Postal Code"
                 variant="outlined"
-                value={userAddress.postalCode}
+                value={postalCode || userAddress.postalCode || ''}
                 onChange={(e) => setPostalCode(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
-                value={userDetail.phoneNumber}
+                value={phoneNumber || userDetail.phoneNumber || ''}
                 id="phone-number-input"
                 label="Phone Number"
                 variant="outlined"
