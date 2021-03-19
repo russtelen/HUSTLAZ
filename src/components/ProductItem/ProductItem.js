@@ -120,9 +120,9 @@ const ProductItem = ({
                 <FavoriteBorderIcon />
               )}
             </IconButton>
-            <IconButton onClick={() => contactClicked()}>
+            {/* <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
-            </IconButton>
+            </IconButton> */}
           </>
         )}
       </CardActions>
