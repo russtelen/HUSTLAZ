@@ -71,7 +71,11 @@ const ProductsPage = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">My Favourite Items</h1>
+      <h1 className="text-center mt-5">
+        {favouritePosts.length > 0
+          ? "My Favourite Items"
+          : "No Favourite Items Yet"}
+      </h1>
       <div className="row d-flex justify-content-center ">
         {favouritePosts?.map((post, idx) => (
           <div
