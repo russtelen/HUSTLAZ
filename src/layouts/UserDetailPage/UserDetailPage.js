@@ -26,20 +26,20 @@ import {
   insertUserAddress
 } from '../../network'
 import toastr from 'toastr'
+import { TopNavValueContext } from "../../context/TopNavValueContext"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 1
   },
   editForm: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    overflow: 'auto',
     width: 600,
-    height: 1000,
+    height: '80vh',
+
   },
   inputs: {
     width: '80%',
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   }
 }))
 
@@ -87,6 +87,20 @@ const UserDetailPage = () => {
   const [province, setProvince] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const { setTopnavValue } = useContext(TopNavValueContext)
+  const [userDetail, setUserDetail] = useState({})
+  const provinceRef = useRef(() => {})
+  provinceRef.current = province
+  const setTopNavValueRef = useRef(() => {})
+  setTopNavValueRef.current = setTopnavValue
+  const usernameRef = useRef(() => {})
+  usernameRef.current = user.username
+  const userAddressRef = useRef(() => {})
+  userAddressRef.current = userAddress
+  const userDetailRef = useRef(() => {})
+  userDetailRef.current = userDetail
+  const usernameReference = useRef(() => {})
+  usernameReference.current = user ? user.username : ''
   
 
   const deleteImage = (image) => {
@@ -122,40 +136,36 @@ const UserDetailPage = () => {
     reader.readAsDataURL(file)
   }
 
-  const usernameReference = useRef(() => {})
-  usernameReference.current = user ? user.username : ''
-
-  const [userDetail, setUserDetail] = useState({})
-
   useEffect(() => {
+    setTopNavValueRef.current("profile")
     ;(async () => {
-      const currentUserDetails = await getUser(user.username)
+      const currentUserDetails = await getUser(usernameRef.current)
       if (currentUserDetails.profilePicture) {
         setImageUrl(currentUserDetails.profilePicture)
       }
-      const currentUserAddress = await getUserAddress(user.username)
+      const currentUserAddress = await getUserAddress(usernameRef.current)
       if (currentUserAddress) {
         setUserAddress(currentUserAddress)
       }
-      if (userAddress) {
-        setCity(userAddress.city)
-        setProvince(userAddress.region)
-        setPostalCode(userAddress.postalCode)
-        setAddress(userAddress.street)
+      if (userAddressRef.current) {
+        setCity(userAddressRef.current.city)
+        setProvince(userAddressRef.current.region)
+        setPostalCode(userAddressRef.current.postalCode)
+        setAddress(userAddressRef.current.street)
       }
       if (currentUserDetails) {
         setUserDetail(currentUserDetails)
       }
-      if (userDetail) {
-        setFirstName(userDetail.firstName)
-        setLastName(userDetail.lastName)
-        setPhoneNumber(userDetail.phoneNumber)
+      if (userDetailRef.current) {
+        setFirstName(userDetailRef.current.firstName)
+        setLastName(userDetailRef.current.lastName)
+        setPhoneNumber(userDetailRef.current.phoneNumber)
       }
       getRegions()
-      if (province) {
-        getCities(province)
-      } else if (userAddress.region) {
-        getCities(userAddress.region)
+      if (provinceRef.current) {
+        getCities(provinceRef.current)
+      } else if (userAddressRef.current.region) {
+        getCities(userAddressRef.current.region)
       }
     })()
   }, [open])
@@ -209,8 +219,9 @@ const UserDetailPage = () => {
         }}
       >
         <Fade in={open}>
+          <div className="container p-5 d-flex justify-content-center h-100">
           <Card className={classes.editForm}>
-            <CardHeader title="Edit Information" />
+            <h3 className="mt-5 text-center">Edit Information</h3>
             <form className={classes.form}>
               <input
                 accept="image/*"
@@ -324,9 +335,11 @@ const UserDetailPage = () => {
                 variant="outlined"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
-              <Button onClick={handleSubmit} color={'primary'}>Submit</Button>
+              <Button variant="contained" className="mb-5" onClick={handleSubmit} color={'secondary'}>Submit</Button>
             </form>
+            
           </Card>
+          </div>
         </Fade>
       </Modal>
     </div>
