@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const UserDetail = ({ user, editClicked, userContact }) => {
-  const { id, street, city, region, postalCode } = userContact
+  const { street, city, region, postalCode } = userContact
   const classes = useStyles()
 
   return (
@@ -88,7 +88,7 @@ const UserDetail = ({ user, editClicked, userContact }) => {
                     {street}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    {city}, {region}
+                    {city} {region}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
                     {postalCode}

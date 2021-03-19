@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import UserDetail from '../../components/UserDetail/UserDetail'
 import { UserContext } from '../../context/UserContext'
-import { getAllUserPostings } from '../../network'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
@@ -13,6 +12,7 @@ import {
   IconButton,
   TextField,
   MenuItem,
+  Button,
 } from '@material-ui/core'
 import { PhotoCamera } from '@material-ui/icons'
 import CloseIcon from '@material-ui/icons/Close'
@@ -22,8 +22,10 @@ import {
   getUser,
   getUserAddress,
   updateUserDetailsFileUpload,
-  updateUserAddress
+  updateUserAddress,
+  insertUserAddress
 } from '../../network'
+import toastr from 'toastr'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
   editForm: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'column',
     width: 600,
-    height: 700,
+    height: 1000,
   },
   inputs: {
     width: '80%',
@@ -59,6 +61,13 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     padding: 0,
   },
+  form: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
+  }
 }))
 
 const UserDetailPage = () => {
@@ -77,6 +86,7 @@ const UserDetailPage = () => {
   const [city, setCity] = useState('')
   const [province, setProvince] = useState('')
   const [postalCode, setPostalCode] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
   
 
   const deleteImage = (image) => {
@@ -120,15 +130,27 @@ const UserDetailPage = () => {
   useEffect(() => {
     ;(async () => {
       const currentUserDetails = await getUser(user.username)
+      if (currentUserDetails.profilePicture) {
+        setImageUrl(currentUserDetails.profilePicture)
+      }
       const currentUserAddress = await getUserAddress(user.username)
-      setUserAddress(currentUserAddress)
+      if (currentUserAddress) {
+        setUserAddress(currentUserAddress)
+      }
       if (userAddress) {
         setCity(userAddress.city)
         setProvince(userAddress.region)
         setPostalCode(userAddress.postalCode)
         setAddress(userAddress.street)
       }
-      setUserDetail(currentUserDetails)
+      if (currentUserDetails) {
+        setUserDetail(currentUserDetails)
+      }
+      if (userDetail) {
+        setFirstName(userDetail.firstName)
+        setLastName(userDetail.lastName)
+        setPhoneNumber(userDetail.phoneNumber)
+      }
       getRegions()
       if (province) {
         getCities(province)
@@ -136,7 +158,6 @@ const UserDetailPage = () => {
         getCities(userAddress.region)
       }
     })()
-    console.log('user address:', userAddress)
   }, [open])
 
   const editClicked = () => {
@@ -145,23 +166,25 @@ const UserDetailPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('user address:', userAddress)
     setPostalCode(postalCode.toString().trim())
     let regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
     let match = regex.exec(postalCode)
-    if (match !== null) {
-      setPostalCode(match[0].replace(/\s/g, ''))
+    if (match === null) {
+      toastr['error']('Invalid postal code')
+      return
     } else {
+      setPostalCode(match[0].replace(/\s/g, ''))
       // set invalidPostalCode to true which triggers form error
     }
-    if (userAddress) {
+    if (userAddress && Object.keys(userAddress).length > 0) {
       // update address
       await updateUserAddress({address, province, city, postalCode}, user.username)
     } else {
       // insert address
-      // console.log('NO ADDRESS')
+      await insertUserAddress({address, province, city, postalCode}, user.username)
     }
-    await updateUserDetailsFileUpload({firstName, lastName, phoneNumber, file}, user.username)
+    await updateUserDetailsFileUpload({firstName, lastName, phoneNumber, file, imageUrl}, user.username)
+    toastr['success']('Update details successfully')
     setOpen(false)
   }
 
@@ -187,8 +210,8 @@ const UserDetailPage = () => {
       >
         <Fade in={open}>
           <Card className={classes.editForm}>
-            {/* <CardHeader title="Edit Information" /> */}
-            <form onSubmit={handleSubmit}>
+            <CardHeader title="Edit Information" />
+            <form className={classes.form}>
               <input
                 accept="image/*"
                 className={classes.photoInput}
@@ -222,13 +245,13 @@ const UserDetailPage = () => {
                 className={classes.inputs}
                 id="first-name-input"
                 label="First Name"
-                value={firstName || userDetail.firstName || ''}
+                value={firstName || ''}
                 variant="outlined"
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
-                value={lastName || userDetail.lastName || ''}
+                value={lastName || ''}
                 id="last-name-input"
                 label="Last Name"
                 variant="outlined"
@@ -237,7 +260,7 @@ const UserDetailPage = () => {
               <TextField
                 className={classes.inputs}
                 id="address-input"
-                value={address || userAddress.street || ''}
+                value={address || ''}
                 label="Address"
                 variant="outlined"
                 onChange={(e) => setAddress(e.target.value)}
@@ -251,7 +274,7 @@ const UserDetailPage = () => {
                 name="province"
                 label="Province"
                 id="province"
-                value={province || userAddress.region || ''}
+                value={province || ''}
                 onChange={(e) => {
                   setProvince(e.target.value)
                   getCities(e.target.value)
@@ -272,7 +295,7 @@ const UserDetailPage = () => {
                 label="City"
                 id="city"
                 className={classes.inputs}
-                value={city || userAddress.city || ''}
+                value={city || ''}
                 onChange={(e) => setCity(e.target.value)}
               >
                 {cities.length > 0 ? (
@@ -290,18 +313,18 @@ const UserDetailPage = () => {
                 id="postal-code-input"
                 label="Postal Code"
                 variant="outlined"
-                value={postalCode || userAddress.postalCode || ''}
+                value={postalCode || ''}
                 onChange={(e) => setPostalCode(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
-                value={phoneNumber || userDetail.phoneNumber || ''}
+                value={phoneNumber || ''}
                 id="phone-number-input"
                 label="Phone Number"
                 variant="outlined"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
-              <button>Submit</button>
+              <Button onClick={handleSubmit} color={'primary'}>Submit</Button>
             </form>
           </Card>
         </Fade>

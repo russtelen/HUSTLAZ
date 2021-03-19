@@ -137,20 +137,39 @@ export function getUserAddress(username) {
   return http({ method: 'get', path: `/users/address/${username}` })
 }
 
-export async function updateUserDetailsFileUpload(
-  { firstName, lastName, phoneNumber, file },
+export function insertUserAddress(
+  { address, city, province, postalCode },
   username
 ) {
-  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
-  const { uploadURL } = signedURLResult
+  console.log('network insert address:', address, city, province, postalCode)
+  return http({
+    method: 'post',
+    path: `/users/address/${username}`,
+    params: { address, city, province, postalCode },
+  })
+}
 
-  await axios.put(uploadURL, file)
-  const profilePicture = uploadURL.split('?')[0]
+export async function updateUserDetailsFileUpload(
+  { firstName, lastName, phoneNumber, file, imageUrl },
+  username
+) {
+  if (file) {
+    let signedURLResult = await http({ method: 'get', path: '/securetoken' })
+    const { uploadURL } = signedURLResult
 
-  return await updateUserDetails(
-    { firstName, lastName, phoneNumber, profilePicture },
-    username
-  )
+    await axios.put(uploadURL, file)
+    const profilePicture = uploadURL.split('?')[0]
+
+    return await updateUserDetails(
+      { firstName, lastName, phoneNumber, profilePicture },
+      username
+    )
+  } else {
+    return await updateUserDetails(
+      { firstName, lastName, phoneNumber, profilePicture: imageUrl },
+      username
+    )
+  }
 }
 
 export function updateUserAddress(
