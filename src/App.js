@@ -8,8 +8,8 @@ import ContextProvider from "./context/ContextProvider"
 
 const THEME = createMuiTheme({
   typography: {
-    fontFamily: `'Rock Salt', cursive;`,
-    fontSize: 13,
+    fontFamily: `'Montserrat', sans-serif;`,
+    fontSize: 18,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -18,14 +18,14 @@ const THEME = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={THEME}>
-      <Router>
-        <ContextProvider>
+    <Router>
+      <ContextProvider>
+        <ThemeProvider theme={THEME}>
           <PageHeader />
-          <DashBoardPage />
-        </ContextProvider>
-      </Router>
-    </ThemeProvider>
+        </ThemeProvider>
+        <DashBoardPage />
+      </ContextProvider>
+    </Router>
   )
 }
 

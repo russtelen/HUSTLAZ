@@ -15,6 +15,20 @@ import FooterPage from "../FooterPage/FooterPage"
 import SearchResultPage from "../SearchResultPage/SearchResultPage"
 import DevelopersPage from "../DevelopersPage/DevelopersPage"
 
+
+import { createMuiTheme } from "@material-ui/core/styles"
+import { ThemeProvider } from "@material-ui/styles"
+
+const BODY = createMuiTheme({
+  typography: {
+    fontFamily: `'Montserrat', sans-serif;`,
+    fontSize: 15,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+  },
+})
+
 const DashBoardPage = () => {
   const { user } = useContext(UserContext)
 
@@ -30,6 +44,7 @@ const DashBoardPage = () => {
     <div>
       <div style={{ display: "flex" }}>
         <SideMenuPage />
+        <ThemeProvider theme={BODY}>
         <Switch>
           <Route exact path="/">
             <Redirect to="/posts" />
@@ -71,6 +86,7 @@ const DashBoardPage = () => {
             {!user?.username ? <VerifyEmailPage /> : <Redirect to="/posts" />}
           </Route>
         </Switch>
+        </ThemeProvider>
       </div>
       <FooterPage />
     </div>
