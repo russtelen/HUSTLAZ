@@ -33,7 +33,7 @@ const TopNav = ({ homeClicked, profileClicked, notificationClicked }) => {
     <Paper className={classes.root}>
       <div className="row">
         <div className="col-2 d-flex justify-content-center align-items-center">
-          <p className="text-center h3">
+          <p style={{fontFamily: "Rock Salt, cursive"}} className="text-center h3">
             Hu
             <span>
               <img src={dollar} className={classes.logo} alt="Hustlaz Logo" />
