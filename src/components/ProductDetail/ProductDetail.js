@@ -5,12 +5,14 @@ import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 import { CardMedia, IconButton, ButtonGroup } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
+import EmailIcon from "@material-ui/icons/Email"
 import LocationOnIcon from "@material-ui/icons/LocationOn"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import PhoneIcon from "@material-ui/icons/Phone"
 import DescriptionIcon from "@material-ui/icons/Description"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
+import ContactMailIcon from "@material-ui/icons/ContactMail"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -156,7 +158,9 @@ const ProductDetail = ({
                   <DescriptionIcon className={classes.icons} />
                 </Grid>
                 <Grid item xs={10}>
-                  <Typography variant="h6">Description</Typography>
+                  <Typography gutterBottom variant="h6">
+                    Description
+                  </Typography>
                   <div
                     style={{
                       maxHeight: 250,
@@ -175,7 +179,9 @@ const ProductDetail = ({
                   <LocationOnIcon className={classes.icons} />
                 </Grid>
                 <Grid>
-                  <Typography variant="h6">Location</Typography>
+                  <Typography gutterBottom variant="h6">
+                    Location
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
                     {post.city}, {post.region}
                   </Typography>
@@ -183,12 +189,32 @@ const ProductDetail = ({
               </Grid>
               <Grid container className={classes.info}>
                 <Grid>
-                  <PhoneIcon className={classes.icons} />
+                  <ContactMailIcon className={classes.icons} />
                 </Grid>
                 <Grid>
-                  <Typography variant="h6">Contact</Typography>
+                  <Typography gutterBottom variant="h6">
+                    Contact
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body2"
+                    color="textSecondary"
+                  >
+                    {post.contact && (
+                      <>
+                        <EmailIcon className={classes.icons} />
+                        {post.contact}
+                      </>
+                    )}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {post.contact}
+                    {post.phoneNumber && (
+                      <>
+                        {" "}
+                        <PhoneIcon className={classes.icons} />{" "}
+                        {post.phoneNumber}
+                      </>
+                    )}
                   </Typography>
                 </Grid>
               </Grid>
