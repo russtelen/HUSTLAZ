@@ -1,11 +1,13 @@
 import React from "react"
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
 import { SiWebmoney } from "react-icons/si"
+import { Typography } from "@material-ui/core";
+
 const Developers = ({ developer }) => {
   return (
     <div className="container">
       {!developer ? (
-        <p>Loading...</p>
+        <Typography>Loading...</Typography>
       ) : (
         <div>
           <h1 className="text-center mt-5">{developer.name}</h1>
@@ -25,14 +27,14 @@ const Developers = ({ developer }) => {
                 <div className="row">
                   <div className="col-12">
                     <h3 className="text-right">About</h3>
-                    <p className="mt-3 text-right" style={{ lineHeight: 2 }}>
+                    <Typography className="mt-3 text-right" style={{ lineHeight: 2 }}>
                       {developer.about}
-                    </p>
+                    </Typography>
                   </div>
                   <div className="col-12">
                     <h3 className="text-right">Get Connected</h3>
                     <div className="mt-3">
-                      <p className="text-right">
+                      <Typography className="text-right">
                         <a
                           href={developer.github}
                           target="_blank"
@@ -41,9 +43,9 @@ const Developers = ({ developer }) => {
                         >
                           Github <AiFillGithub size={30} />
                         </a>
-                      </p>
+                      </Typography>
 
-                      <p className="text-right">
+                      <Typography className="text-right">
                         <a
                           href={developer.linkedin}
                           target="_blank"
@@ -52,11 +54,11 @@ const Developers = ({ developer }) => {
                         >
                           LinkedIn <AiFillLinkedin size={30} />
                         </a>
-                      </p>
+                      </Typography>
 
                       {developer.portfolio && (
                         <>
-                          <p className="text-right">
+                          <Typography className="text-right">
                             <a
                               href={developer.portfolio}
                               target="_blank"
@@ -65,7 +67,7 @@ const Developers = ({ developer }) => {
                             >
                               Portfolio <SiWebmoney size={30} />{" "}
                             </a>
-                          </p>
+                          </Typography>
                         </>
                       )}
                     </div>
