@@ -126,7 +126,7 @@ export const getCitiesByRegion = async (region) => {
 
 // GET all post that belong to current user
 export function getAllUserPostings(username) {
-  return http({ method: "get", path: `/users/${username}` })
+  return http({ method: "get", path: `/users/postings/${username}` })
 }
 
 export async function updateOneImageFile(
