@@ -119,6 +119,7 @@ const UserDetailPage = () => {
     ;(async () => {
       const currentUserDetails = await getUser(user.username)
       const currentUserAddress = await getUserAddress(user.username)
+      console.log('current user address:', currentUserAddress)
       if (currentUserAddress) {
         // update address
         // console.log(currentUserAddress)
@@ -131,9 +132,10 @@ const UserDetailPage = () => {
       getRegions()
       if (province) {
         getCities(province)
+      } else if (userAddress.region) {
+        getCities(userAddress.region)
       }
     })()
-    console.log('rendered user detail')
   }, [open])
 
   const editClicked = () => {
@@ -212,11 +214,13 @@ const UserDetailPage = () => {
                 className={classes.inputs}
                 id="first-name-input"
                 label="First Name"
+                value={userDetail.firstName}
                 variant="outlined"
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
+                value={userDetail.lastName}
                 id="last-name-input"
                 label="Last Name"
                 variant="outlined"
@@ -225,6 +229,7 @@ const UserDetailPage = () => {
               <TextField
                 className={classes.inputs}
                 id="address-input"
+                value={userAddress.street}
                 label="Address"
                 variant="outlined"
                 onChange={(e) => setAddress(e.target.value)}
@@ -238,7 +243,7 @@ const UserDetailPage = () => {
                 name="province"
                 label="Province"
                 id="province"
-                value={province || ''}
+                value={userAddress.region}
                 onChange={(e) => {
                   setProvince(e.target.value)
                   getCities(e.target.value)
@@ -259,7 +264,7 @@ const UserDetailPage = () => {
                 label="City"
                 id="city"
                 className={classes.inputs}
-                value={city || ''}
+                value={userAddress.city}
                 onChange={(e) => setCity(e.target.value)}
               >
                 {cities.length > 0 ? (
@@ -274,14 +279,15 @@ const UserDetailPage = () => {
               </TextField>
               <TextField
                 className={classes.inputs}
-                maxlength="6"
                 id="postal-code-input"
                 label="Postal Code"
                 variant="outlined"
+                value={userAddress.postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
+                value={userDetail.phoneNumber}
                 id="phone-number-input"
                 label="Phone Number"
                 variant="outlined"
