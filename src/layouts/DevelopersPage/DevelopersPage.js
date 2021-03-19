@@ -32,7 +32,7 @@ const DevelopersPage = () => {
       about:
         "I am a full stack web developer based in Vancouver, BC with a background in Finance. Over the years of working in the Finance industry, I was exposed to a lot of repetitive reporting. I thought to myself, there's got to be a better way. There's got to be a way to automate this. That curiosity opened a door which revealed the world of programming. I eventually found a passion for technology which led me to enroll at British Columbia Institute of Technology's Software System's Developer Program (SSD). SSD is a hands on program that gave me solid knowledge in database management, front end and back end frameworks such as React, Angular, NodeJS, Express and ASP.NET. When I'm not figuring out how to fix a bug or finding answers in Stack Overflow, you will find me capturing the streets and people of Vancouver through the eyes of a film camera. Check out my work here.",
       github: "https://github.com/russtelen",
-      linkedin: "https://github.com/russtelen",
+      linkedin: "https://www.linkedin.com/in/russelltelen/",
       portfolio: "https://russtelen.me/",
     },
   ]
