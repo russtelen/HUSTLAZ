@@ -1,19 +1,36 @@
-# Hustlaz
+# Hustlaz by Russ, Gokay  and Nick 2021 &copy;
 
-## ToDos - March 3rd
-
-1. App description
-1. List functional and non-functional requirements
-1. Technology stack
-1. Database structure
-1. React folder structure
-1. Mockup
-1. Create issues in kanban board
+## View the app live
+<h2><a href="https://hustlaz.netlify.app/">Hustlaz</a></h2>
 
 ## Description
+    Hustlaz is a buying and selling platform for vintage items. 
 
-Hustlaz is an app where users can browse through a list of postings and purchase items posted by other sellers. Users can also create their own account and add postings of their own that may be viewed and purchased by others.
+## Features
+  - Save items to favorites
+  - Filter products per catgeory or price
+  - Search for products
+  - Create, update and delete products as long as they're authenticated
+  - Users are able to add and update personal information such as name, address and contact info
 
+## Technologies Used
+
+### Front End
+- React
+- Material UI
+- Bootstrap
+
+### Back End
+- NodeJS
+- MySQL
+- RDS
+- S3
+- Cognito
+- API Gateway
+- Lambda
+
+## Preview
+![](./assets/appPreview.png)
 ## Protoypes
 
 ### Overview
@@ -59,41 +76,11 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 - Upload picture files
 - Payment method
 
-## Technologies
-
-### Front End
-
-- React
-- Material UI
-- Material styling (makeStyles)
-
-### Back End
-
-- MySQL/RDS
-- Cognito
-- API Gateway
-- Lambda
-
 ### Misc
 
 - Figma (mockup)
 - LucidChart (ERD)
 
-### React Folder Structure
-
-```
-├── components
-│   ├── Component
-│   │   ├── SubComponent
-│   │   │   ├── SubComponent.test.tsx
-│   │   │   ├── index.tsx
-│   │   ├──  Component.stories.tsx
-│   │   ├──  Component.test.tsx
-│   │   ├──  icon.svg
-│   │   ├──  index.tsx
-│   │   ├──  utils.ts
-│   │   ├──  utils.test.ts
-```
 
 ### Database structure
 
@@ -101,31 +88,5 @@ Hustlaz is an app where users can browse through a list of postings and purchase
 
 <img src="./assets/hustlazERD.png" alt="Hustlaz ERD" />
 
-## NoSQL
 
-```
-db =
-{
-  postings: [
-    {
-      postingId:1
-      desc: fdsfds,
-      categoryId: [1 ,2 ]
-    },
-    {...},{...}
-  ],
-  catgeories: [
-    {
-      categoryId: 1,
-      name: cars
-      postId: [
-        2,4
-      ]
-    },
-    {...},{...}
-  ]
-  users: [
-    {...},{...},{...}
-  ]
-}
-```
+
