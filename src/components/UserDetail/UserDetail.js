@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const UserDetail = ({ user, editClicked }) => {
+const UserDetail = ({ user, editClicked, userContact }) => {
+  const { id, street, city, region, postalCode } = userContact
   const classes = useStyles()
 
   return (
@@ -50,7 +51,7 @@ const UserDetail = ({ user, editClicked }) => {
         <Grid container spacing={5} style={{ padding: 20 }}>
           <Grid item container direction="column" spacing={4}>
             <Grid className="d-flex justify-content-center" item>
-              <Avatar src={user ? user.image : ""} className={classes.large} />
+              <Avatar src={user ? user.profilePicture : ""} className={classes.large} />
             </Grid>
           </Grid>
           <Grid item xs={6} sm container>
@@ -84,7 +85,13 @@ const UserDetail = ({ user, editClicked }) => {
                 <Grid>
                   <Typography variant="h6">Address</Typography>
                   <Typography variant="body1" color="textSecondary">
-                    {user.address}
+                    {street}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {city}, {region}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {postalCode}
                   </Typography>
                 </Grid>
               </Grid>
@@ -95,7 +102,13 @@ const UserDetail = ({ user, editClicked }) => {
                 <Grid>
                   <Typography variant="h6">Contact</Typography>
                   <Typography variant="body1" color="textSecondary">
+                    {user.firstName} {user.lastName}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
                     {user.email}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {user.phoneNumber}
                   </Typography>
                 </Grid>
               </Grid>

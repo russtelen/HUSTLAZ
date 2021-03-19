@@ -7,7 +7,6 @@ import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import {
-  Box,
   Card,
   CardHeader,
   CardMedia,
@@ -17,7 +16,13 @@ import {
 } from '@material-ui/core'
 import { PhotoCamera } from '@material-ui/icons'
 import CloseIcon from '@material-ui/icons/Close'
-import { getCitiesByRegion, getAllRegions } from '../../network'
+import {
+  getCitiesByRegion,
+  getAllRegions,
+  getUser,
+  getUserAddress,
+  updateUserDetailsFileUpload,
+} from '../../network'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -70,6 +75,7 @@ const UserDetailPage = () => {
   const [city, setCity] = useState('')
   const [province, setProvince] = useState('')
   const [postalCode, setPostalCode] = useState('')
+  const [userAddress, setUserAddress] = useState({})
 
   const deleteImage = (image) => {
     setFile(null)
@@ -111,33 +117,52 @@ const UserDetailPage = () => {
 
   useEffect(() => {
     ;(async () => {
-      const res = await getAllUserPostings(usernameReference.current)
-      setUserDetail(res)
+      const currentUserDetails = await getUser(user.username)
+      const currentUserAddress = await getUserAddress(user.username)
+      if (currentUserAddress) {
+        // update address
+        // console.log(currentUserAddress)
+      } else {
+        // insert address
+        // console.log('NO ADDRESS')
+      }
+      setUserDetail(currentUserDetails)
+      setUserAddress(currentUserAddress)
       getRegions()
       if (province) {
         getCities(province)
       }
-      console.log(cities)
     })()
-  }, [])
+    console.log('rendered user detail')
+  }, [open])
 
   const editClicked = () => {
     setOpen(true)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setPostalCode(postalCode.toString().trim());
-    let regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+    setPostalCode(postalCode.toString().trim())
+    let regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
     let match = regex.exec(postalCode)
-    console.log(match)
-    console.log('Postal Code:', postalCode)
+    if (match !== null) {
+      setPostalCode(match[0].replace(/\s/g, ''))
+    } else {
+      // set invalidPostalCode to true which triggers form error
+    }
+    console.log('handle submit:', firstName, lastName, phoneNumber)
+    await updateUserDetailsFileUpload({firstName, lastName, phoneNumber, file}, user.username)
+    setOpen(false)
   }
 
   return (
     <div className="container">
       <h1 className="text-center m-5">My Profile</h1>
-      <UserDetail user={userDetail} editClicked={() => editClicked()} />
+      <UserDetail
+        userContact={userAddress}
+        user={userDetail}
+        editClicked={() => editClicked()}
+      />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -188,18 +213,21 @@ const UserDetailPage = () => {
                 id="first-name-input"
                 label="First Name"
                 variant="outlined"
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
                 id="last-name-input"
                 label="Last Name"
                 variant="outlined"
+                onChange={(e) => setLastName(e.target.value)}
               />
               <TextField
                 className={classes.inputs}
                 id="address-input"
                 label="Address"
                 variant="outlined"
+                onChange={(e) => setAddress(e.target.value)}
               />
               <TextField
                 variant="outlined"
@@ -257,6 +285,7 @@ const UserDetailPage = () => {
                 id="phone-number-input"
                 label="Phone Number"
                 variant="outlined"
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <button>Submit</button>
             </form>
