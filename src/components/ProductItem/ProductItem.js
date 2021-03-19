@@ -12,7 +12,6 @@ import {
   CardMedia,
 } from "@material-ui/core"
 
-import EmailIcon from "@material-ui/icons/Email"
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever"
@@ -51,10 +50,8 @@ const ProductItem = ({
   }, [favourite])
 
   const postLiked = () => {
-    console.log(isAuthorized)
     if (isAuthorized) {
       setLiked(!liked)
-      console.log("error")
     }
     likeClicked({ postingId: post.id, liked })
   }
@@ -122,9 +119,9 @@ const ProductItem = ({
                 <FavoriteBorderIcon />
               )}
             </IconButton>
-            <IconButton onClick={() => contactClicked()}>
+            {/* <IconButton onClick={() => contactClicked()}>
               <EmailIcon />
-            </IconButton>
+            </IconButton> */}
           </>
         )}
       </CardActions>

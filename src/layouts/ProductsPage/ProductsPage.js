@@ -16,7 +16,14 @@ import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { makeStyles } from "@material-ui/core/styles"
-import { IconButton, Select, TextField, MenuItem, InputLabel, FormControl} from "@material-ui/core"
+import {
+  IconButton,
+  Select,
+  TextField,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@material-ui/core"
 import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
@@ -53,6 +60,8 @@ const ProductsPage = () => {
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
 
+  console.log(posts)
+
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
   setPostsReference.current = setPosts
@@ -84,8 +93,15 @@ const ProductsPage = () => {
       if (categoryId !== undefined) {
         let postsByCategory = await getPostingsByCategory(categoryId)
 
-        if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {  
-          postsByCategory = postsByCategory.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+        if (
+          priceFilterArray.length > 0 &&
+          priceFilterValueRef.current !== "0"
+        ) {
+          postsByCategory = postsByCategory.filter(
+            (post) =>
+              post.price >= priceFilterArray[0] &&
+              post.price <= priceFilterArray[1]
+          )
           postsByCategory.sort((a, b) => a.price - b.price)
         }
 
@@ -100,8 +116,12 @@ const ProductsPage = () => {
       setDidChange(false)
       let allPosts = await getAll()
 
-      if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {  
-        allPosts = allPosts.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+      if (priceFilterArray.length > 0 && priceFilterValueRef.current !== "0") {
+        allPosts = allPosts.filter(
+          (post) =>
+            post.price >= priceFilterArray[0] &&
+            post.price <= priceFilterArray[1]
+        )
         allPosts.sort((a, b) => a.price - b.price)
       }
 
@@ -119,7 +139,6 @@ const ProductsPage = () => {
     const categories = ["none", "Tops", "Bottoms", "Shoes", "Items", "Misc"]
 
     setCategory(categoryId ? categories[categoryId] : "All Posts")
-    console.log('rendered')
   }, [categoryId, priceFilterArray])
   // ===================================================
 
@@ -129,27 +148,36 @@ const ProductsPage = () => {
     if (categoryId !== undefined) {
       let postsByCategory = await getPostingsByCategory(categoryId)
 
-      if (priceFilterArray.length > 0 && priceFilterValue !== "0") {  
-        postsByCategory = postsByCategory.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+      if (priceFilterArray.length > 0 && priceFilterValue !== "0") {
+        postsByCategory = postsByCategory.filter(
+          (post) =>
+            post.price >= priceFilterArray[0] &&
+            post.price <= priceFilterArray[1]
+        )
         postsByCategory.sort((a, b) => a.price - b.price)
       }
 
       setDidChange(false)
       setPosts(paginate(postsByCategory, 6, e.target.innerText))
       setDidChange(true)
+      window.scrollTo(0, 0)
       return
     }
 
     let allPosts = await getAll()
 
-    if (priceFilterArray.length > 0 && priceFilterValue !== "0") {  
-      allPosts = allPosts.filter(post => post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1])
+    if (priceFilterArray.length > 0 && priceFilterValue !== "0") {
+      allPosts = allPosts.filter(
+        (post) =>
+          post.price >= priceFilterArray[0] && post.price <= priceFilterArray[1]
+      )
       allPosts.sort((a, b) => a.price - b.price)
     }
 
     setDidChange(false)
     setPosts(paginate(allPosts, 6, e.target.innerText))
     setDidChange(true)
+    window.scrollTo(0, 0)
   }
 
   const cardCliked = (post) => {
@@ -157,7 +185,7 @@ const ProductsPage = () => {
     setOpen(true)
   }
 
-  const likeCliked = async ({ postingId, liked }) => {
+  const likeClicked = async ({ postingId, liked }) => {
     if (!user) {
       toastr["error"]("You need to be logged in to do that")
       return
@@ -189,10 +217,6 @@ const ProductsPage = () => {
     return found
   }
 
-  const contactClicked = () => {
-    console.log("contact seller")
-  }
-
   const handleSearch = async (e) => {
     e.preventDefault()
     setSearchValue("")
@@ -209,13 +233,13 @@ const ProductsPage = () => {
     <div className="container">
       <div className="col">
         <div className="row justify-content-center align-items-center mt-5">
-        <FormControl variant="outlined" className={classes.priceFormControl}>
-          <InputLabel id="price-filter-label">Price</InputLabel>
-          <Select
-            labelId="price-filter-label"
-            id="price-filter"
-            value={priceFilterValue}
-            onChange={handlePriceFilterChange}
+          <FormControl variant="outlined" className={classes.priceFormControl}>
+            <InputLabel id="price-filter-label">Price</InputLabel>
+            <Select
+              labelId="price-filter-label"
+              id="price-filter"
+              value={priceFilterValue}
+              onChange={handlePriceFilterChange}
             >
               <MenuItem value="0">
                 <em>None</em>
@@ -226,34 +250,34 @@ const ProductsPage = () => {
               <MenuItem value={`1000`}>$1000+</MenuItem>
             </Select>
           </FormControl>
-          
-        <form
-          // className="mt-5"
-          onSubmit={handleSearch}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            InputProps={{
-              startAdornment: (
-                <IconButton onClick={handleSearch}>
-                  <SearchIcon />
-                </IconButton>
-              ),
-              classes: {
-                adornedEnd: classes.adornedStart,
-              },
-            }}
-            className={classes.searchInput}
-            onChange={(e) => setSearchValue(e.target.value)}
-            value={searchValue}
-            id="search-input"
-            label="Search by user or title"
-            variant="outlined"
-          />
-        </form>
-      </div>
-      <h1 className="text-center mt-5">{category}</h1>
+
+          <form
+            // className="mt-5"
+            onSubmit={handleSearch}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <IconButton onClick={handleSearch}>
+                    <SearchIcon />
+                  </IconButton>
+                ),
+                classes: {
+                  adornedEnd: classes.adornedStart,
+                },
+              }}
+              className={classes.searchInput}
+              onChange={(e) => setSearchValue(e.target.value)}
+              value={searchValue}
+              id="search-input"
+              label="Search by user or title"
+              variant="outlined"
+            />
+          </form>
+        </div>
+        <h1 className="text-center mt-5">{category}</h1>
       </div>
       {posts.length > 0 ? (
         <div className="row d-flex justify-content-center ">
@@ -269,8 +293,7 @@ const ProductsPage = () => {
               <ProductItem
                 post={{ ...post }}
                 cardClicked={() => cardCliked(post)}
-                likeClicked={(data) => likeCliked(data)}
-                contactClicked={() => contactClicked()}
+                likeClicked={(data) => likeClicked(data)}
                 isAuthorized={user}
                 favourite={checkFavourite(post.id)}
               />

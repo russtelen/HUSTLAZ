@@ -1,5 +1,6 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
   a: {
     color: "inherit",
   },
-}));
+}))
 const Footer = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <div
@@ -39,34 +40,19 @@ const Footer = () => {
               </p>
               <ul className="list-unstyled">
                 <li className="my-2 text-muted text-center">
-                  <a
-                    className={classes.a}
-                    href="https://github.com/nickchvt"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <NavLink className={classes.a} to="/developers/Nick">
                     Nick Charvat
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="my-2 text-muted text-center">
-                  <a
-                    className={classes.a}
-                    href="https://github.com/gokay-abay"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <NavLink className={classes.a} to="/developers/Gokay">
                     Gokay Abay
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="my-2 text-muted text-center">
-                  <a
-                    className={classes.a}
-                    href="https://github.com/russtelen"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Russell Telen
-                  </a>
+                  <NavLink className={classes.a} to="/developers/Russ">
+                    Russ Telen
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -74,7 +60,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
