@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 const TopNav = ({ homeClicked, profileClicked, notificationClicked }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

@@ -28,6 +28,7 @@ import SearchIcon from "@material-ui/icons/Search"
 import { paginate } from "../../utils/utils"
 import Pagination from "@material-ui/lab/Pagination"
 import toastr from "toastr"
+import { TopNavValueContext } from "../../context/TopNavValueContext"
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -59,9 +60,6 @@ const ProductsPage = () => {
   // Context
   const { posts, setPosts } = useContext(PostsContext)
   const { user } = useContext(UserContext)
-
-  console.log(posts)
-
   const { pageCount, setPageCount } = useContext(PageCountContext)
   const setPostsReference = useRef(() => {})
   setPostsReference.current = setPosts
@@ -78,6 +76,7 @@ const ProductsPage = () => {
   const [priceFilterValue, setPriceFilterValue] = useState("")
   const priceFilterValueRef = useRef(() => {})
   priceFilterValueRef.current = priceFilterValue
+  const { setTopnavValue } = useContext(TopNavValueContext)
 
   // Params :category
   const { categoryId } = useParams()
@@ -89,6 +88,7 @@ const ProductsPage = () => {
   // Set post === category in the params
   // if != category in params, set post === all post
   useEffect(() => {
+    setTopnavValue('home')
     ;(async () => {
       if (categoryId !== undefined) {
         let postsByCategory = await getPostingsByCategory(categoryId)
