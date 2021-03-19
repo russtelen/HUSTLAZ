@@ -1,7 +1,7 @@
-import axios from "axios"
-import { userToken } from "./userAuth"
+import axios from 'axios'
+import { userToken } from './userAuth'
 
-const url = "https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod"
+const url = 'https://e725t6sisd.execute-api.us-west-1.amazonaws.com/prod'
 
 async function tokenHeader() {
   const token = await userToken()
@@ -15,13 +15,13 @@ async function http({ method, path, data, params }) {
   const token = await tokenHeader()
   const headers = {
     ...token,
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   }
 
   try {
     let result
-    if (method === "get" || method === "delete") {
+    if (method === 'get' || method === 'delete') {
       result = await axios[method](url + path, { headers })
     } else {
       result = await axios[method](url + path, params, { headers })
@@ -67,11 +67,11 @@ export async function postOneImageFile(
   { title, price, file, category, city, province, seller_description },
   user
 ) {
-  let signedURLResult = await http({ method: "get", path: "/securetoken" })
+  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
   const { uploadURL } = signedURLResult
 
   await axios.put(uploadURL, file)
-  const image_ref = uploadURL.split("?")[0]
+  const image_ref = uploadURL.split('?')[0]
 
   return await postOne(
     { title, price, image_ref, category, city, province, seller_description },
@@ -89,8 +89,8 @@ export function postOne(
   }
 
   return http({
-    method: "post",
-    path: "/postings",
+    method: 'post',
+    path: '/postings',
     params: {
       user: userObj,
       title,
@@ -126,18 +126,103 @@ export const getCitiesByRegion = async (region) => {
 
 // GET all post that belong to current user
 export function getAllUserPostings(username) {
-  return http({ method: "get", path: `/users/postings/${username}` })
+  return http({ method: 'get', path: `/users/postings/${username}` })
 }
+
+export function getUser(username) {
+  return http({ method: 'get', path: `/users/${username}` })
+}
+
+export function getUserAddress(username) {
+  return http({ method: 'get', path: `/users/address/${username}` })
+}
+
+export function insertUserAddress(
+  { address, city, province, postalCode },
+  username
+) {
+  console.log('network insert address:', address, city, province, postalCode)
+  return http({
+    method: 'post',
+    path: `/users/address/${username}`,
+    params: { address, city, province, postalCode },
+  })
+}
+
+export async function updateUserDetailsFileUpload(
+  { firstName, lastName, phoneNumber, file, imageUrl },
+  username
+) {
+  if (file) {
+    let signedURLResult = await http({ method: 'get', path: '/securetoken' })
+    const { uploadURL } = signedURLResult
+
+    await axios.put(uploadURL, file)
+    const profilePicture = uploadURL.split('?')[0]
+
+    return await updateUserDetails(
+      { firstName, lastName, phoneNumber, profilePicture },
+      username
+    )
+  } else {
+    return await updateUserDetails(
+      { firstName, lastName, phoneNumber, profilePicture: imageUrl },
+      username
+    )
+  }
+}
+
+export function updateUserAddress(
+  { address, city, province, postalCode },
+  username
+) {
+  console.log('network:', address, city, province, postalCode)
+  return http({
+    method: 'put',
+    path: `/users/address/${username}`,
+    params: {
+      address,
+      city,
+      province,
+      postalCode,
+    },
+  })
+}
+
+export function updateUserDetails(
+  { firstName, lastName, phoneNumber, profilePicture },
+  username
+) {
+  return http({
+    method: 'put',
+    path: `/users/${username}`,
+    params: {
+      firstName,
+      lastName,
+      phoneNumber,
+      profilePicture,
+    },
+  })
+}
+
+// export async function getUserAddress(username) {
+//   try {
+//     const res = await axios.get(`${url}/users/address/${username}`)
+//     return res.data
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 export async function updateOneImageFile(
   { title, price, file, category, city, province, seller_description },
   postingId
 ) {
-  let signedURLResult = await http({ method: "get", path: "/securetoken" })
+  let signedURLResult = await http({ method: 'get', path: '/securetoken' })
   const { uploadURL } = signedURLResult
 
   await axios.put(uploadURL, file)
-  const image_ref = uploadURL.split("?")[0]
+  const image_ref = uploadURL.split('?')[0]
 
   return await updateOne(
     { title, price, image_ref, category, city, province, seller_description },
@@ -151,7 +236,7 @@ export function updateOne(
   postingId
 ) {
   return http({
-    method: "put",
+    method: 'put',
     path: `/postings/${postingId}`,
     params: {
       title,
@@ -167,18 +252,18 @@ export function updateOne(
 
 // DELETE posting
 export function deleteOne(postingId) {
-  return http({ method: "delete", path: `/postings/${postingId}` })
+  return http({ method: 'delete', path: `/postings/${postingId}` })
 }
 
 // GET FAVOURITES
 export function getAllUserFavourites(username) {
-  return http({ method: "get", path: `/users/favourites/${username}` })
+  return http({ method: 'get', path: `/users/favourites/${username}` })
 }
 
 // POST FAVOURITES
 export function addUserFavourite(username, postingId) {
   return http({
-    method: "post",
+    method: 'post',
     path: `/users/favourites`,
     params: { username, postingId },
   })
@@ -201,7 +286,7 @@ export async function removeUserFavourite(postingId) {
 
 // GET search postings by title or author
 export async function searchPostings(searchValue) {
-  const params = new URLSearchParams([["searchValue", searchValue]])
+  const params = new URLSearchParams([['searchValue', searchValue]])
   try {
     const res = await axios.get(`${url}/postings/search`, { params })
     return res.data.body
