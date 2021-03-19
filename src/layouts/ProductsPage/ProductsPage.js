@@ -77,6 +77,8 @@ const ProductsPage = () => {
   const priceFilterValueRef = useRef(() => {})
   priceFilterValueRef.current = priceFilterValue
   const { setTopnavValue } = useContext(TopNavValueContext)
+  const setTopNavValueReference = useRef(() => {})
+  setTopNavValueReference.current = setTopnavValue
 
   // Params :category
   const { categoryId } = useParams()
@@ -88,7 +90,7 @@ const ProductsPage = () => {
   // Set post === category in the params
   // if != category in params, set post === all post
   useEffect(() => {
-    setTopnavValue('home')
+    setTopNavValueReference.current('home')
     ;(async () => {
       if (categoryId !== undefined) {
         let postsByCategory = await getPostingsByCategory(categoryId)

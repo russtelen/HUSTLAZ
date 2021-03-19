@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Developers from "../../components/Developers/Developers"
 import { useParams } from "react-router-dom"
 
@@ -37,14 +37,16 @@ const DevelopersPage = () => {
     },
   ]
 
-  const findDeveloper = async () => {
+  const findDeveloperReference = useRef(() => {})
+
+   findDeveloperReference.current = async () => {
     const res = developers.find((d) => d.name === name)
     return res
   }
 
   useEffect(() => {
     ;(async () => {
-      const res = await findDeveloper()
+      const res = await findDeveloperReference.current()
       setNewDeveloper(false)
       setDeveloper(res)
       setTimeout(() => {
